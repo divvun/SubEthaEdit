@@ -5942,6 +5942,7 @@ static dispatch_queue_t FileCheckQueue(void) {
 
 - (void)textStorage:(FullTextStorage *)aTextStorage willReplaceCharactersInRange:(NSRange)aRange withString:(NSString *)aString {
 //    NSLog(@"textStorage:%@ willReplaceCharactersInRange:%@ withString:%@",aTextStorage,NSStringFromRange(aRange),aString);
+	[self.lspController noteWillReplaceCharactersInRange:aRange withString:aString textStorage:aTextStorage];
 	[I_session setLastReplacedAttributedString:[aTextStorage attributedSubstringFromRange:aRange]];
     if (!I_flags.isRemotelyEditingTextStorage && !I_flags.isReadingFile && !I_flags.isHandlingUndoManually) {
     	FullTextStorage *fullTextStorage = (FullTextStorage *)aTextStorage;
@@ -5961,6 +5962,7 @@ static dispatch_queue_t FileCheckQueue(void) {
 
 - (void)textStorage:(FullTextStorage *)aTextStorage didReplaceCharactersInRange:(NSRange)aRange withString:(NSString *)aString {
 //    NSLog(@"textStorage:%@ didReplaceCharactersInRange:%@ withString:%@\n\n%d==%d?",aTextStorage,NSStringFromRange(aRange),aString, [aTextStorage length], [aString length]);
+	[self.lspController noteDidReplaceCharactersInRange:aRange withString:aString];
 
 	FullTextStorage *fullTextStorage = (FullTextStorage *)aTextStorage;
     TextOperation *textOp=[TextOperation textOperationWithAffectedCharRange:aRange replacementString:aString userID:[TCMMMUserManager myUserID]];

@@ -4,6 +4,7 @@
 #import "SEELSPController.h"
 #import "PlainTextDocument.h"
 #import "DocumentMode.h"
+#import "FullTextStorage+LSPPosition.h"
 #import "SEELSPServerConfiguration.h"
 #import "SEELSPServerManager.h"
 
@@ -15,6 +16,9 @@
     NSUInteger I_version;
     BOOL I_active;
     BOOL I_didOpen;
+    NSMutableArray *I_pendingChanges;
+    NSDictionary *I_capturedChange;
+    BOOL I_flushScheduled;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -23,6 +27,7 @@
         I_document = document;
         I_serverInstanceID = [[NSUUID UUID] UUIDString];
         I_version = 1;
+        I_pendingChanges = [NSMutableArray array];
     }
     return self;
 }
@@ -108,6 +113,41 @@
                 method:@"textDocument/didOpen"
                 params:params];
         I_didOpen = YES;
+    }
+}
+
+#pragma mark - didChange
+
+- (void)noteWillReplaceCharactersInRange:(NSRange)range withString:(NSString *)string textStorage:(FullTextStorage *)textStorage {
+    if (I_active && I_didOpen) {
+        I_capturedChange = [textStorage lspContentChangeForRange:range replacementString:string];
+    }
+}
+
+- (void)noteDidReplaceCharactersInRange:(NSRange)range withString:(NSString *)string {
+    if (I_capturedChange) {
+        [I_pendingChanges addObject:I_capturedChange];
+        I_capturedChange = nil;
+        if (!I_flushScheduled) {
+            I_flushScheduled = YES;
+            __weak typeof(self) weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{ [weakSelf TCM_flushChanges]; });
+        }
+    }
+}
+
+- (void)TCM_flushChanges {
+    I_flushScheduled = NO;
+    if (I_active && I_didOpen && I_pendingChanges.count > 0) {
+        I_version++;
+        NSDictionary *params = @{
+            @"textDocument": @{@"uri": I_documentURI, @"version": @(I_version)},
+            @"contentChanges": [I_pendingChanges copy],
+        };
+        [I_pendingChanges removeAllObjects];
+        [[SEELSPServerManager sharedManager] sendNotificationForServer:I_serverInstanceID
+                method:@"textDocument/didChange"
+                params:params];
     }
 }
 
