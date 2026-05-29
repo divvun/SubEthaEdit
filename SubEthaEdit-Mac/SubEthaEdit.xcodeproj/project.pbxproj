@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DDA5F00200000000000000B2 /* SEELSPMessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A2 /* SEELSPMessageReader.m */; };
-		DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
-		DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */; };
-		DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A7 /* SEELSPTransportTests.m */; };
+		121E989982352FD882BAD716 /* SubEthaEditLSPHost.xpc in Embed LSP XPC Service */ = {isa = PBXBuildFile; fileRef = BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		141958B10BB951C400CB4AA4 /* TCMMMSessionAppKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 141958970BB9507700CB4AA4 /* TCMMMSessionAppKitHelper.m */; };
 		141F50ED0AE51B66001B73D2 /* PlainTextWindowControllerTabContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 141F50EB0AE51B65001B73D2 /* PlainTextWindowControllerTabContext.m */; };
 		14288FF509573F4900D14688 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14288FF409573F4900D14688 /* WebKit.framework */; };
@@ -147,6 +144,7 @@
 		4234523A1907DFE400BE3CC1 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423452391907DFE400BE3CC1 /* Quartz.framework */; };
 		423B23D018F63DDE001E2DCC /* SEECollaborationPreferenceModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 423B23CF18F63DDE001E2DCC /* SEECollaborationPreferenceModule.m */; };
 		4246436518FEDF4300E5D830 /* SEEUserColorsPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4246436418FEDF4300E5D830 /* SEEUserColorsPreviewView.m */; };
+		47F597C3EF57B0E0CCCA8F78 /* SEELSPMessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A2 /* SEELSPMessageReader.m */; };
 		4C0B4C6118C8B3E300048335 /* SEEToggleRecentDocumentListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B4C6018C8B3E300048335 /* SEEToggleRecentDocumentListItem.m */; };
 		4C0C4A0118B366EC00E6049E /* PlainTextWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C4A0018B366EC00E6049E /* PlainTextWindow.xib */; };
 		4C0C4A1C18B3768500E6049E /* SEEDocumentListWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C4A1A18B3768500E6049E /* SEEDocumentListWindowController.m */; };
@@ -219,6 +217,7 @@
 		4CE9CF391802F4F100F5BC56 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6AE8731802E8810089D489 /* OgreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4CE9CF3A1802F52A00F5BC56 /* SEEStyleSheetSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = F2D56992133B880900CEC841 /* SEEStyleSheetSettings.m */; };
 		4CF06A2F1816AF5D00B35DF8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		513719C1661B5F11F7579A9D /* SEELSPRPCCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */; };
 		5E28E2900972FB8E00099B13 /* InsetTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E28E28E0972FB8E00099B13 /* InsetTextFieldCell.m */; };
 		5E4DA73D09E15C6800D91CFC /* Scripts in Resources */ = {isa = PBXBuildFile; fileRef = 5E4DA73A09E15C6800D91CFC /* Scripts */; };
 		5E57298F09F514FB00D3746B /* Toolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E57298D09F514FB00D3746B /* Toolbar.m */; };
@@ -231,10 +230,19 @@
 		5EDD304F0A092AA50036E63A /* ScriptTextBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD304D0A092AA50036E63A /* ScriptTextBase.m */; };
 		5EF31B220A7E2E2100D777F5 /* NSCursorSEEAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF31B200A7E2E2100D777F5 /* NSCursorSEEAdditions.m */; };
 		5EF31E430A7E437C00D777F5 /* InvertedIBeam.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5EF31E420A7E437C00D777F5 /* InvertedIBeam.tiff */; };
+		7D4F919EDA0A3877760AA5A7 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
+		7F34A8E71282ACC289F11497 /* SEELSPHostService.m in Sources */ = {isa = PBXBuildFile; fileRef = A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		9B77854BC6F109B44A6CFC18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4238FEC73502F156AD0A00 /* Foundation.framework */; };
 		9E9F58AD2319EC3C00E838D1 /* SEEAlertRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F58AC2319EC3C00E838D1 /* SEEAlertRecipe.m */; };
+		D7BD4227AE18EA644B8996D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 889ADD5A92F7FF74DCF6ADE1 /* main.m */; };
+		DDA5F00200000000000000B2 /* SEELSPMessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A2 /* SEELSPMessageReader.m */; };
+		DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
+		DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */; };
+		DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A7 /* SEELSPTransportTests.m */; };
+		DDD32D861AB21190DDC84A69 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D51755C47E57AF5284E467F9 /* Cocoa.framework */; };
 		F20396F60F8A707700BEB377 /* FullTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = F281D34B0F38756100AD7DE1 /* FullTextStorage.m */; };
 		F2061D690B4C152600E6631F /* FirstClickCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2061D670B4C152600E6631F /* FirstClickCustomView.m */; };
 		F20948BC0C7B3DED00E78EBA /* TCMMMLogStatisticsEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = F20948B90C7B3DED00E78EBA /* TCMMMLogStatisticsEntry.m */; };
@@ -386,9 +394,17 @@
 		F2F2B5A70CA7F7B80045C189 /* PrecedencePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2C6E70CA7C7A7003CC5C9 /* PrecedencePreferences.m */; };
 		F2F2B6100CA811240045C189 /* TCMMMLogStatisticsDataPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F2B60D0CA811240045C189 /* TCMMMLogStatisticsDataPoint.m */; };
 		F2FB96E30CBE68ED000B85AE /* UKXattrMetadataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB96E10CBE68ED000B85AE /* UKXattrMetadataStore.m */; };
+		F99451B4AB1EAEA15DFCDD07 /* SEELSPServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C705F18D3C898889B98BE235 /* SEELSPServerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		530FF228DB1646DF322DE66A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8370503E21C63A42A8A9E4A3;
+			remoteInfo = SubEthaEditLSPHost;
+		};
 		5EC638300ABEB78000D3295B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -446,6 +462,17 @@
 				4C0FDA231803125E008E24E8 /* UniversalDetector.framework in Copy Files (Frameworks) */,
 			);
 			name = "Copy Files (Frameworks)";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3406BFF617D65B61FADC7EF4 /* Embed LSP XPC Service */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				121E989982352FD882BAD716 /* SubEthaEditLSPHost.xpc in Embed LSP XPC Service */,
+			);
+			name = "Embed LSP XPC Service";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F286A767215D0CED0056C247 /* Copy Command Line Tools */ = {
@@ -510,22 +537,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00ED440C7613E90400B0851B /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
-		02187432F9BC1D79C4EF234E /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/PrecedenceRules.strings; sourceTree = "<group>"; };
-		0700B9D93FD330472ACFDECD /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
-		075281159B21C439847EAB3C /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		079ABC869BE2176B8DA9894E /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Export.strings; sourceTree = "<group>"; };
-		0CF7AF256607E7AC6748F22E /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		DDA5F00100000000000000A1 /* SEELSPMessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageReader.h; sourceTree = "<group>"; };
-		DDA5F00100000000000000A2 /* SEELSPMessageReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageReader.m; sourceTree = "<group>"; };
-		DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageWriter.h; sourceTree = "<group>"; };
-		DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageWriter.m; sourceTree = "<group>"; };
-		DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPRPCCoordinator.h; sourceTree = "<group>"; };
-		DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPRPCCoordinator.m; sourceTree = "<group>"; };
-		DDA5F00100000000000000A7 /* SEELSPTransportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPTransportTests.m; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		11C1E4BBE0D38D98D3784C55 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
-		13BC57CAA66D7816D539C7AF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
 		141958960BB9507700CB4AA4 /* TCMMMSessionAppKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TCMMMSessionAppKitHelper.h; path = TCMMillionMonkeys/TCMMMSessionAppKitHelper.h; sourceTree = "<group>"; };
 		141958970BB9507700CB4AA4 /* TCMMMSessionAppKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TCMMMSessionAppKitHelper.m; path = TCMMillionMonkeys/TCMMMSessionAppKitHelper.m; sourceTree = "<group>"; };
 		141958AA0BB9516E00CB4AA4 /* TCMMMSessionFoundationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TCMMMSessionFoundationHelper.h; path = TCMMillionMonkeys/TCMMMSessionFoundationHelper.h; sourceTree = "<group>"; };
@@ -748,32 +760,20 @@
 		148167AC0B15B002008894C9 /* PlainTextWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlainTextWindow.m; sourceTree = "<group>"; };
 		149774150B5E159F004A546C /* PlainTextLoadProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PlainTextLoadProgress.h; sourceTree = "<group>"; };
 		149774160B5E159F004A546C /* PlainTextLoadProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlainTextLoadProgress.m; sourceTree = "<group>"; };
+		14BA89866BB223F66448BA16 /* SEELSPServerManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPServerManager.h; sourceTree = "<group>"; };
 		14E291C40A07A501007C0065 /* ScriptLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ScriptLine.h; sourceTree = "<group>"; };
 		14E291C50A07A501007C0065 /* ScriptLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptLine.m; sourceTree = "<group>"; };
 		14E291E70A07B480007C0065 /* ScriptCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ScriptCharacters.h; sourceTree = "<group>"; };
 		14E291E80A07B480007C0065 /* ScriptCharacters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptCharacters.m; sourceTree = "<group>"; };
 		14E2944E0A0CBFB0007C0065 /* SelectCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SelectCommand.h; sourceTree = "<group>"; };
 		14E2944F0A0CBFB0007C0065 /* SelectCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCommand.m; sourceTree = "<group>"; };
-		17C233CD4BAB04C768549A65 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		1A6D82C4205D6F233F4D9E28 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
-		1CAEA9188CD5A65802E4DB3E /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
-		1E6F78DE7AB1738ABA015757 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		24DE3A0C6E16A8459E0B4AD6 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SEEDocumentListWindowController.strings; sourceTree = "<group>"; };
-		26189765C28E4EEB07B77111 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
-		28A721F14469EFCD08521B45 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
-		28D6C406A9D98CB4DB83CA46 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
-		298153BDA9F50F33CC1722D9 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
+		19BF0896BB0D3C0D6744EEE9 /* SEELSPHostService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostService.h; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2AFF7BD346EF31C450D42731 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		2B4BD11E3E0CE0F474DF7EA7 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2B7E45829E1A53A4071B93B3 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
 		2CED1D4E238000FF00359D99 /* SEEWebPreview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEWebPreview.h; sourceTree = "<group>"; };
 		2CED1D4F238000FF00359D99 /* SEEWebPreview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEWebPreview.m; sourceTree = "<group>"; };
 		2CED1D53238007F900359D99 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		3061EA093DD084CC7285CB09 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/PrecedencePrefs.strings; sourceTree = "<group>"; };
-		3100F0C4AC5B8FCE3E269E75 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
 		311717F20A0E8C3600A9DA18 /* ModeSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeSettings.m; sourceTree = "<group>"; };
 		311717F30A0E8C3600A9DA18 /* ModeSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ModeSettings.h; sourceTree = "<group>"; };
 		316A0D270C68A47100720268 /* DebugAttributeInspectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DebugAttributeInspectorController.h; path = Debug/DebugAttributeInspectorController.h; sourceTree = "<group>"; };
@@ -789,16 +789,8 @@
 		31FFC93B104E97A000E08256 /* NSErrorTCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NSErrorTCMAdditions.h; sourceTree = "<group>"; };
 		31FFC93C104E97A000E08256 /* NSErrorTCMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSErrorTCMAdditions.m; sourceTree = "<group>"; };
 		32DBCF750370BD2300C91783 /* SubEthaEdit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEthaEdit_Prefix.pch; sourceTree = "<group>"; };
-		34E15E777FF48A5EB4CDC3D5 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/EditPrefs.strings; sourceTree = "<group>"; };
-		363EF43463D968641A05FDFA /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SEEDocumentListWindowController.strings; sourceTree = "<group>"; };
-		3B0840633913A4AA5E68E072 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		3BAAB3F15056360BE19BD299 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		3BFED065CEA2E90BF2F68F23 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3CE04F23B90D439AA7A34183 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/AboutPanel.strings; sourceTree = "<group>"; };
 		3D30287C2578602700E35C8B /* SEEDocumentListGroupTableRowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEDocumentListGroupTableRowView.h; sourceTree = "<group>"; };
 		3D30287D2578602700E35C8B /* SEEDocumentListGroupTableRowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentListGroupTableRowView.m; sourceTree = "<group>"; };
-		3D4532C66751EE87DEFA8A08 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
-		3D47C89C47525F9A64D17006 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/FindReplace.strings; sourceTree = "<group>"; };
 		3D80BA34258522A50093CA85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEEFindAndReplaceView.xib; sourceTree = "<group>"; };
 		3D80BA38258522AA0093CA85 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
 		3D80BA3A258523390093CA85 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FindAll.strings; sourceTree = "<group>"; };
@@ -818,20 +810,14 @@
 		3DBB85BA25734A37000F829F /* OpenURLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenURLViewController.h; sourceTree = "<group>"; };
 		3DBB85BB25734A37000F829F /* OpenURLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenURLViewController.m; sourceTree = "<group>"; };
 		3DBB85C125734E6D000F829F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OpenURLViewController.xib; sourceTree = "<group>"; };
-		3DBB85C625734E96000F829F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
+		3DBB85C625734E96000F829F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/OpenURLViewController.xib; sourceTree = "<group>"; };
 		3DC31372257D03180077577A /* SEETertiaryLabelColorValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEETertiaryLabelColorValueTransformer.h; sourceTree = "<group>"; };
 		3DC31373257D03180077577A /* SEETertiaryLabelColorValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEETertiaryLabelColorValueTransformer.m; sourceTree = "<group>"; };
-		4089EDBF7CB2EA013E3C87A3 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/EditPrefs.strings; sourceTree = "<group>"; };
 		423452391907DFE400BE3CC1 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		423B23CE18F63DDE001E2DCC /* SEECollaborationPreferenceModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEECollaborationPreferenceModule.h; sourceTree = "<group>"; };
 		423B23CF18F63DDE001E2DCC /* SEECollaborationPreferenceModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEECollaborationPreferenceModule.m; sourceTree = "<group>"; };
 		4246436318FEDF4300E5D830 /* SEEUserColorsPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEUserColorsPreviewView.h; sourceTree = "<group>"; };
 		4246436418FEDF4300E5D830 /* SEEUserColorsPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEUserColorsPreviewView.m; sourceTree = "<group>"; };
-		43E975E0033E751D3250A902 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		45C8A23CCFE1D76104270F45 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/PrecedenceRules.strings; sourceTree = "<group>"; };
-		4613C48EDD51FB7E3EC2AAD3 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/AboutPanel.strings; sourceTree = "<group>"; };
-		4A80D2997C9D1EBDA41CD4DE /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4B7B1D1FB5F61F05F7C1A558 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
 		4C0B4C5F18C8B3E300048335 /* SEEToggleRecentDocumentListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEToggleRecentDocumentListItem.h; sourceTree = "<group>"; };
 		4C0B4C6018C8B3E300048335 /* SEEToggleRecentDocumentListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEToggleRecentDocumentListItem.m; sourceTree = "<group>"; };
 		4C0C4A0018B366EC00E6049E /* PlainTextWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlainTextWindow.xib; sourceTree = "<group>"; };
@@ -854,7 +840,6 @@
 		4C123003180C01EF0069253E /* TCMBEEPMessageXMLPayloadParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TCMBEEPMessageXMLPayloadParser.h; sourceTree = "<group>"; };
 		4C123004180C01EF0069253E /* TCMBEEPMessageXMLPayloadParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCMBEEPMessageXMLPayloadParser.m; sourceTree = "<group>"; };
 		4C1407DB192CE64A00F0F709 /* LuaC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LuaC.entitlements; sourceTree = "<group>"; };
-		4C32B8F9AAE4295FA41B81E8 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/EditPrefs.strings; sourceTree = "<group>"; };
 		4C43314218E4777C00592EC2 /* SEEDocumentCreationFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEDocumentCreationFlags.h; sourceTree = "<group>"; };
 		4C43314318E4777C00592EC2 /* SEEDocumentCreationFlags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentCreationFlags.m; sourceTree = "<group>"; };
 		4C4FEA6B192A116100A2F4EC /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = openssl/libcrypto.a; sourceTree = "<group>"; };
@@ -914,15 +899,6 @@
 		4CE6C99B18AA905500AB45D1 /* SEEOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEOverlayView.h; sourceTree = "<group>"; };
 		4CE6C99C18AA905500AB45D1 /* SEEOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEOverlayView.m; sourceTree = "<group>"; };
 		4CF06A621816D6D300B35DF8 /* SubEthaEdit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SubEthaEdit.entitlements; sourceTree = "<group>"; };
-		4D8F7A9A4800520695389DF6 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SEEDocumentListWindowController.strings; sourceTree = "<group>"; };
-		4E7F0A1B75401BD425D67D8F /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/GeneralPrefs.strings; sourceTree = "<group>"; };
-		50344FBF7D59639BEE3F256A /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/FindAll.strings; sourceTree = "<group>"; };
-		52AFC127FE7976F60320D533 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/Localizable.strings; sourceTree = "<group>"; };
-		533C04CAB6AE068982166B5E /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		54E7F0BD6990F86A43CAA8CF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		55D728815759DCF171B70750 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5B720F0537FE182EF7700F79 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		5C3493F2962B6BC4F274BAAD /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/EditPrefs.strings; sourceTree = "<group>"; };
 		5E28E28D0972FB8E00099B13 /* InsetTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = InsetTextFieldCell.h; sourceTree = "<group>"; };
 		5E28E28E0972FB8E00099B13 /* InsetTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetTextFieldCell.m; sourceTree = "<group>"; };
 		5E4DA73A09E15C6800D91CFC /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
@@ -934,7 +910,6 @@
 		5E685DB209D8438800E41973 /* NSMenuTCMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMenuTCMAdditions.m; sourceTree = "<group>"; };
 		5E754EA10AB5648F00C5119E /* SEEEncodingDoctorDialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SEEEncodingDoctorDialogViewController.h; sourceTree = "<group>"; };
 		5E754EA20AB5648F00C5119E /* SEEEncodingDoctorDialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEEncodingDoctorDialogViewController.m; sourceTree = "<group>"; };
-		5E9D87DDE3E719CF2F2A74A1 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SEEEncodingDoctorView.strings; sourceTree = "<group>"; };
 		5EA1258709E2B4190055965D /* ScriptWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ScriptWrapper.h; sourceTree = "<group>"; };
 		5EA1258809E2B4190055965D /* ScriptWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptWrapper.m; sourceTree = "<group>"; };
 		5EC6382A0ABEB71100D3295B /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -947,85 +922,25 @@
 		5EF31B200A7E2E2100D777F5 /* NSCursorSEEAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCursorSEEAdditions.m; sourceTree = "<group>"; };
 		5EF31B210A7E2E2100D777F5 /* NSCursorSEEAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NSCursorSEEAdditions.h; sourceTree = "<group>"; };
 		5EF31E420A7E437C00D777F5 /* InvertedIBeam.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = InvertedIBeam.tiff; path = artwork/InvertedIBeam.tiff; sourceTree = "<group>"; };
-		5FB3425DCD4F49845BACFD9B /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SEECollaborationPrefs.strings; sourceTree = "<group>"; };
-		609B2D92A214A63FB2B803B5 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SEECollaborationPrefs.strings; sourceTree = "<group>"; };
-		6219E232EE15260D378ADFAF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
-		63001E1DD786EBE09D3B5AA7 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/GeneralPrefs.strings; sourceTree = "<group>"; };
-		6414D7CB47C9142A0B45AAEE /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/FindReplace.strings; sourceTree = "<group>"; };
-		64D5E6559F5F78DCEB05A646 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/GeneralPrefs.strings; sourceTree = "<group>"; };
-		660B2E2481F54AD8A80F5B61 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		6886456094FBBFF972B5A4B4 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/PrecedencePrefs.strings; sourceTree = "<group>"; };
-		690AA99428F28D373F3E3C36 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		69A217CBD5041B792B46109F /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/Export.strings; sourceTree = "<group>"; };
-		6BBD34093EBAE4A04E806326 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
-		6BE4EDF9F38F491F6A9D8A83 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6C9FE2EF5DFF27C19CA38BDD /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/StylePrefs.strings; sourceTree = "<group>"; };
-		6DDCD98E94604B489EDC1182 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/PrecedencePrefs.strings; sourceTree = "<group>"; };
-		6EF46B16620F81B1A96D24E8 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.stringsdict; name = fi; path = fi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		6F980CDA6D35CDD1EDABE7E9 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/FindReplace.strings; sourceTree = "<group>"; };
-		738E35FE81C720D189855E8D /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SEECollaborationPrefs.strings; sourceTree = "<group>"; };
-		74978291F504168D80010EE8 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
-		779EAA8C9EDC432D10A6ABF7 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		790E0E3B9E9E29B4B5ED3D5A /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		82BD1D92FCA1D5210E6DAA46 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/StylePrefs.strings; sourceTree = "<group>"; };
-		86852CBC2D4BABBFB57641DD /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		87F20CEC1A1027EB9E9B560E /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/StylePrefs.strings; sourceTree = "<group>"; };
-		89BCD139B137060FC5E6B52E /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
-		8B5EB81A4B57ADDF241F1317 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SEEEncodingDoctorView.strings; sourceTree = "<group>"; };
-		8B77A529B8DB478884205AF8 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/AboutPanel.strings; sourceTree = "<group>"; };
-		8BC7FD832116A377B0C440FD /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/PrecedencePrefs.strings; sourceTree = "<group>"; };
-		8BD22E2A71C496269CC22FA9 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/StylePrefs.strings; sourceTree = "<group>"; };
+		6EA91CFA8508936DB67894F6 /* SEELSPClientProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPClientProtocol.h; sourceTree = "<group>"; };
+		86A3F37DF2BCB5CAEFA2DEFD /* SEELSPHostProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostProtocol.h; sourceTree = "<group>"; };
+		889ADD5A92F7FF74DCF6ADE1 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* SubEthaEdit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubEthaEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EE3AA8F4730A93BC8B5368D /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
-		8FD41157A23D8CC8032F4283 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
-		90941AC779F06E0EF6497697 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		913A0E35213A2B7F5D741E3A /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
-		929172EBD692F98E28CBFFAB /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/FindAll.strings; sourceTree = "<group>"; };
-		985E728AB072CDF1C8797C72 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		98EB510AE5635BEE7C4D3EE5 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.stringsdict; name = sv; path = sv.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		998DD0AD57176C790D14D505 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/FindReplace.strings; sourceTree = "<group>"; };
 		9E9F58AB2319EC3C00E838D1 /* SEEAlertRecipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEAlertRecipe.h; sourceTree = "<group>"; };
 		9E9F58AC2319EC3C00E838D1 /* SEEAlertRecipe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEAlertRecipe.m; sourceTree = "<group>"; };
-		A3A521B29D415A4DD637977B /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/OpenURLViewController.strings; sourceTree = "<group>"; };
-		A56ACED785A1A2D0991A976C /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
-		A64F6C5B81DF42FB072CA437 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/FindReplace.strings; sourceTree = "<group>"; };
-		AA3A870E51778A9D9BDE9024 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Export.strings; sourceTree = "<group>"; };
-		AA7F8A9B16D410BE60B05497 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		AD89B6059C2EBCA60260BCFF /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SEEEncodingDoctorView.strings; sourceTree = "<group>"; };
-		AE04485541C472F7403C7FC8 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/FindAll.strings; sourceTree = "<group>"; };
-		AEC823786293DC311D6C57FA /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
-		B6E6EBA400E4B649FC448072 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
-		B7ED6728DA3D2DDBE1BF96E1 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		B8A26F3DD89305C0C0E34248 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/StylePrefs.strings; sourceTree = "<group>"; };
-		B9CB356D6B125B59F4B818DC /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SEEEncodingDoctorView.strings; sourceTree = "<group>"; };
-		BA673A83231BC1A3865DB076 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/AboutPanel.strings; sourceTree = "<group>"; };
-		BAF7413B4417B5BD2F7ECBFF /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
-		BB81FB1E55850AEE82F91EC0 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.stringsdict; name = nb; path = nb.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		BC4457FC49F6B52044C5F08A /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/GeneralPrefs.strings; sourceTree = "<group>"; };
-		BCDA2BFE3797CC2E6994B9E9 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/GeneralPrefs.strings; sourceTree = "<group>"; };
-		BD38E837882E411ABFA7204A /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
-		C6247ADFE447BB2DDB3823ED /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C996688DB11B5E06CF4CDFF8 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SEEDocumentListWindowController.strings; sourceTree = "<group>"; };
-		CBDBCA3008D6E29F8BDFBFC8 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SEEDocumentListWindowController.strings; sourceTree = "<group>"; };
-		CC18CFE9BA1F041799AA4DCF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
-		CCCBDC1854CD4CC9A9597C4E /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
-		CE36FCAC1D6223461F93BB92 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/FindAll.strings; sourceTree = "<group>"; };
-		D12B0B767B2926F55FDB76D9 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		D133F4A79FC639A891C984E5 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Export.strings; sourceTree = "<group>"; };
-		D2625825B8039575FF737F7D /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		D5914B2128AF2C56E287D2CB /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D7A434D34E03CF0E4832DE74 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/FindAll.strings; sourceTree = "<group>"; };
-		D8A3507C492577117E5F66B2 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/AboutPanel.strings; sourceTree = "<group>"; };
-		D95645DBACCBADFEDF43BCBF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SEECollaborationPrefs.strings; sourceTree = "<group>"; };
-		E0C3F7D4096964B60EAE10DB /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/SEECollaborationPrefs.strings; sourceTree = "<group>"; };
-		E2BA9C93C1F87F68CBE17412 /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		E60AE9CBE838D0D332BEF0AF /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/PrecedenceRules.strings; sourceTree = "<group>"; };
-		E6D09D5B680DA280A1AA7A83 /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Export.strings; sourceTree = "<group>"; };
-		E7165259EE358BD2396CCE0D /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		ECBBEFDCC71E9978DB50AF5D /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
-		ED6C729660CE281ECCD1ED3C /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PrecedenceRules.strings; sourceTree = "<group>"; };
-		F00D9A27933C5A104F0AF990 /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/PrecedenceRules.strings; sourceTree = "<group>"; };
+		9F4238FEC73502F156AD0A00 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPHostService.m; sourceTree = "<group>"; };
+		BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; name = SubEthaEditLSPHost.xpc; path = SubEthaEditLSPHost.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		C705F18D3C898889B98BE235 /* SEELSPServerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerManager.m; sourceTree = "<group>"; };
+		D51755C47E57AF5284E467F9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		DDA5F00100000000000000A1 /* SEELSPMessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageReader.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A2 /* SEELSPMessageReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageReader.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageWriter.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageWriter.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPRPCCoordinator.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPRPCCoordinator.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A7 /* SEELSPTransportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPTransportTests.m; sourceTree = "<group>"; };
 		F2061D660B4C152600E6631F /* FirstClickCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FirstClickCustomView.h; sourceTree = "<group>"; };
 		F2061D670B4C152600E6631F /* FirstClickCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstClickCustomView.m; sourceTree = "<group>"; };
 		F20948B80C7B3DED00E78EBA /* TCMMMLogStatisticsEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TCMMMLogStatisticsEntry.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1109,14 +1024,14 @@
 		F24780A222EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		F24780A322EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ServicesMenu.strings; sourceTree = "<group>"; };
 		F24780A422EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SystemVersionCheck.strings; sourceTree = "<group>"; };
-		F24780A522EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Export.strings; sourceTree = "<group>"; };
-		F24780A722EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/FindReplace.strings; sourceTree = "<group>"; };
-		F24780A822EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		F24780A922EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
-		F24780AA22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PlainTextLoadProgress.strings; sourceTree = "<group>"; };
-		F24780AB22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		F24780AC22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
-		F24780AD22EAF46600366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
+		F24780A522EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/Export.xib; sourceTree = "<group>"; };
+		F24780A722EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/FindReplace.xib; sourceTree = "<group>"; };
+		F24780A822EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F24780A922EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/OpenPanelAccessory.xib; sourceTree = "<group>"; };
+		F24780AA22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PlainTextLoadProgress.xib; sourceTree = "<group>"; };
+		F24780AB22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/PrintOptions.xib; sourceTree = "<group>"; };
+		F24780AC22EAF46500366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SavePanelAccessory.xib; sourceTree = "<group>"; };
+		F24780AD22EAF46600366FC8 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SelectEncodingsPanel.xib; sourceTree = "<group>"; };
 		F24AEA1A195AE78300046F6B /* DocumentProxy.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DocumentProxy.xib; sourceTree = "<group>"; };
 		F24FA89024B1D94E009D069E /* SEEFontForwardingTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEFontForwardingTextView.h; sourceTree = "<group>"; };
 		F24FA89124B1D94E009D069E /* SEEFontForwardingTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEFontForwardingTextView.m; sourceTree = "<group>"; };
@@ -1235,17 +1150,18 @@
 		F2F5970B193336B300FDAA4A /* SEEDocumentListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentListTableView.m; sourceTree = "<group>"; };
 		F2FB96E00CBE68ED000B85AE /* UKXattrMetadataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = UKXattrMetadataStore.h; path = UKXattrMetadataStore/UKXattrMetadataStore.h; sourceTree = "<group>"; };
 		F2FB96E10CBE68ED000B85AE /* UKXattrMetadataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UKXattrMetadataStore.m; path = UKXattrMetadataStore/UKXattrMetadataStore.m; sourceTree = "<group>"; };
-		F529F70859B542028237AE0F /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PrintOptions.strings; sourceTree = "<group>"; };
-		F817E7B662D6A47A0D6FE5BA /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/EditPrefs.strings; sourceTree = "<group>"; };
-		F8BCDD0C82F05347404D1690 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.stringsdict; name = nn; path = nn.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		F9B16C36C51B0D5E2CF65F57 /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SEEFindAndReplaceView.strings; sourceTree = "<group>"; };
-		FA2F1BC632BA82DF02EA76AD /* nb */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		FCB176D9F651EEF61B35232F /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/SelectEncodingsPanel.strings; sourceTree = "<group>"; };
-		FCE105F5124FEC092A12819D /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/PrecedencePrefs.strings; sourceTree = "<group>"; };
-		FF29A828F4DD1FFA28B13A0A /* sv */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/SEEEncodingDoctorView.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		58ED26C922A7F1CE252AE738 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD32D861AB21190DDC84A69 /* Cocoa.framework in Frameworks */,
+				9B77854BC6F109B44A6CFC18 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EC638270ABEB71100D3295B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1285,27 +1201,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DDA5F00300000000000000C1 /* LSP */ = {
-			isa = PBXGroup;
-			children = (
-				DDA5F00300000000000000C2 /* Host */,
-			);
-			path = LSP;
-			sourceTree = "<group>";
-		};
-		DDA5F00300000000000000C2 /* Host */ = {
-			isa = PBXGroup;
-			children = (
-				DDA5F00100000000000000A1 /* SEELSPMessageReader.h */,
-				DDA5F00100000000000000A2 /* SEELSPMessageReader.m */,
-				DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */,
-				DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */,
-				DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */,
-				DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */,
-			);
-			path = Host;
-			sourceTree = "<group>";
-		};
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1770,6 +1665,7 @@
 				5EC6382A0ABEB71100D3295B /* Tests.xctest */,
 				F2B6CCC20EE9C6390077417E /* SeeTextImporter.mdimporter */,
 				F2D86C1F0F8E7E2A00B912A2 /* SubEthaPerf.app */,
+				BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1869,6 +1765,7 @@
 				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 				4C4FEA6B192A116100A2F4EC /* libcrypto.a */,
+				E1E6AD6D45B2D6E69D33715F /* OS X */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2080,6 +1977,43 @@
 				14E2944F0A0CBFB0007C0065 /* SelectCommand.m */,
 			);
 			name = Scripting;
+			sourceTree = "<group>";
+		};
+		DDA5F00300000000000000C1 /* LSP */ = {
+			isa = PBXGroup;
+			children = (
+				DDA5F00300000000000000C2 /* Host */,
+				86A3F37DF2BCB5CAEFA2DEFD /* SEELSPHostProtocol.h */,
+				6EA91CFA8508936DB67894F6 /* SEELSPClientProtocol.h */,
+				14BA89866BB223F66448BA16 /* SEELSPServerManager.h */,
+				C705F18D3C898889B98BE235 /* SEELSPServerManager.m */,
+			);
+			path = LSP;
+			sourceTree = "<group>";
+		};
+		DDA5F00300000000000000C2 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				DDA5F00100000000000000A1 /* SEELSPMessageReader.h */,
+				DDA5F00100000000000000A2 /* SEELSPMessageReader.m */,
+				DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */,
+				DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */,
+				DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */,
+				DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */,
+				19BF0896BB0D3C0D6744EEE9 /* SEELSPHostService.h */,
+				A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */,
+				889ADD5A92F7FF74DCF6ADE1 /* main.m */,
+			);
+			path = Host;
+			sourceTree = "<group>";
+		};
+		E1E6AD6D45B2D6E69D33715F /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				D51755C47E57AF5284E467F9 /* Cocoa.framework */,
+				9F4238FEC73502F156AD0A00 /* Foundation.framework */,
+			);
+			name = "OS X";
 			sourceTree = "<group>";
 		};
 		F21BFB392603771600C4578C /* Tests */ = {
@@ -2298,6 +2232,23 @@
 			productReference = 5EC6382A0ABEB71100D3295B /* Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8370503E21C63A42A8A9E4A3 /* SubEthaEditLSPHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA6D393320D93057D69DB346 /* Build configuration list for PBXNativeTarget "SubEthaEditLSPHost" */;
+			buildPhases = (
+				77C0EF2E2F93B59F7AC94617 /* Sources */,
+				58ED26C922A7F1CE252AE738 /* Frameworks */,
+				2BBD1416A9B703DACEA5A607 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SubEthaEditLSPHost;
+			productName = SubEthaEditLSPHost;
+			productReference = BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		8D15AC270486D014006FF6A4 /* SubEthaEdit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "SubEthaEdit" */;
@@ -2313,12 +2264,14 @@
 				F298A0040CCB9EFC00C4DB8B /* Copy Importers */,
 				F213791B2191BBEE00C74681 /* Mac App Store Modifications */,
 				142898130958165400D14688 /* Run Script (Deployment) */,
+				3406BFF617D65B61FADC7EF4 /* Embed LSP XPC Service */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F21379382195EF7900C74681 /* PBXTargetDependency */,
 				F21379362195EF6500C74681 /* PBXTargetDependency */,
+				1108A8DB9C12D620D6412C2F /* PBXTargetDependency */,
 			);
 			name = SubEthaEdit;
 			productInstallPath = "$(HOME)/Applications";
@@ -2379,11 +2332,6 @@
 				Base,
 				de,
 				en,
-				sv,
-				nb,
-				nn,
-				da,
-				fi,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA;
 			productRefGroup = 19C28FB0FE9D524F11CA2CBB /* Products */;
@@ -2403,6 +2351,7 @@
 				8D15AC270486D014006FF6A4 /* SubEthaEdit */,
 				5EC638290ABEB71100D3295B /* SubEthaEdit-Tests */,
 				F2D86C1E0F8E7E2A00B912A2 /* SubEthaPerf */,
+				8370503E21C63A42A8A9E4A3 /* SubEthaEditLSPHost */,
 			);
 		};
 /* End PBXProject section */
@@ -2432,6 +2381,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2BBD1416A9B703DACEA5A607 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EC638250ABEB71100D3295B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2632,6 +2588,18 @@
 				DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */,
 				DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */,
 				DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77C0EF2E2F93B59F7AC94617 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BD4227AE18EA644B8996D6 /* main.m in Sources */,
+				7F34A8E71282ACC289F11497 /* SEELSPHostService.m in Sources */,
+				47F597C3EF57B0E0CCCA8F78 /* SEELSPMessageReader.m in Sources */,
+				7D4F919EDA0A3877760AA5A7 /* SEELSPMessageWriter.m in Sources */,
+				513719C1661B5F11F7579A9D /* SEELSPRPCCoordinator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2837,6 +2805,7 @@
 				F2D56993133B880900CEC841 /* SEEStyleSheetSettings.m in Sources */,
 				F22024EE191D175C0098982C /* TCMHoverButton.m in Sources */,
 				F29E6DD518E5C90200F84231 /* TCMDragImageView.m in Sources */,
+				F99451B4AB1EAEA15DFCDD07 /* SEELSPServerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2884,6 +2853,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1108A8DB9C12D620D6412C2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SubEthaEditLSPHost;
+			target = 8370503E21C63A42A8A9E4A3 /* SubEthaEditLSPHost */;
+			targetProxy = 530FF228DB1646DF322DE66A /* PBXContainerItemProxy */;
+		};
 		5EC638310ABEB78000D3295B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D15AC270486D014006FF6A4 /* SubEthaEdit */;
@@ -2907,11 +2882,6 @@
 			children = (
 				F24780A022EAF46500366FC8 /* de */,
 				F22E9F2922FEECCB00326183 /* Base */,
-				D5914B2128AF2C56E287D2CB /* sv */,
-				3BFED065CEA2E90BF2F68F23 /* nb */,
-				790E0E3B9E9E29B4B5ED3D5A /* nn */,
-				4A80D2997C9D1EBDA41CD4DE /* da */,
-				55D728815759DCF171B70750 /* fi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2921,11 +2891,6 @@
 			children = (
 				F24780A122EAF46500366FC8 /* de */,
 				F22E9F2A22FEECCB00326183 /* Base */,
-				2B4BD11E3E0CE0F474DF7EA7 /* sv */,
-				74978291F504168D80010EE8 /* nb */,
-				52AFC127FE7976F60320D533 /* nn */,
-				C6247ADFE447BB2DDB3823ED /* da */,
-				6BE4EDF9F38F491F6A9D8A83 /* fi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2935,11 +2900,6 @@
 			children = (
 				F24780A422EAF46500366FC8 /* de */,
 				F22E9F2822FEECCB00326183 /* Base */,
-				2AFF7BD346EF31C450D42731 /* sv */,
-				3B0840633913A4AA5E68E072 /* nb */,
-				660B2E2481F54AD8A80F5B61 /* nn */,
-				1E6F78DE7AB1738ABA015757 /* da */,
-				86852CBC2D4BABBFB57641DD /* fi */,
 			);
 			name = SystemVersionCheck.strings;
 			sourceTree = "<group>";
@@ -2949,11 +2909,6 @@
 			children = (
 				F24780A322EAF46500366FC8 /* de */,
 				F22E9F2622FEECCB00326183 /* Base */,
-				BAF7413B4417B5BD2F7ECBFF /* sv */,
-				AA7F8A9B16D410BE60B05497 /* nb */,
-				985E728AB072CDF1C8797C72 /* nn */,
-				54E7F0BD6990F86A43CAA8CF /* da */,
-				779EAA8C9EDC432D10A6ABF7 /* fi */,
 			);
 			name = ServicesMenu.strings;
 			sourceTree = "<group>";
@@ -2963,11 +2918,6 @@
 			children = (
 				3D80BA34258522A50093CA85 /* Base */,
 				3D80BA38258522AA0093CA85 /* de */,
-				3100F0C4AC5B8FCE3E269E75 /* sv */,
-				0700B9D93FD330472ACFDECD /* nb */,
-				89BCD139B137060FC5E6B52E /* nn */,
-				28A721F14469EFCD08521B45 /* da */,
-				F9B16C36C51B0D5E2CF65F57 /* fi */,
 			);
 			name = SEEFindAndReplaceView.xib;
 			sourceTree = "<group>";
@@ -2977,11 +2927,6 @@
 			children = (
 				3D83EDAC2576B1E6004288B2 /* Base */,
 				3D83EDB02576B1EE004288B2 /* de */,
-				CBDBCA3008D6E29F8BDFBFC8 /* sv */,
-				4D8F7A9A4800520695389DF6 /* nb */,
-				363EF43463D968641A05FDFA /* nn */,
-				C996688DB11B5E06CF4CDFF8 /* da */,
-				24DE3A0C6E16A8459E0B4AD6 /* fi */,
 			);
 			name = SEEDocumentListWindowController.xib;
 			sourceTree = "<group>";
@@ -2991,11 +2936,6 @@
 			children = (
 				3D8A480C257EF97B005AFEF1 /* Base */,
 				3D8A4810257EF983005AFEF1 /* de */,
-				738E35FE81C720D189855E8D /* sv */,
-				E0C3F7D4096964B60EAE10DB /* nb */,
-				5FB3425DCD4F49845BACFD9B /* nn */,
-				D95645DBACCBADFEDF43BCBF /* da */,
-				609B2D92A214A63FB2B803B5 /* fi */,
 			);
 			name = SEECollaborationPrefs.xib;
 			sourceTree = "<group>";
@@ -3005,11 +2945,6 @@
 			children = (
 				3D8A4819257FF27F005AFEF1 /* Base */,
 				3D8A481C257FF285005AFEF1 /* de */,
-				6C9FE2EF5DFF27C19CA38BDD /* sv */,
-				87F20CEC1A1027EB9E9B560E /* nb */,
-				8BD22E2A71C496269CC22FA9 /* nn */,
-				B8A26F3DD89305C0C0E34248 /* da */,
-				82BD1D92FCA1D5210E6DAA46 /* fi */,
 			);
 			name = StylePrefs.xib;
 			sourceTree = "<group>";
@@ -3019,11 +2954,6 @@
 			children = (
 				3DBB85C125734E6D000F829F /* Base */,
 				3DBB85C625734E96000F829F /* de */,
-				1A6D82C4205D6F233F4D9E28 /* sv */,
-				A3A521B29D415A4DD637977B /* nb */,
-				00ED440C7613E90400B0851B /* nn */,
-				6219E232EE15260D378ADFAF /* da */,
-				2B7E45829E1A53A4071B93B3 /* fi */,
 			);
 			name = OpenURLViewController.xib;
 			sourceTree = "<group>";
@@ -3033,11 +2963,6 @@
 			children = (
 				F286A749215CE57C0056C247 /* Base */,
 				3D8A4809257EEF5C005AFEF1 /* de */,
-				28D6C406A9D98CB4DB83CA46 /* sv */,
-				3D4532C66751EE87DEFA8A08 /* nb */,
-				11C1E4BBE0D38D98D3784C55 /* nn */,
-				B6E6EBA400E4B649FC448072 /* da */,
-				913A0E35213A2B7F5D741E3A /* fi */,
 			);
 			name = AdvancedPrefs.xib;
 			sourceTree = "<group>";
@@ -3047,11 +2972,6 @@
 			children = (
 				F286A746215CE57B0056C247 /* Base */,
 				3D8A4816257F0FC4005AFEF1 /* de */,
-				F817E7B662D6A47A0D6FE5BA /* sv */,
-				4C32B8F9AAE4295FA41B81E8 /* nb */,
-				4089EDBF7CB2EA013E3C87A3 /* nn */,
-				34E15E777FF48A5EB4CDC3D5 /* da */,
-				5C3493F2962B6BC4F274BAAD /* fi */,
 			);
 			name = EditPrefs.xib;
 			sourceTree = "<group>";
@@ -3060,11 +2980,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F286A74A215CE57C0056C247 /* Base */,
-				FF29A828F4DD1FFA28B13A0A /* sv */,
-				8B5EB81A4B57ADDF241F1317 /* nb */,
-				AD89B6059C2EBCA60260BCFF /* nn */,
-				B9CB356D6B125B59F4B818DC /* da */,
-				5E9D87DDE3E719CF2F2A74A1 /* fi */,
 			);
 			name = SEEEncodingDoctorView.xib;
 			sourceTree = "<group>";
@@ -3074,11 +2989,6 @@
 			children = (
 				F286A74B215CE57C0056C247 /* Base */,
 				F24780A522EAF46500366FC8 /* de */,
-				E6D09D5B680DA280A1AA7A83 /* sv */,
-				AA3A870E51778A9D9BDE9024 /* nb */,
-				69A217CBD5041B792B46109F /* nn */,
-				079ABC869BE2176B8DA9894E /* da */,
-				D133F4A79FC639A891C984E5 /* fi */,
 			);
 			name = Export.xib;
 			sourceTree = "<group>";
@@ -3088,11 +2998,6 @@
 			children = (
 				F286A74C215CE57C0056C247 /* Base */,
 				3D80BA3A258523390093CA85 /* de */,
-				CE36FCAC1D6223461F93BB92 /* sv */,
-				D7A434D34E03CF0E4832DE74 /* nb */,
-				929172EBD692F98E28CBFFAB /* nn */,
-				50344FBF7D59639BEE3F256A /* da */,
-				AE04485541C472F7403C7FC8 /* fi */,
 			);
 			name = FindAll.xib;
 			sourceTree = "<group>";
@@ -3102,11 +3007,6 @@
 			children = (
 				F286A74D215CE57C0056C247 /* Base */,
 				F24780A722EAF46500366FC8 /* de */,
-				998DD0AD57176C790D14D505 /* sv */,
-				3D47C89C47525F9A64D17006 /* nb */,
-				6F980CDA6D35CDD1EDABE7E9 /* nn */,
-				6414D7CB47C9142A0B45AAEE /* da */,
-				A64F6C5B81DF42FB072CA437 /* fi */,
 			);
 			name = FindReplace.xib;
 			sourceTree = "<group>";
@@ -3116,11 +3016,6 @@
 			children = (
 				F286A745215CE57B0056C247 /* Base */,
 				3D8A47F3257ED540005AFEF1 /* de */,
-				BCDA2BFE3797CC2E6994B9E9 /* sv */,
-				64D5E6559F5F78DCEB05A646 /* nb */,
-				4E7F0A1B75401BD425D67D8F /* nn */,
-				63001E1DD786EBE09D3B5AA7 /* da */,
-				BC4457FC49F6B52044C5F08A /* fi */,
 			);
 			name = GeneralPrefs.xib;
 			sourceTree = "<group>";
@@ -3130,11 +3025,6 @@
 			children = (
 				F286A74E215CE57C0056C247 /* Base */,
 				F24780A822EAF46500366FC8 /* de */,
-				B7ED6728DA3D2DDBE1BF96E1 /* sv */,
-				FA2F1BC632BA82DF02EA76AD /* nb */,
-				17C233CD4BAB04C768549A65 /* nn */,
-				075281159B21C439847EAB3C /* da */,
-				3BAAB3F15056360BE19BD299 /* fi */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -3144,11 +3034,6 @@
 			children = (
 				F286A74F215CE57D0056C247 /* Base */,
 				F24780A922EAF46500366FC8 /* de */,
-				43E975E0033E751D3250A902 /* sv */,
-				D12B0B767B2926F55FDB76D9 /* nb */,
-				690AA99428F28D373F3E3C36 /* nn */,
-				E2BA9C93C1F87F68CBE17412 /* da */,
-				0CF7AF256607E7AC6748F22E /* fi */,
 			);
 			name = OpenPanelAccessory.xib;
 			sourceTree = "<group>";
@@ -3158,11 +3043,6 @@
 			children = (
 				F286A750215CE57D0056C247 /* Base */,
 				F24780AA22EAF46500366FC8 /* de */,
-				A56ACED785A1A2D0991A976C /* sv */,
-				ECBBEFDCC71E9978DB50AF5D /* nb */,
-				6BBD34093EBAE4A04E806326 /* nn */,
-				CC18CFE9BA1F041799AA4DCF /* da */,
-				4B7B1D1FB5F61F05F7C1A558 /* fi */,
 			);
 			name = PlainTextLoadProgress.xib;
 			sourceTree = "<group>";
@@ -3172,11 +3052,6 @@
 			children = (
 				F286A747215CE57C0056C247 /* Base */,
 				3D8A47F7257EDA96005AFEF1 /* de */,
-				FCE105F5124FEC092A12819D /* sv */,
-				3061EA093DD084CC7285CB09 /* nb */,
-				6886456094FBBFF972B5A4B4 /* nn */,
-				6DDCD98E94604B489EDC1182 /* da */,
-				8BC7FD832116A377B0C440FD /* fi */,
 			);
 			name = PrecedencePrefs.xib;
 			sourceTree = "<group>";
@@ -3186,11 +3061,6 @@
 			children = (
 				F286A748215CE57C0056C247 /* Base */,
 				3D8A4804257EDDEE005AFEF1 /* de */,
-				ED6C729660CE281ECCD1ED3C /* sv */,
-				F00D9A27933C5A104F0AF990 /* nb */,
-				45C8A23CCFE1D76104270F45 /* nn */,
-				02187432F9BC1D79C4EF234E /* da */,
-				E60AE9CBE838D0D332BEF0AF /* fi */,
 			);
 			name = PrecedenceRules.xib;
 			sourceTree = "<group>";
@@ -3200,11 +3070,6 @@
 			children = (
 				F286A744215CE57B0056C247 /* Base */,
 				F24780AB22EAF46500366FC8 /* de */,
-				F529F70859B542028237AE0F /* sv */,
-				5B720F0537FE182EF7700F79 /* nb */,
-				D2625825B8039575FF737F7D /* nn */,
-				90941AC779F06E0EF6497697 /* da */,
-				533C04CAB6AE068982166B5E /* fi */,
 			);
 			name = PrintOptions.xib;
 			sourceTree = "<group>";
@@ -3214,11 +3079,6 @@
 			children = (
 				F286A751215CE57D0056C247 /* Base */,
 				F24780AC22EAF46500366FC8 /* de */,
-				1CAEA9188CD5A65802E4DB3E /* sv */,
-				8FD41157A23D8CC8032F4283 /* nb */,
-				AEC823786293DC311D6C57FA /* nn */,
-				13BC57CAA66D7816D539C7AF /* da */,
-				298153BDA9F50F33CC1722D9 /* fi */,
 			);
 			name = SavePanelAccessory.xib;
 			sourceTree = "<group>";
@@ -3228,11 +3088,6 @@
 			children = (
 				F286A752215CE57D0056C247 /* Base */,
 				F24780AD22EAF46600366FC8 /* de */,
-				26189765C28E4EEB07B77111 /* sv */,
-				BD38E837882E411ABFA7204A /* nb */,
-				8EE3AA8F4730A93BC8B5368D /* nn */,
-				CCCBDC1854CD4CC9A9597C4E /* da */,
-				FCB176D9F651EEF61B35232F /* fi */,
 			);
 			name = SelectEncodingsPanel.xib;
 			sourceTree = "<group>";
@@ -3241,11 +3096,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				F286A755215CE6410056C247 /* Base */,
-				4613C48EDD51FB7E3EC2AAD3 /* sv */,
-				8B77A529B8DB478884205AF8 /* nb */,
-				D8A3507C492577117E5F66B2 /* nn */,
-				3CE04F23B90D439AA7A34183 /* da */,
-				BA673A83231BC1A3865DB076 /* fi */,
 			);
 			name = AboutPanel.xib;
 			sourceTree = "<group>";
@@ -3255,11 +3105,6 @@
 			children = (
 				F24780A222EAF46500366FC8 /* de */,
 				F22E9F2722FEECCB00326183 /* Base */,
-				98EB510AE5635BEE7C4D3EE5 /* sv */,
-				BB81FB1E55850AEE82F91EC0 /* nb */,
-				F8BCDD0C82F05347404D1690 /* nn */,
-				E7165259EE358BD2396CCE0D /* da */,
-				6EF46B16620F81B1A96D24E8 /* fi */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -3267,6 +3112,18 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		21F063D14820A43E8E33AEEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SubEthaEditLSPHost.entitlements;
+				INFOPLIST_FILE = "LSPHost-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "${SEE_APP_IDENTIFIER_BASE}.Mac${TCM_APP_STYLE}${TCM_APP_IDENTIFER_SUFFIX}.LSPHost";
+				PRODUCT_NAME = SubEthaEditLSPHost;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		5EC6382E0ABEB71200D3295B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3540,6 +3397,18 @@
 			};
 			name = Release;
 		};
+		FA71533BB7DF000AD414F5E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SubEthaEditLSPHost.entitlements;
+				INFOPLIST_FILE = "LSPHost-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "${SEE_APP_IDENTIFIER_BASE}.Mac${TCM_APP_STYLE}${TCM_APP_IDENTIFER_SUFFIX}.LSPHost";
+				PRODUCT_NAME = SubEthaEditLSPHost;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3566,6 +3435,15 @@
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
 				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA6D393320D93057D69DB346 /* Build configuration list for PBXNativeTarget "SubEthaEditLSPHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21F063D14820A43E8E33AEEB /* Release */,
+				FA71533BB7DF000AD414F5E4 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
