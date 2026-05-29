@@ -3,21 +3,21 @@
 
 #import "SEELSPHostService.h"
 #import "SEELSPClientProtocol.h"
-#import "SEELSPChildProcess.h"
+#import "SEELSPServerSession.h"
 
 static NSInteger const SEELSPJSONRPCInternalError = -32603;
 static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorDomain";
 
 @implementation SEELSPHostService {
     __weak NSXPCConnection *I_connection;
-    NSMutableDictionary<NSString *, SEELSPChildProcess *> *I_childrenByID;
+    NSMutableDictionary<NSString *, SEELSPServerSession *> *I_sessionsByID;
     NSMutableDictionary<NSString *, NSURL *> *I_scopedURLsByID;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        I_childrenByID = [NSMutableDictionary dictionary];
+        I_sessionsByID = [NSMutableDictionary dictionary];
         I_scopedURLsByID = [NSMutableDictionary dictionary];
     }
     return self;
@@ -80,28 +80,16 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
     if (!executableURL) {
         reply(NO, error);
     } else {
-        NSArray *arguments = configuration[@"arguments"];
-        NSDictionary *environment = configuration[@"environment"];
-        SEELSPChildProcess *child = [[SEELSPChildProcess alloc] initWithExecutableURL:executableURL
-                                                                            arguments:(arguments ?: @[])
-                                                                          environment:environment];
-        [self TCM_wireChild:child forServerInstanceID:serverInstanceID];
+        SEELSPServerSession *session = [[SEELSPServerSession alloc] initWithExecutableURL:executableURL
+                                                                               arguments:(configuration[@"arguments"] ?: @[])
+                                                                             environment:configuration[@"environment"]
+                                                                        initializeParams:(configuration[@"initializeParams"] ?: @{})];
+        [self TCM_wireSession:session forServerInstanceID:serverInstanceID];
         @synchronized (self) {
-            I_childrenByID[serverInstanceID] = child;
+            I_sessionsByID[serverInstanceID] = session;
         }
-
-        NSDictionary *initializeParams = configuration[@"initializeParams"] ?: @{};
-        __weak typeof(self) weakSelf = self;
-        [child launchAndInitializeWithParams:initializeParams timeout:30.0 reply:^(NSDictionary *capabilities, NSError *handshakeError) {
-            typeof(self) strongSelf = weakSelf;
-            if (handshakeError) {
-                [strongSelf TCM_removeServer:serverInstanceID];
-                reply(NO, handshakeError);
-            } else {
-                [[strongSelf TCM_client] server:serverInstanceID didChangeState:SEELSPServerStateRunning];
-                reply(YES, nil);
-            }
-        }];
+        [session start];
+        reply(YES, nil);
     }
 }
 
@@ -109,9 +97,9 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
         method:(NSString *)method
         params:(NSDictionary *)params
         reply:(void (^)(id, NSDictionary *))reply {
-    SEELSPChildProcess *child = [self TCM_childForID:serverInstanceID];
-    if (child) {
-        [child sendRequestMethod:method params:params reply:^(id result, id errorObject) {
+    SEELSPServerSession *session = [self TCM_sessionForID:serverInstanceID];
+    if (session) {
+        [session sendRequestMethod:method params:params reply:^(id result, id errorObject) {
             reply(result, errorObject);
         }];
     } else {
@@ -122,53 +110,59 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
 - (void)sendNotificationForServer:(NSString *)serverInstanceID
         method:(NSString *)method
         params:(NSDictionary *)params {
-    [[self TCM_childForID:serverInstanceID] sendNotificationMethod:method params:params];
+    [[self TCM_sessionForID:serverInstanceID] sendNotificationMethod:method params:params];
 }
 
 - (void)cancelRequestForServer:(NSString *)serverInstanceID requestToken:(NSString *)requestToken {
 }
 
 - (void)stopServer:(NSString *)serverInstanceID reply:(void (^)(void))reply {
-    [[self TCM_childForID:serverInstanceID] terminate];
+    [[self TCM_sessionForID:serverInstanceID] shutdown];
     [self TCM_removeServer:serverInstanceID];
     reply();
 }
 
-#pragma mark - Child wiring
+#pragma mark - Session wiring
 
-- (void)TCM_wireChild:(SEELSPChildProcess *)child forServerInstanceID:(NSString *)serverInstanceID {
+- (void)TCM_wireSession:(SEELSPServerSession *)session forServerInstanceID:(NSString *)serverInstanceID {
     __weak typeof(self) weakSelf = self;
 
-    child.notificationHandler = ^(NSString *method, id params) {
+    session.stateChangeHandler = ^(SEELSPServerState state) {
+        [[weakSelf TCM_client] server:serverInstanceID didChangeState:state];
+        if (state == SEELSPServerStateStopped) {
+            [weakSelf TCM_releaseScopedURLForServer:serverInstanceID];
+        }
+    };
+    session.notificationHandler = ^(NSString *method, id params) {
         [[weakSelf TCM_client] server:serverInstanceID didReceiveNotificationMethod:method params:params];
     };
-    child.serverRequestHandler = ^(id requestID, NSString *method, id params, void (^respond)(id, id)) {
+    session.serverRequestHandler = ^(id requestID, NSString *method, id params, void (^respond)(id, id)) {
         [[weakSelf TCM_client] server:serverInstanceID didReceiveServerRequestMethod:method params:params reply:^(id result, NSDictionary *errorObject) {
             respond(result, errorObject);
         }];
     };
-    child.stderrHandler = ^(NSString *text) {
+    session.stderrHandler = ^(NSString *text) {
         [[weakSelf TCM_client] server:serverInstanceID didEmitStderr:text];
-    };
-    child.terminationHandler = ^(int status) {
-        typeof(self) strongSelf = weakSelf;
-        [[strongSelf TCM_client] server:serverInstanceID didTerminateWithStatus:status reason:0];
-        [[strongSelf TCM_client] server:serverInstanceID didChangeState:SEELSPServerStateStopped];
-        [strongSelf TCM_removeServer:serverInstanceID];
     };
 }
 
 #pragma mark - Server registry
 
-- (SEELSPChildProcess *)TCM_childForID:(NSString *)serverInstanceID {
+- (SEELSPServerSession *)TCM_sessionForID:(NSString *)serverInstanceID {
     @synchronized (self) {
-        return I_childrenByID[serverInstanceID];
+        return I_sessionsByID[serverInstanceID];
     }
 }
 
 - (void)TCM_removeServer:(NSString *)serverInstanceID {
     @synchronized (self) {
-        [I_childrenByID removeObjectForKey:serverInstanceID];
+        [I_sessionsByID removeObjectForKey:serverInstanceID];
+    }
+    [self TCM_releaseScopedURLForServer:serverInstanceID];
+}
+
+- (void)TCM_releaseScopedURLForServer:(NSString *)serverInstanceID {
+    @synchronized (self) {
         NSURL *scopedURL = I_scopedURLsByID[serverInstanceID];
         if (scopedURL) {
             [scopedURL stopAccessingSecurityScopedResource];
@@ -178,15 +172,15 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
 }
 
 - (void)TCM_teardownAllServers {
-    NSArray<SEELSPChildProcess *> *children = nil;
+    NSArray<SEELSPServerSession *> *sessions = nil;
     NSArray<NSURL *> *scopedURLs = nil;
     @synchronized (self) {
-        children = [I_childrenByID allValues];
+        sessions = [I_sessionsByID allValues];
         scopedURLs = [I_scopedURLsByID allValues];
-        [I_childrenByID removeAllObjects];
+        [I_sessionsByID removeAllObjects];
         [I_scopedURLsByID removeAllObjects];
     }
-    [children makeObjectsPerformSelector:@selector(terminate)];
+    [sessions makeObjectsPerformSelector:@selector(shutdown)];
     for (NSURL *scopedURL in scopedURLs) {
         [scopedURL stopAccessingSecurityScopedResource];
     }
