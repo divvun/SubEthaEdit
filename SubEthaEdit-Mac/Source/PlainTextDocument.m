@@ -9,6 +9,8 @@
 #import <TCMPortMapper/TCMPortMapper.h>
 
 #import "TCMMillionMonkeys/TCMMillionMonkeys.h"
+#import "SEELSPController.h"
+#import "SEELSPServerConfiguration.h"
 #import "PlainTextEditor.h"
 #import "SEEConnectionManager.h"
 #import "SEEDocumentController.h"
@@ -784,6 +786,7 @@ static NSString *tempFileName(NSString *origPath) {
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_lspController shutdown];
     if (I_flags.isAnnounced) {
         [[TCMMMPresenceManager sharedInstance] concealSession:I_session];
     }
@@ -967,6 +970,19 @@ static NSString *tempFileName(NSString *origPath) {
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:PlainTextDocumentDidChangeDocumentModeNotification object:self];
 		[self invalidateRestorableState];
+        [self TCM_updateLanguageServer];
+    }
+}
+
+// Each participant runs its own server against its own local copy, so this is gated on a
+// startable config and a non-proxy document, not on session role.
+- (void)TCM_updateLanguageServer {
+    [self.lspController shutdown];
+    self.lspController = nil;
+    SEELSPServerConfiguration *configuration = [I_documentMode languageServerConfiguration];
+    if (configuration.isStartable && ![self isProxyDocument]) {
+        self.lspController = [[SEELSPController alloc] initWithDocument:self];
+        [self.lspController startIfNeeded];
     }
 }
 
@@ -1663,6 +1679,8 @@ static void S_performShouldCloseCallback(id delegate, SEL shouldCloseSelector, N
     I_flags.highlightSyntax = NO;
     [I_symbolUpdateTimer invalidate];
     [I_webPreviewDelayedRefreshTimer invalidate];
+    [self.lspController shutdown];
+    self.lspController = nil;
     [self TCM_sendODBCloseEvent];
 
     // Do the regular NSDocument thing.
