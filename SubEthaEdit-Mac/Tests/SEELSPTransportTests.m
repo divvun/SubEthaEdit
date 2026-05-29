@@ -1,9 +1,5 @@
 //  SEELSPTransportTests.m
 //  SubEthaEdit
-//
-//  Unit tests for the LSP transport primitives (framing reader/writer + JSON-RPC
-//  coordinator). These exercise the byte-level framing state machine directly, which is
-//  the part the rest of the LSP feature depends on.
 
 #import <XCTest/XCTest.h>
 #import "SEELSPMessageReader.h"
@@ -21,7 +17,6 @@
     return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-// Collect every message body the reader emits for the supplied chunks.
 - (NSArray<NSData *> *)bodiesByFeeding:(NSArray<NSData *> *)chunks toReader:(SEELSPMessageReader *)reader {
     NSMutableArray<NSData *> *bodies = [NSMutableArray array];
     reader.messageHandler = ^(NSData *jsonBody) {
@@ -74,7 +69,6 @@
     NSData *body = [self dataFromString:@"{\"hello\":\"world\"}"];
     NSData *framed = [SEELSPMessageWriter framedDataForJSONBody:body];
 
-    // Split at every single byte to stress the carry-over logic.
     NSMutableArray<NSData *> *chunks = [NSMutableArray array];
     for (NSUInteger i = 0; i < [framed length]; i++) {
         [chunks addObject:[framed subdataWithRange:NSMakeRange(i, 1)]];

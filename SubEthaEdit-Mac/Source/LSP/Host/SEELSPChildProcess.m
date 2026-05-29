@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
     NSPipe *I_stdinPipe;
     NSPipe *I_stdoutPipe;
     NSPipe *I_stderrPipe;
-    int I_stdinFD;          // owned by I_stdinPipe's write handle; we only write to it
+    int I_stdinFD;
     dispatch_source_t I_stdoutSource;
     dispatch_source_t I_stderrSource;
 
@@ -76,12 +76,10 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
         }
     };
     I_reader.errorHandler = ^(NSError *error) {
-        // A framing violation means the stream is unrecoverable; tear the process down.
         [weakSelf terminate];
     };
 
     I_coordinator.responseSender = ^(NSDictionary *responseObject) {
-        // Already on the serial queue (called from within handleIncomingObject).
         [weakSelf TCM_sendObjectOnQueue:responseObject];
     };
     I_coordinator.notificationHandler = ^(NSString *method, id params) {
@@ -127,7 +125,7 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
         I_task = task;
         I_running = YES;
 
-        // Writing to a dead child's stdin must return EPIPE, not raise SIGPIPE and kill us.
+        // Writing to a dead child's stdin must return EPIPE rather than raise SIGPIPE.
         I_stdinFD = I_stdinPipe.fileHandleForWriting.fileDescriptor;
         int one = 1;
         fcntl(I_stdinFD, F_SETNOSIGPIPE, &one);
@@ -149,8 +147,8 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
     return launched;
 }
 
-// dup the read end so the dispatch source owns its own descriptor; the NSPipe keeps its own,
-// avoiding a double-close race when either side tears down.
+// dup the read end so the dispatch source owns its descriptor and never double-closes the
+// NSPipe's fd.
 - (dispatch_source_t)TCM_makeReadSourceForFD:(int)fd consumer:(void (^)(NSData *chunk))consumer {
     int dupFD = dup(fd);
     dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, dupFD, 0, I_queue);
@@ -184,13 +182,12 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
         reply(nil, launchError);
     } else {
         __weak typeof(self) weakSelf = self;
-        __block BOOL replied = NO; // touched only on I_queue (the reply and the timeout both run there)
+        __block BOOL replied = NO;
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)), I_queue, ^{
             if (!replied) {
                 replied = YES;
-                typeof(self) strongSelf = weakSelf;
-                [strongSelf terminate];
+                [weakSelf terminate];
                 reply(nil, [SEELSPChildProcess TCM_errorWithCode:SEELSPChildProcessInitializeTimedOut
                                                          message:@"Language server did not answer initialize in time"]);
             }
@@ -257,7 +254,7 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
             } else if (n == -1 && errno == EINTR) {
                 continue;
             } else {
-                break; // EPIPE or other: the child is gone.
+                break;
             }
         }
     }
@@ -274,8 +271,6 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
 }
 
 - (void)TCM_handleStreamEnd {
-    // stdout/stderr closed; the process is on its way out. Termination is finalised by the
-    // task's terminationHandler.
 }
 
 - (void)TCM_handleTerminationWithStatus:(int)status {

@@ -1,11 +1,5 @@
 //  SEELSPChildProcessTests.m
 //  SubEthaEdit
-//
-//  Exercises the child-process pipe plumbing end to end without the XPC service, by
-//  launching /bin/cat (a system binary, so no sandbox/bookmark needed) and round-tripping
-//  framed JSON-RPC through its stdin->stdout echo. This validates NSTask launch, the stdin
-//  writer (with the SIGPIPE guard), the stdout dispatch_source reader, and the framing +
-//  coordinator integration.
 
 #import <XCTest/XCTest.h>
 #import "SEELSPChildProcess.h"
@@ -35,8 +29,6 @@
     NSError *error = nil;
     XCTAssertTrue([child launchAndReturnError:&error], @"cat failed to launch: %@", error);
 
-    // cat echoes the framed notification back; the reader/coordinator deframe it and, since it
-    // has a method and no id, classify it as a notification.
     [child sendNotificationMethod:@"test/echo" params:@{@"value": @42, @"items": @[@"a", @"b"]}];
 
     [self waitForExpectations:@[echoed] timeout:5.0];
@@ -69,9 +61,6 @@
     [child terminate];
 }
 
-// Real request/response correlation over a genuine subprocess (vs /bin/cat's echo): run an
-// actual language server and complete the initialize/initialized handshake. Skipped where
-// clangd isn't installed so the suite stays green on bare machines.
 - (void)testInitializeHandshakeAgainstClangd {
     NSString *clangdPath = @"/usr/bin/clangd";
     if (![[NSFileManager defaultManager] isExecutableFileAtPath:clangdPath]) {
@@ -99,7 +88,6 @@
     [self waitForExpectations:@[handshook] timeout:15.0];
     XCTAssertNil(handshakeError, @"initialize handshake failed: %@", handshakeError);
     XCTAssertNotNil(capabilities);
-    // textDocumentSync is advertised by every LSP server that supports document sync.
     XCTAssertNotNil(capabilities[@"textDocumentSync"], @"clangd should advertise textDocumentSync");
     [child terminate];
 }
