@@ -126,6 +126,7 @@
 		14E294510A0CBFB0007C0065 /* SelectCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2944F0A0CBFB0007C0065 /* SelectCommand.m */; };
 		14EC6E280A63F2E800B44481 /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14EC6E270A63F2E800B44481 /* ServicesMenu.strings */; };
 		2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FD08391EAC61E210391307BA /* SEELSPChildProcess.m */; };
+		2C50D8A66270B1FCF3F92E57 /* SEELSPServerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */; };
 		2CED1D50238000FF00359D99 /* SEEWebPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED1D4F238000FF00359D99 /* SEEWebPreview.m */; };
 		2CED1D54238007F900359D99 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CED1D53238007F900359D99 /* JavaScriptCore.framework */; };
 		311717F40A0E8C3600A9DA18 /* ModeSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 311717F20A0E8C3600A9DA18 /* ModeSettings.m */; };
@@ -240,7 +241,9 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		9B77854BC6F109B44A6CFC18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4238FEC73502F156AD0A00 /* Foundation.framework */; };
 		9E9F58AD2319EC3C00E838D1 /* SEEAlertRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F58AC2319EC3C00E838D1 /* SEEAlertRecipe.m */; };
+		CF59FA3C81A95274F8FD0D92 /* SEELSPServerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */; };
 		D7BD4227AE18EA644B8996D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 889ADD5A92F7FF74DCF6ADE1 /* main.m */; };
+		DA073B53761CBA0F337FE2BC /* SEELSPServerSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6F4BF1A23411CF83D47D48 /* SEELSPServerSessionTests.m */; };
 		DDA5F00200000000000000B2 /* SEELSPMessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A2 /* SEELSPMessageReader.m */; };
 		DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
 		DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */; };
@@ -771,6 +774,7 @@
 		14E2944E0A0CBFB0007C0065 /* SelectCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SelectCommand.h; sourceTree = "<group>"; };
 		14E2944F0A0CBFB0007C0065 /* SelectCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCommand.m; sourceTree = "<group>"; };
 		19BF0896BB0D3C0D6744EEE9 /* SEELSPHostService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostService.h; sourceTree = "<group>"; };
+		22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerSession.m; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -930,12 +934,14 @@
 		86A3F37DF2BCB5CAEFA2DEFD /* SEELSPHostProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostProtocol.h; sourceTree = "<group>"; };
 		889ADD5A92F7FF74DCF6ADE1 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AE9093B7923A1CABE9D9645 /* SEELSPChildProcessTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPChildProcessTests.m; sourceTree = "<group>"; };
+		8C6F4BF1A23411CF83D47D48 /* SEELSPServerSessionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerSessionTests.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* SubEthaEdit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubEthaEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9F58AB2319EC3C00E838D1 /* SEEAlertRecipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEAlertRecipe.h; sourceTree = "<group>"; };
 		9E9F58AC2319EC3C00E838D1 /* SEEAlertRecipe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEAlertRecipe.m; sourceTree = "<group>"; };
 		9F4238FEC73502F156AD0A00 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPHostService.m; sourceTree = "<group>"; };
+		BC9D9A2BDB72EAEBAEAB7B5E /* SEELSPServerSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPServerSession.h; sourceTree = "<group>"; };
 		BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; name = SubEthaEditLSPHost.xpc; path = SubEthaEditLSPHost.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		C705F18D3C898889B98BE235 /* SEELSPServerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerManager.m; sourceTree = "<group>"; };
 		D51755C47E57AF5284E467F9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -2011,6 +2017,8 @@
 				889ADD5A92F7FF74DCF6ADE1 /* main.m */,
 				2D2D74EFD16D088CA44A7212 /* SEELSPChildProcess.h */,
 				FD08391EAC61E210391307BA /* SEELSPChildProcess.m */,
+				BC9D9A2BDB72EAEBAEAB7B5E /* SEELSPServerSession.h */,
+				22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */,
 			);
 			path = Host;
 			sourceTree = "<group>";
@@ -2033,6 +2041,7 @@
 				F21BFB3B2603771600C4578C /* DataTests.h */,
 				DDA5F00100000000000000A7 /* SEELSPTransportTests.m */,
 				8AE9093B7923A1CABE9D9645 /* SEELSPChildProcessTests.m */,
+				8C6F4BF1A23411CF83D47D48 /* SEELSPServerSessionTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2599,6 +2608,8 @@
 				DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */,
 				2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */,
 				315767C684F7C3461949471A /* SEELSPChildProcessTests.m in Sources */,
+				CF59FA3C81A95274F8FD0D92 /* SEELSPServerSession.m in Sources */,
+				DA073B53761CBA0F337FE2BC /* SEELSPServerSessionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2612,6 +2623,7 @@
 				7D4F919EDA0A3877760AA5A7 /* SEELSPMessageWriter.m in Sources */,
 				513719C1661B5F11F7579A9D /* SEELSPRPCCoordinator.m in Sources */,
 				35E86AC932EE10BA1D7C083E /* SEELSPChildProcess.m in Sources */,
+				2C50D8A66270B1FCF3F92E57 /* SEELSPServerSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
