@@ -98,6 +98,7 @@ extern NSString * const DocumentModeStyleSheetsDefaultLanguageContextKey;
 @class SEEStyleSheet;
 @class SEEStyleSheetSettings;
 @class SEEWebPreview;
+@class SEELSPServerConfiguration;
 
 @interface DocumentMode : NSObject {
     SyntaxStyle *I_syntaxStyle,*I_defaultSyntaxStyle;
@@ -140,6 +141,7 @@ extern NSString * const DocumentModeStyleSheetsDefaultLanguageContextKey;
 - (NSArray *)recognizedExtensions;
 
 - (id)defaultForKey:(NSString *)aKey;
+- (SEELSPServerConfiguration *)languageServerConfiguration;
 - (SyntaxStyle *)syntaxStyle;
 - (void)setSyntaxStyle:(SyntaxStyle *)aStyle;
 - (SEEStyleSheetSettings *)styleSheetSettings;

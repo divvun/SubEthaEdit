@@ -5,6 +5,7 @@
 
 #import "DocumentMode.h"
 #import "DocumentModeManager.h"
+#import "SEELSPServerConfiguration.h"
 #import "ModeSettings.h"
 #import "SyntaxHighlighter.h"
 #import "SyntaxDefinition.h"
@@ -98,6 +99,7 @@ NSString * const DocumentModeFontNameSystemFontValue = @"_SEESystemMonoFont_";
 
 @interface DocumentMode ()
 @property (nonatomic, readwrite) BOOL isBaseMode;
+@property (nonatomic, copy) NSDictionary *languageServerDefaults;
 @end
 
 @implementation DocumentMode
@@ -241,6 +243,11 @@ NSString * const DocumentModeFontNameSystemFontValue = @"_SEESystemMonoFont_";
 		if (scopeExamplesURL) {
 			_scopeExamples = [[NSDictionary alloc] initWithContentsOfURL:scopeExamplesURL];
 			_availableScopes = [[_scopeExamples allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+		}
+
+		NSURL *languageServerURL = [_bundle URLForResource:@"LanguageServer" withExtension:@"plist"];
+		if (languageServerURL) {
+			self.languageServerDefaults = [NSDictionary dictionaryWithContentsOfURL:languageServerURL];
 		}
 
 
@@ -520,6 +527,12 @@ NSString * const DocumentModeFontNameSystemFontValue = @"_SEESystemMonoFont_";
         }
     }
     return [defaultDefaults objectForKey:aKey];
+}
+
+- (SEELSPServerConfiguration *)languageServerConfiguration {
+	NSDictionary *modeDefaults = [[NSUserDefaults standardUserDefaults] dictionaryForKey:[self documentModeIdentifier]];
+	NSDictionary *override = modeDefaults[@"SEELanguageServerOverride"];
+	return [SEELSPServerConfiguration configurationWithBundleDefaults:self.languageServerDefaults override:override];
 }
 
 - (void)reloadStyleSheetSettings {
