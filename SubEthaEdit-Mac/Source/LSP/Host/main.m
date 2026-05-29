@@ -1,8 +1,5 @@
 //  main.m
 //  SubEthaEditLSPHost
-//
-//  Entry point for the LSP host XPC service. Vends SEELSPHostService over the service
-//  listener and runs until the host app disconnects.
 
 #import <Foundation/Foundation.h>
 #import "SEELSPHostService.h"

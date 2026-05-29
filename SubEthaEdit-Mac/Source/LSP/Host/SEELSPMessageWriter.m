@@ -7,8 +7,6 @@
 
 + (NSData *)framedDataForJSONObject:(id)object error:(NSError **)error {
     NSData *result = nil;
-    // Guard with isValidJSONObject: — dataWithJSONObject: raises for an invalid
-    // top-level type rather than returning an error, and the writer must never throw.
     if ([NSJSONSerialization isValidJSONObject:object]) {
         NSData *body = [NSJSONSerialization dataWithJSONObject:object options:0 error:error];
         if (body) {

@@ -9,7 +9,7 @@ static NSUInteger const SEELSPDefaultMaximumContentLength = 64 * 1024 * 1024;
 
 @implementation SEELSPMessageReader {
     NSMutableData *I_buffer;
-    NSInteger I_expectedContentLength; // -1 while reading headers, >= 0 while reading content
+    NSInteger I_expectedContentLength; // -1 while reading headers
 }
 
 - (instancetype)init {
@@ -34,9 +34,6 @@ static NSUInteger const SEELSPDefaultMaximumContentLength = 64 * 1024 * 1024;
     }
 }
 
-// Consume as many complete messages as the buffer currently holds. Each pass either
-// transitions header -> content (a length became known) or emits one message body;
-// when neither can make progress we need more bytes and stop.
 - (void)TCM_processBuffer {
     BOOL keepGoing = YES;
     while (keepGoing) {

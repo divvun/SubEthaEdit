@@ -3,12 +3,11 @@
 
 #import "SEELSPRPCCoordinator.h"
 
-// JSON-RPC reserved error code, used when a server request arrives with no handler.
 static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
 
 @implementation SEELSPRPCCoordinator {
     long long I_nextRequestID;
-    NSMutableDictionary *I_pendingReplies; // NSNumber(id) -> void (^)(id result, id errorObject)
+    NSMutableDictionary *I_pendingReplies;
 }
 
 - (instancetype)init {
@@ -68,7 +67,6 @@ static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
         } else if (hasID) {
             [self TCM_handleResponse:message forID:idObject];
         }
-        // Anything else is malformed and is ignored.
     }
 }
 
@@ -92,7 +90,6 @@ static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
             reply(message[@"result"], nil);
         }
     }
-    // An unknown id is ignored (late response to a cancelled/cleared request).
 }
 
 - (void)TCM_handleServerRequestWithID:(id)idObject method:(NSString *)method params:(id)params {
