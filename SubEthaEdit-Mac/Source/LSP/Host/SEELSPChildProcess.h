@@ -29,6 +29,15 @@
 
 - (BOOL)launchAndReturnError:(NSError **)error;
 
+// Launch, then perform the LSP initialize/initialized handshake: send `initialize` with the
+// given params, and on success send the `initialized` notification. reply is invoked once on
+// the serial queue with the server's capabilities (the `initialize` result's "capabilities"
+// object) on success, or an error if the process failed to launch, `initialize` returned an
+// error, or no response arrived within timeout. On any failure the process is terminated.
+- (void)launchAndInitializeWithParams:(NSDictionary *)initializeParams
+        timeout:(NSTimeInterval)timeout
+        reply:(void (^)(NSDictionary *capabilities, NSError *error))reply;
+
 // reply is invoked once with exactly one of (result, errorObject) non-nil, or (nil, errorObject)
 // if the process dies before a response arrives.
 - (void)sendRequestMethod:(NSString *)method params:(id)params reply:(void (^)(id result, id errorObject))reply;

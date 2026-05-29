@@ -69,6 +69,41 @@
     [child terminate];
 }
 
+// Real request/response correlation over a genuine subprocess (vs /bin/cat's echo): run an
+// actual language server and complete the initialize/initialized handshake. Skipped where
+// clangd isn't installed so the suite stays green on bare machines.
+- (void)testInitializeHandshakeAgainstClangd {
+    NSString *clangdPath = @"/usr/bin/clangd";
+    if (![[NSFileManager defaultManager] isExecutableFileAtPath:clangdPath]) {
+        XCTSkip(@"clangd not available at %@", clangdPath);
+    }
+
+    SEELSPChildProcess *child = [[SEELSPChildProcess alloc] initWithExecutableURL:[NSURL fileURLWithPath:clangdPath]
+                                                                        arguments:@[]
+                                                                      environment:nil];
+    XCTestExpectation *handshook = [self expectationWithDescription:@"clangd initialize handshake completes"];
+    __block NSDictionary *capabilities = nil;
+    __block NSError *handshakeError = nil;
+
+    NSDictionary *params = @{
+        @"processId": @((NSInteger)[[NSProcessInfo processInfo] processIdentifier]),
+        @"rootUri": [NSNull null],
+        @"capabilities": @{},
+    };
+    [child launchAndInitializeWithParams:params timeout:10.0 reply:^(NSDictionary *caps, NSError *error) {
+        capabilities = caps;
+        handshakeError = error;
+        [handshook fulfill];
+    }];
+
+    [self waitForExpectations:@[handshook] timeout:15.0];
+    XCTAssertNil(handshakeError, @"initialize handshake failed: %@", handshakeError);
+    XCTAssertNotNil(capabilities);
+    // textDocumentSync is advertised by every LSP server that supports document sync.
+    XCTAssertNotNil(capabilities[@"textDocumentSync"], @"clangd should advertise textDocumentSync");
+    [child terminate];
+}
+
 - (void)testTerminationHandlerFiresOnTerminate {
     SEELSPChildProcess *child = [self catProcess];
     XCTestExpectation *terminated = [self expectationWithDescription:@"termination handler fires"];

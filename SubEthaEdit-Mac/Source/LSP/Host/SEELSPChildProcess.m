@@ -12,6 +12,12 @@
 static NSInteger const SEELSPChildProcessTerminatedErrorCode = -32099;
 static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
 
+static NSString * const SEELSPChildProcessErrorDomain = @"SEELSPChildProcessErrorDomain";
+typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
+    SEELSPChildProcessInitializeFailed = 1,
+    SEELSPChildProcessInitializeTimedOut = 2,
+};
+
 @implementation SEELSPChildProcess {
     NSArray<NSString *> *I_arguments;
     NSDictionary<NSString *, NSString *> *I_environment;
@@ -165,6 +171,61 @@ static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
     });
     dispatch_resume(source);
     return source;
+}
+
+#pragma mark - Initialize handshake
+
+- (void)launchAndInitializeWithParams:(NSDictionary *)initializeParams
+        timeout:(NSTimeInterval)timeout
+        reply:(void (^)(NSDictionary *, NSError *))reply {
+    NSError *launchError = nil;
+    BOOL launched = [self launchAndReturnError:&launchError];
+    if (!launched) {
+        reply(nil, launchError);
+    } else {
+        __weak typeof(self) weakSelf = self;
+        __block BOOL replied = NO; // touched only on I_queue (the reply and the timeout both run there)
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(timeout * NSEC_PER_SEC)), I_queue, ^{
+            if (!replied) {
+                replied = YES;
+                typeof(self) strongSelf = weakSelf;
+                [strongSelf terminate];
+                reply(nil, [SEELSPChildProcess TCM_errorWithCode:SEELSPChildProcessInitializeTimedOut
+                                                         message:@"Language server did not answer initialize in time"]);
+            }
+        });
+
+        [self sendRequestMethod:@"initialize" params:initializeParams reply:^(id result, id errorObject) {
+            if (!replied) {
+                replied = YES;
+                typeof(self) strongSelf = weakSelf;
+                if (errorObject) {
+                    [strongSelf terminate];
+                    reply(nil, [SEELSPChildProcess TCM_errorWithCode:SEELSPChildProcessInitializeFailed
+                                                             message:[SEELSPChildProcess TCM_messageFromErrorObject:errorObject]]);
+                } else {
+                    [strongSelf sendNotificationMethod:@"initialized" params:@{}];
+                    NSDictionary *capabilities = [result isKindOfClass:[NSDictionary class]] ? result[@"capabilities"] : nil;
+                    reply(capabilities ?: @{}, nil);
+                }
+            }
+        }];
+    }
+}
+
++ (NSError *)TCM_errorWithCode:(SEELSPChildProcessErrorCode)code message:(NSString *)message {
+    return [NSError errorWithDomain:SEELSPChildProcessErrorDomain
+                               code:code
+                           userInfo:@{NSLocalizedDescriptionKey: message ?: @"LSP error"}];
+}
+
++ (NSString *)TCM_messageFromErrorObject:(id)errorObject {
+    NSString *message = nil;
+    if ([errorObject isKindOfClass:[NSDictionary class]]) {
+        message = errorObject[@"message"];
+    }
+    return message ?: @"initialize failed";
 }
 
 #pragma mark - Sending
