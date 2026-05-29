@@ -5,11 +5,13 @@
 #import "SEELSPHostProtocol.h"
 #import "SEELSPClientProtocol.h"
 
+static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
+
 @interface SEELSPServerManager () <SEELSPClientProtocol>
 @end
 
 @implementation SEELSPServerManager {
-    NSXPCConnection *I_connection; // single shared connection; recreated lazily after death
+    NSXPCConnection *I_connection;
 }
 
 + (instancetype)sharedManager {
@@ -21,11 +23,17 @@
     return manager;
 }
 
++ (NSData *)bookmarkForExecutableURL:(NSURL *)url error:(NSError **)error {
+    return [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
+        includingResourceValuesForKeys:nil
+                         relativeToURL:nil
+                                 error:error];
+}
+
 #pragma mark - Connection
 
-// The embedded service's bundle id is the app's id plus ".LSPHost" (see LSPHost-Info.plist
-// + the target's PRODUCT_BUNDLE_IDENTIFIER), so deriving it keeps FULL / App Store / Dev
-// build styles working without a hardcoded name.
+// The embedded service's bundle id is the app's id plus ".LSPHost"; deriving it keeps the
+// FULL / App Store / Dev build styles working without a hardcoded name.
 - (NSString *)TCM_serviceName {
     return [[[NSBundle mainBundle] bundleIdentifier] stringByAppendingString:@".LSPHost"];
 }
@@ -49,15 +57,13 @@
 }
 
 - (void)TCM_dropConnection {
-    // Handlers fire on an arbitrary queue; touch I_connection only on the main thread so a
-    // dying connection and a fresh request can't race. Next -TCM_connection reconnects.
     dispatch_async(dispatch_get_main_queue(), ^{
         self->I_connection = nil;
     });
 }
 
-// See SEELSPHostService for why every JSON-collection argument must be whitelisted in both
-// directions (and for reply-block arguments). Mirror of the service-side configuration.
+// NSXPC drops JSON-collection arguments unless their member classes are whitelisted per
+// selector and argument, in both directions and for reply-block arguments.
 - (void)TCM_whitelistJSONClassesForConnection:(NSXPCConnection *)connection {
     NSSet *json = [NSSet setWithObjects:NSDictionary.class, NSArray.class, NSString.class, NSNumber.class, NSNull.class, nil];
 
@@ -75,24 +81,68 @@
     [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:1 ofReply:YES];
 }
 
+- (id<SEELSPHostProtocol>)TCM_hostProxyWithReplyOnError:(void (^)(NSError *error))errorHandler {
+    return [[self TCM_connection] remoteObjectProxyWithErrorHandler:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{ errorHandler(error); });
+    }];
+}
+
+- (NSDictionary *)TCM_errorObjectFromError:(NSError *)error {
+    return @{@"code": @(SEELSPConnectionFailedErrorCode), @"message": error.localizedDescription ?: @"XPC connection failed"};
+}
+
 #pragma mark - Public API
 
 - (void)pingWithReply:(void (^)(NSString *, NSError *))reply {
-    id<SEELSPHostProtocol> proxy = [[self TCM_connection] remoteObjectProxyWithErrorHandler:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{ reply(nil, error); });
-    }];
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(nil, error); }];
     [proxy pingWithReply:^(NSString *pong) {
         dispatch_async(dispatch_get_main_queue(), ^{ reply(pong, nil); });
     }];
 }
 
-#pragma mark - SEELSPClientProtocol (server -> app)
+- (void)startServerWithConfiguration:(NSDictionary *)configuration
+        serverInstanceID:(NSString *)serverInstanceID
+        bookmark:(NSData *)bookmark
+        reply:(void (^)(BOOL, NSError *))reply {
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(NO, error); }];
+    [proxy startServerWithConfiguration:configuration serverInstanceID:serverInstanceID bookmark:bookmark reply:^(BOOL started, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{ reply(started, error); });
+    }];
+}
 
-// Routed to per-document controllers in a later phase; no-ops until then.
+- (void)sendRequestForServer:(NSString *)serverInstanceID
+        method:(NSString *)method
+        params:(NSDictionary *)params
+        reply:(void (^)(id, NSDictionary *))reply {
+    __weak typeof(self) weakSelf = self;
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) {
+        reply(nil, [weakSelf TCM_errorObjectFromError:error]);
+    }];
+    [proxy sendRequestForServer:serverInstanceID method:method params:params reply:^(id result, NSDictionary *errorObject) {
+        dispatch_async(dispatch_get_main_queue(), ^{ reply(result, errorObject); });
+    }];
+}
+
+- (void)sendNotificationForServer:(NSString *)serverInstanceID
+        method:(NSString *)method
+        params:(NSDictionary *)params {
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) {}];
+    [proxy sendNotificationForServer:serverInstanceID method:method params:params];
+}
+
+- (void)stopServer:(NSString *)serverInstanceID reply:(void (^)(void))reply {
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(); }];
+    [proxy stopServer:serverInstanceID reply:^{
+        dispatch_async(dispatch_get_main_queue(), ^{ reply(); });
+    }];
+}
+
+#pragma mark - SEELSPClientProtocol
+
 - (void)server:(NSString *)serverInstanceID didReceiveNotificationMethod:(NSString *)method params:(NSDictionary *)params {
 }
 
-- (void)server:(NSString *)serverInstanceID didReceiveServerRequestMethod:(NSString *)method params:(NSDictionary *)params reply:(void (^)(NSDictionary *, NSDictionary *))reply {
+- (void)server:(NSString *)serverInstanceID didReceiveServerRequestMethod:(NSString *)method params:(NSDictionary *)params reply:(void (^)(id, NSDictionary *))reply {
     reply(nil, @{@"code": @(-32601), @"message": @"Method not found"});
 }
 
