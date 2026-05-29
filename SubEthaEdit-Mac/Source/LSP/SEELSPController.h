@@ -5,11 +5,20 @@
 
 @class PlainTextDocument, FullTextStorage;
 
+// Posted (object = the PlainTextDocument) when the document's LSP diagnostics change.
+extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
+
 @interface SEELSPController : NSObject
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document;
 
 @property (nonatomic, readonly, getter=isActive) BOOL active;
+
+// Latest published diagnostics for the document (array of SEELSPDiagnostic).
+@property (nonatomic, readonly, copy) NSArray *diagnostics;
+
+// Server -> client notification routed by SEELSPServerManager (e.g. publishDiagnostics).
+- (void)handleNotificationMethod:(NSString *)method params:(id)params;
 
 - (void)startIfNeeded;
 - (void)shutdown;

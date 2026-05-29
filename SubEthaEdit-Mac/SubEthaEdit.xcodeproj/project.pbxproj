@@ -236,8 +236,10 @@
 		5EDD304F0A092AA50036E63A /* ScriptTextBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDD304D0A092AA50036E63A /* ScriptTextBase.m */; };
 		5EF31B220A7E2E2100D777F5 /* NSCursorSEEAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF31B200A7E2E2100D777F5 /* NSCursorSEEAdditions.m */; };
 		5EF31E430A7E437C00D777F5 /* InvertedIBeam.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 5EF31E420A7E437C00D777F5 /* InvertedIBeam.tiff */; };
+		6B8EC353A2104729870B3AC4 /* SEELSPDiagnosticTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8A17BBEE2606558575D6A7 /* SEELSPDiagnosticTests.m */; };
 		7D4F919EDA0A3877760AA5A7 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
 		7F34A8E71282ACC289F11497 /* SEELSPHostService.m in Sources */ = {isa = PBXBuildFile; fileRef = A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */; };
+		8446048DC2657786F0E59593 /* SEELSPDiagnostic.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0F511339E92E80A87F125B /* SEELSPDiagnostic.m */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
@@ -804,6 +806,7 @@
 		31FFC93B104E97A000E08256 /* NSErrorTCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NSErrorTCMAdditions.h; sourceTree = "<group>"; };
 		31FFC93C104E97A000E08256 /* NSErrorTCMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSErrorTCMAdditions.m; sourceTree = "<group>"; };
 		32DBCF750370BD2300C91783 /* SubEthaEdit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEthaEdit_Prefix.pch; sourceTree = "<group>"; };
+		3A8A17BBEE2606558575D6A7 /* SEELSPDiagnosticTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDiagnosticTests.m; sourceTree = "<group>"; };
 		3D30287C2578602700E35C8B /* SEEDocumentListGroupTableRowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEDocumentListGroupTableRowView.h; sourceTree = "<group>"; };
 		3D30287D2578602700E35C8B /* SEEDocumentListGroupTableRowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentListGroupTableRowView.m; sourceTree = "<group>"; };
 		3D80BA34258522A50093CA85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEEFindAndReplaceView.xib; sourceTree = "<group>"; };
@@ -834,6 +837,7 @@
 		423B23CF18F63DDE001E2DCC /* SEECollaborationPreferenceModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEECollaborationPreferenceModule.m; sourceTree = "<group>"; };
 		4246436318FEDF4300E5D830 /* SEEUserColorsPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEUserColorsPreviewView.h; sourceTree = "<group>"; };
 		4246436418FEDF4300E5D830 /* SEEUserColorsPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEUserColorsPreviewView.m; sourceTree = "<group>"; };
+		44E4C506F1759AF963BB9AE4 /* SEELSPDiagnostic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPDiagnostic.h; sourceTree = "<group>"; };
 		4C0B4C5F18C8B3E300048335 /* SEEToggleRecentDocumentListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEEToggleRecentDocumentListItem.h; sourceTree = "<group>"; };
 		4C0B4C6018C8B3E300048335 /* SEEToggleRecentDocumentListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEToggleRecentDocumentListItem.m; sourceTree = "<group>"; };
 		4C0C4A0018B366EC00E6049E /* PlainTextWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlainTextWindow.xib; sourceTree = "<group>"; };
@@ -965,6 +969,7 @@
 		DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPRPCCoordinator.h; sourceTree = "<group>"; };
 		DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPRPCCoordinator.m; sourceTree = "<group>"; };
 		DDA5F00100000000000000A7 /* SEELSPTransportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPTransportTests.m; sourceTree = "<group>"; };
+		EB0F511339E92E80A87F125B /* SEELSPDiagnostic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDiagnostic.m; sourceTree = "<group>"; };
 		F2061D660B4C152600E6631F /* FirstClickCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FirstClickCustomView.h; sourceTree = "<group>"; };
 		F2061D670B4C152600E6631F /* FirstClickCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstClickCustomView.m; sourceTree = "<group>"; };
 		F20948B80C7B3DED00E78EBA /* TCMMMLogStatisticsEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TCMMMLogStatisticsEntry.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -2018,6 +2023,8 @@
 				6DAB413EA448D91D2061B48E /* SEELSPServerConfiguration.m */,
 				D166307B2805A192D966C149 /* SEELSPController.h */,
 				42105B3845F381D415776DC0 /* SEELSPController.m */,
+				44E4C506F1759AF963BB9AE4 /* SEELSPDiagnostic.h */,
+				EB0F511339E92E80A87F125B /* SEELSPDiagnostic.m */,
 			);
 			path = LSP;
 			sourceTree = "<group>";
@@ -2063,6 +2070,7 @@
 				8C6F4BF1A23411CF83D47D48 /* SEELSPServerSessionTests.m */,
 				7143D3A45AEA24E504C6C719 /* FullTextStorageLSPPositionTests.m */,
 				1087B19AB7B259B70CBC67A0 /* SEELSPServerConfigurationTests.m */,
+				3A8A17BBEE2606558575D6A7 /* SEELSPDiagnosticTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2633,6 +2641,7 @@
 				DA073B53761CBA0F337FE2BC /* SEELSPServerSessionTests.m in Sources */,
 				BC07E0FD23276C0A43C8DD32 /* FullTextStorageLSPPositionTests.m in Sources */,
 				B835E7E86FD4D257D038B769 /* SEELSPServerConfigurationTests.m in Sources */,
+				6B8EC353A2104729870B3AC4 /* SEELSPDiagnosticTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2856,6 +2865,7 @@
 				40C397D51E8522C354CCBF3E /* FullTextStorage+LSPPosition.m in Sources */,
 				D9ED9167FE76CE7A3C3D70D5 /* SEELSPServerConfiguration.m in Sources */,
 				10486C2A40BAA502F26C687B /* SEELSPController.m in Sources */,
+				8446048DC2657786F0E59593 /* SEELSPDiagnostic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

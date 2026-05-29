@@ -4,6 +4,7 @@
 #import "SEELSPServerManager.h"
 #import "SEELSPHostProtocol.h"
 #import "SEELSPClientProtocol.h"
+#import "SEELSPController.h"
 
 static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 
@@ -12,6 +13,33 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 
 @implementation SEELSPServerManager {
     NSXPCConnection *I_connection;
+    NSMapTable<NSString *, SEELSPController *> *I_observersByID;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        I_observersByID = [NSMapTable strongToWeakObjectsMapTable];
+    }
+    return self;
+}
+
+- (void)registerObserver:(SEELSPController *)observer forServerInstanceID:(NSString *)serverInstanceID {
+    @synchronized (I_observersByID) {
+        [I_observersByID setObject:observer forKey:serverInstanceID];
+    }
+}
+
+- (void)unregisterServerInstanceID:(NSString *)serverInstanceID {
+    @synchronized (I_observersByID) {
+        [I_observersByID removeObjectForKey:serverInstanceID];
+    }
+}
+
+- (SEELSPController *)TCM_observerForID:(NSString *)serverInstanceID {
+    @synchronized (I_observersByID) {
+        return [I_observersByID objectForKey:serverInstanceID];
+    }
 }
 
 + (instancetype)sharedManager {
@@ -140,6 +168,9 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 #pragma mark - SEELSPClientProtocol
 
 - (void)server:(NSString *)serverInstanceID didReceiveNotificationMethod:(NSString *)method params:(NSDictionary *)params {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self TCM_observerForID:serverInstanceID] handleNotificationMethod:method params:params];
+    });
 }
 
 - (void)server:(NSString *)serverInstanceID didReceiveServerRequestMethod:(NSString *)method params:(NSDictionary *)params reply:(void (^)(id, NSDictionary *))reply {

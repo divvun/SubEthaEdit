@@ -5,8 +5,11 @@
 #import "PlainTextDocument.h"
 #import "DocumentMode.h"
 #import "FullTextStorage+LSPPosition.h"
+#import "SEELSPDiagnostic.h"
 #import "SEELSPServerConfiguration.h"
 #import "SEELSPServerManager.h"
+
+NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPControllerDidChangeDiagnosticsNotification";
 
 @implementation SEELSPController {
     __weak PlainTextDocument *I_document;
@@ -19,6 +22,7 @@
     NSMutableArray *I_pendingChanges;
     NSDictionary *I_capturedChange;
     BOOL I_flushScheduled;
+    NSArray *I_diagnostics;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -28,8 +32,13 @@
         I_serverInstanceID = [[NSUUID UUID] UUIDString];
         I_version = 1;
         I_pendingChanges = [NSMutableArray array];
+        I_diagnostics = @[];
     }
     return self;
+}
+
+- (NSArray *)diagnostics {
+    return I_diagnostics;
 }
 
 - (BOOL)isActive {
@@ -43,6 +52,7 @@
         I_active = YES;
         I_languageId = config.languageId ?: @"";
         I_documentURI = [self TCM_documentURIForDocument:document];
+        [[SEELSPServerManager sharedManager] registerObserver:self forServerInstanceID:I_serverInstanceID];
 
         NSDictionary *configuration = [self TCM_xpcConfigurationWithServerConfig:config document:document];
         __weak typeof(self) weakSelf = self;
@@ -63,6 +73,7 @@
 - (void)shutdown {
     if (I_active) {
         I_active = NO;
+        [[SEELSPServerManager sharedManager] unregisterServerInstanceID:I_serverInstanceID];
         if (I_didOpen) {
             [[SEELSPServerManager sharedManager] sendNotificationForServer:I_serverInstanceID
                     method:@"textDocument/didClose"
@@ -148,6 +159,26 @@
         [[SEELSPServerManager sharedManager] sendNotificationForServer:I_serverInstanceID
                 method:@"textDocument/didChange"
                 params:params];
+    }
+}
+
+#pragma mark - Diagnostics
+
+- (void)handleNotificationMethod:(NSString *)method params:(id)params {
+    if ([method isEqualToString:@"textDocument/publishDiagnostics"] && [params isKindOfClass:[NSDictionary class]]) {
+        [self TCM_updateDiagnosticsFromParams:params];
+    }
+}
+
+- (void)TCM_updateDiagnosticsFromParams:(NSDictionary *)params {
+    PlainTextDocument *document = I_document;
+    NSString *uri = params[@"uri"];
+    BOOL matchesDocument = (uri == nil) || (I_documentURI == nil) || [uri isEqualToString:I_documentURI];
+    if (document && matchesDocument) {
+        FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+        I_diagnostics = [SEELSPDiagnostic diagnosticsFromPublishParams:params textStorage:textStorage];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SEELSPControllerDidChangeDiagnosticsNotification object:document];
+        [[document plainTextEditors] makeObjectsPerformSelector:@selector(setNeedsDisplayForRuler)];
     }
 }
 
