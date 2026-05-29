@@ -125,14 +125,17 @@
 		14E291EA0A07B480007C0065 /* ScriptCharacters.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E291E80A07B480007C0065 /* ScriptCharacters.m */; };
 		14E294510A0CBFB0007C0065 /* SelectCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 14E2944F0A0CBFB0007C0065 /* SelectCommand.m */; };
 		14EC6E280A63F2E800B44481 /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14EC6E270A63F2E800B44481 /* ServicesMenu.strings */; };
+		2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FD08391EAC61E210391307BA /* SEELSPChildProcess.m */; };
 		2CED1D50238000FF00359D99 /* SEEWebPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED1D4F238000FF00359D99 /* SEEWebPreview.m */; };
 		2CED1D54238007F900359D99 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CED1D53238007F900359D99 /* JavaScriptCore.framework */; };
 		311717F40A0E8C3600A9DA18 /* ModeSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 311717F20A0E8C3600A9DA18 /* ModeSettings.m */; };
+		315767C684F7C3461949471A /* SEELSPChildProcessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE9093B7923A1CABE9D9645 /* SEELSPChildProcessTests.m */; };
 		316A0D2A0C68A47100720268 /* DebugAttributeInspectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316A0D280C68A47100720268 /* DebugAttributeInspectorController.m */; };
 		3170E46112846C670096089C /* SEEStyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3170E46012846C670096089C /* SEEStyleSheet.m */; };
 		3188F6800CAD13E0009E4C0B /* DNDArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3188F6780CAD1218009E4C0B /* DNDArrayController.m */; };
 		31D2C7000CA7C9C8003CC5C9 /* PrecedenceRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2C6E50CA7C7A7003CC5C9 /* PrecedenceRuleCell.m */; };
 		31FFC93D104E97A000E08256 /* NSErrorTCMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FFC93C104E97A000E08256 /* NSErrorTCMAdditions.m */; };
+		35E86AC932EE10BA1D7C083E /* SEELSPChildProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FD08391EAC61E210391307BA /* SEELSPChildProcess.m */; };
 		3D30287E2578602700E35C8B /* SEEDocumentListGroupTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D30287D2578602700E35C8B /* SEEDocumentListGroupTableRowView.m */; };
 		3D80BA33258522A50093CA85 /* SEEFindAndReplaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D80BA35258522A50093CA85 /* SEEFindAndReplaceView.xib */; };
 		3D83EDAB2576B1E6004288B2 /* SEEDocumentListWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D83EDAD2576B1E6004288B2 /* SEEDocumentListWindowController.xib */; };
@@ -774,6 +777,7 @@
 		2CED1D4E238000FF00359D99 /* SEEWebPreview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEWebPreview.h; sourceTree = "<group>"; };
 		2CED1D4F238000FF00359D99 /* SEEWebPreview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEWebPreview.m; sourceTree = "<group>"; };
 		2CED1D53238007F900359D99 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		2D2D74EFD16D088CA44A7212 /* SEELSPChildProcess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPChildProcess.h; sourceTree = "<group>"; };
 		311717F20A0E8C3600A9DA18 /* ModeSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeSettings.m; sourceTree = "<group>"; };
 		311717F30A0E8C3600A9DA18 /* ModeSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ModeSettings.h; sourceTree = "<group>"; };
 		316A0D270C68A47100720268 /* DebugAttributeInspectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DebugAttributeInspectorController.h; path = Debug/DebugAttributeInspectorController.h; sourceTree = "<group>"; };
@@ -925,6 +929,7 @@
 		6EA91CFA8508936DB67894F6 /* SEELSPClientProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPClientProtocol.h; sourceTree = "<group>"; };
 		86A3F37DF2BCB5CAEFA2DEFD /* SEELSPHostProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostProtocol.h; sourceTree = "<group>"; };
 		889ADD5A92F7FF74DCF6ADE1 /* main.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8AE9093B7923A1CABE9D9645 /* SEELSPChildProcessTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPChildProcessTests.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* SubEthaEdit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubEthaEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E9F58AB2319EC3C00E838D1 /* SEEAlertRecipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEAlertRecipe.h; sourceTree = "<group>"; };
@@ -1150,6 +1155,7 @@
 		F2F5970B193336B300FDAA4A /* SEEDocumentListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentListTableView.m; sourceTree = "<group>"; };
 		F2FB96E00CBE68ED000B85AE /* UKXattrMetadataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = UKXattrMetadataStore.h; path = UKXattrMetadataStore/UKXattrMetadataStore.h; sourceTree = "<group>"; };
 		F2FB96E10CBE68ED000B85AE /* UKXattrMetadataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UKXattrMetadataStore.m; path = UKXattrMetadataStore/UKXattrMetadataStore.m; sourceTree = "<group>"; };
+		FD08391EAC61E210391307BA /* SEELSPChildProcess.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPChildProcess.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2003,6 +2009,8 @@
 				19BF0896BB0D3C0D6744EEE9 /* SEELSPHostService.h */,
 				A16D79A7F87E241A6937DF0A /* SEELSPHostService.m */,
 				889ADD5A92F7FF74DCF6ADE1 /* main.m */,
+				2D2D74EFD16D088CA44A7212 /* SEELSPChildProcess.h */,
+				FD08391EAC61E210391307BA /* SEELSPChildProcess.m */,
 			);
 			path = Host;
 			sourceTree = "<group>";
@@ -2024,6 +2032,7 @@
 				F21BFB3A2603771600C4578C /* DataTests.m */,
 				F21BFB3B2603771600C4578C /* DataTests.h */,
 				DDA5F00100000000000000A7 /* SEELSPTransportTests.m */,
+				8AE9093B7923A1CABE9D9645 /* SEELSPChildProcessTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2588,6 +2597,8 @@
 				DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */,
 				DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */,
 				DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */,
+				2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */,
+				315767C684F7C3461949471A /* SEELSPChildProcessTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2600,6 +2611,7 @@
 				47F597C3EF57B0E0CCCA8F78 /* SEELSPMessageReader.m in Sources */,
 				7D4F919EDA0A3877760AA5A7 /* SEELSPMessageWriter.m in Sources */,
 				513719C1661B5F11F7579A9D /* SEELSPRPCCoordinator.m in Sources */,
+				35E86AC932EE10BA1D7C083E /* SEELSPChildProcess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
