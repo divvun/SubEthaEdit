@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10486C2A40BAA502F26C687B /* SEELSPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42105B3845F381D415776DC0 /* SEELSPController.m */; };
 		121E989982352FD882BAD716 /* SubEthaEditLSPHost.xpc in Embed LSP XPC Service */ = {isa = PBXBuildFile; fileRef = BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		141958B10BB951C400CB4AA4 /* TCMMMSessionAppKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 141958970BB9507700CB4AA4 /* TCMMMSessionAppKitHelper.m */; };
 		141F50ED0AE51B66001B73D2 /* PlainTextWindowControllerTabContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 141F50EB0AE51B65001B73D2 /* PlainTextWindowControllerTabContext.m */; };
@@ -827,6 +828,7 @@
 		3DBB85C625734E96000F829F /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/OpenURLViewController.xib; sourceTree = "<group>"; };
 		3DC31372257D03180077577A /* SEETertiaryLabelColorValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEETertiaryLabelColorValueTransformer.h; sourceTree = "<group>"; };
 		3DC31373257D03180077577A /* SEETertiaryLabelColorValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEETertiaryLabelColorValueTransformer.m; sourceTree = "<group>"; };
+		42105B3845F381D415776DC0 /* SEELSPController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPController.m; sourceTree = "<group>"; };
 		423452391907DFE400BE3CC1 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		423B23CE18F63DDE001E2DCC /* SEECollaborationPreferenceModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEECollaborationPreferenceModule.h; sourceTree = "<group>"; };
 		423B23CF18F63DDE001E2DCC /* SEECollaborationPreferenceModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEECollaborationPreferenceModule.m; sourceTree = "<group>"; };
@@ -954,6 +956,7 @@
 		BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; name = SubEthaEditLSPHost.xpc; path = SubEthaEditLSPHost.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		C44DAC1F324B64082EA57115 /* FullTextStorage+LSPPosition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FullTextStorage+LSPPosition.h"; sourceTree = "<group>"; };
 		C705F18D3C898889B98BE235 /* SEELSPServerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerManager.m; sourceTree = "<group>"; };
+		D166307B2805A192D966C149 /* SEELSPController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPController.h; sourceTree = "<group>"; };
 		D51755C47E57AF5284E467F9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		DDA5F00100000000000000A1 /* SEELSPMessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageReader.h; sourceTree = "<group>"; };
 		DDA5F00100000000000000A2 /* SEELSPMessageReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageReader.m; sourceTree = "<group>"; };
@@ -2013,6 +2016,8 @@
 				17CDA9F1B41D3CAE18E327A4 /* FullTextStorage+LSPPosition.m */,
 				BB009CE4C20B33F3DCBA5D0A /* SEELSPServerConfiguration.h */,
 				6DAB413EA448D91D2061B48E /* SEELSPServerConfiguration.m */,
+				D166307B2805A192D966C149 /* SEELSPController.h */,
+				42105B3845F381D415776DC0 /* SEELSPController.m */,
 			);
 			path = LSP;
 			sourceTree = "<group>";
@@ -2850,6 +2855,7 @@
 				F99451B4AB1EAEA15DFCDD07 /* SEELSPServerManager.m in Sources */,
 				40C397D51E8522C354CCBF3E /* FullTextStorage+LSPPosition.m in Sources */,
 				D9ED9167FE76CE7A3C3D70D5 /* SEELSPServerConfiguration.m in Sources */,
+				10486C2A40BAA502F26C687B /* SEELSPController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

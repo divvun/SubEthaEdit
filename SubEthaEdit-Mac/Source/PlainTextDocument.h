@@ -25,7 +25,7 @@ enum {
 
 @class FoldableTextStorage, TCMMMSession, TCMMMOperation, DocumentMode, EncodingPopUpButton, 
        PlainTextWindowController, SEEWebPreviewViewController,
-       DocumentProxyWindowController, FindAllController, UndoManager, TextOperation, TCMMMLoggingState, FontForwardingTextField, PlainTextEditor;
+       DocumentProxyWindowController, FindAllController, UndoManager, TextOperation, TCMMMLoggingState, FontForwardingTextField, PlainTextEditor, SEELSPController;
 
 extern NSString * const PlainTextDocumentSessionWillChangeNotification;
 extern NSString * const PlainTextDocumentSessionDidChangeNotification;
@@ -154,6 +154,7 @@ extern NSString * const PlainTextDocumentDidSaveShouldReloadWebPreviewNotificati
 @property (nonatomic, strong) NSMutableArray *persistentDocumentScopedBookmarkURLs;
 
 @property (nonatomic, strong) SEEDocumentCreationFlags *attachedCreationFlags;
+@property (nonatomic, strong) SEELSPController *lspController;
 
 /*!
 	@return returns a suitable display string with the additional path components set by the AdditionalShownPathComponentsPreferenceKey - or nil if the array was nil or empty.
