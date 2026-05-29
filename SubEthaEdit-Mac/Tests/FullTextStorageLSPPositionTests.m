@@ -70,6 +70,21 @@
     [self assertOffset:5 mapsToLine:1 character:0 in:full];   // 'c'
 }
 
+- (void)testContentChangeEvent {
+    FullTextStorage *full = [self storageWithString:@"abc\ndef"]; // a0 b1 c2 \n3 d4 e5 f6
+
+    NSDictionary *change = [full lspContentChangeForRange:NSMakeRange(1, 2) replacementString:@"X"];
+    XCTAssertEqualObjects(change[@"text"], @"X");
+    XCTAssertEqualObjects(change[@"range"][@"start"], (@{@"line": @0, @"character": @1}));
+    XCTAssertEqualObjects(change[@"range"][@"end"], (@{@"line": @0, @"character": @3}));
+
+    // A deletion spanning the newline: "c\nd" = range {2,3}.
+    NSDictionary *multi = [full lspContentChangeForRange:NSMakeRange(2, 3) replacementString:@""];
+    XCTAssertEqualObjects(multi[@"range"][@"start"], (@{@"line": @0, @"character": @2}));
+    XCTAssertEqualObjects(multi[@"range"][@"end"], (@{@"line": @1, @"character": @1}));
+    XCTAssertEqualObjects(multi[@"text"], @"");
+}
+
 - (void)testEmptyAndTrailingNewline {
     FullTextStorage *empty = [self storageWithString:@""];
     [self assertOffset:0 mapsToLine:0 character:0 in:empty];

@@ -38,4 +38,17 @@
     return result;
 }
 
+- (NSDictionary *)lspContentChangeForRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger startLine = 0, startCharacter = 0, endLine = 0, endCharacter = 0;
+    [self lspLine:&startLine character:&startCharacter forOffset:range.location];
+    [self lspLine:&endLine character:&endCharacter forOffset:NSMaxRange(range)];
+    return @{
+        @"range": @{
+            @"start": @{@"line": @(startLine), @"character": @(startCharacter)},
+            @"end": @{@"line": @(endLine), @"character": @(endCharacter)},
+        },
+        @"text": (string ?: @""),
+    };
+}
+
 @end
