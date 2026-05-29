@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DDA5F00200000000000000B2 /* SEELSPMessageReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A2 /* SEELSPMessageReader.m */; };
+		DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */; };
+		DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */; };
+		DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00100000000000000A7 /* SEELSPTransportTests.m */; };
 		141958B10BB951C400CB4AA4 /* TCMMMSessionAppKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 141958970BB9507700CB4AA4 /* TCMMMSessionAppKitHelper.m */; };
 		141F50ED0AE51B66001B73D2 /* PlainTextWindowControllerTabContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 141F50EB0AE51B65001B73D2 /* PlainTextWindowControllerTabContext.m */; };
 		14288FF509573F4900D14688 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14288FF409573F4900D14688 /* WebKit.framework */; };
@@ -512,6 +516,13 @@
 		075281159B21C439847EAB3C /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		079ABC869BE2176B8DA9894E /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Export.strings; sourceTree = "<group>"; };
 		0CF7AF256607E7AC6748F22E /* fi */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/OpenPanelAccessory.strings; sourceTree = "<group>"; };
+		DDA5F00100000000000000A1 /* SEELSPMessageReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageReader.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A2 /* SEELSPMessageReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageReader.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPMessageWriter.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPMessageWriter.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEELSPRPCCoordinator.h; sourceTree = "<group>"; };
+		DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPRPCCoordinator.m; sourceTree = "<group>"; };
+		DDA5F00100000000000000A7 /* SEELSPTransportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPTransportTests.m; sourceTree = "<group>"; };
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		11C1E4BBE0D38D98D3784C55 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/AdvancedPrefs.strings; sourceTree = "<group>"; };
 		13BC57CAA66D7816D539C7AF /* da */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/SavePanelAccessory.strings; sourceTree = "<group>"; };
@@ -1274,6 +1285,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DDA5F00300000000000000C1 /* LSP */ = {
+			isa = PBXGroup;
+			children = (
+				DDA5F00300000000000000C2 /* Host */,
+			);
+			path = LSP;
+			sourceTree = "<group>";
+		};
+		DDA5F00300000000000000C2 /* Host */ = {
+			isa = PBXGroup;
+			children = (
+				DDA5F00100000000000000A1 /* SEELSPMessageReader.h */,
+				DDA5F00100000000000000A2 /* SEELSPMessageReader.m */,
+				DDA5F00100000000000000A3 /* SEELSPMessageWriter.h */,
+				DDA5F00100000000000000A4 /* SEELSPMessageWriter.m */,
+				DDA5F00100000000000000A5 /* SEELSPRPCCoordinator.h */,
+				DDA5F00100000000000000A6 /* SEELSPRPCCoordinator.m */,
+			);
+			path = Host;
+			sourceTree = "<group>";
+		};
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2057,6 +2089,7 @@
 				F21BFB3F2603775000C4578C /* SubEthaEditTests-Info.plist */,
 				F21BFB3A2603771600C4578C /* DataTests.m */,
 				F21BFB3B2603771600C4578C /* DataTests.h */,
+				DDA5F00100000000000000A7 /* SEELSPTransportTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2109,6 +2142,7 @@
 				142891160957452000D14688 /* TCMFoundation */,
 				14289305095756A100D14688 /* TCMMillionMonkeys */,
 				1428917B0957483C00D14688 /* Debug */,
+				DDA5F00300000000000000C1 /* LSP */,
 			);
 			name = Sources;
 			path = Source;
@@ -2594,6 +2628,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F21BFB3C2603771600C4578C /* DataTests.m in Sources */,
+				DDA5F00200000000000000B2 /* SEELSPMessageReader.m in Sources */,
+				DDA5F00200000000000000B4 /* SEELSPMessageWriter.m in Sources */,
+				DDA5F00200000000000000B6 /* SEELSPRPCCoordinator.m in Sources */,
+				DDA5F00200000000000000B7 /* SEELSPTransportTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
