@@ -136,6 +136,8 @@ extern NSString * const DocumentModeStyleSheetsDefaultLanguageContextKey;
 - (BOOL)hasSymbols;
 - (NSArray *)symbolArrayForTextStorage:(NSTextStorage *)aTextStorage;
 
+- (SEELSPServerConfiguration *)languageServerConfiguration;
+
 - (NSString *)documentModeIdentifier;
 - (NSString *)displayName;
 - (NSArray *)recognizedExtensions;

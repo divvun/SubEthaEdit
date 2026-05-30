@@ -155,6 +155,7 @@ extern NSString * const PlainTextDocumentDidSaveShouldReloadWebPreviewNotificati
 
 @property (nonatomic, strong) SEEDocumentCreationFlags *attachedCreationFlags;
 @property (nonatomic, strong) SEELSPController *lspController;
+- (void)reloadLanguageServerConfiguration;
 
 /*!
 	@return returns a suitable display string with the additional path components set by the AdditionalShownPathComponentsPreferenceKey - or nil if the array was nil or empty.
