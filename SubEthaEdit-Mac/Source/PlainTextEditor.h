@@ -79,6 +79,7 @@ extern NSString * const PlainTextEditorDidChangeSearchScopeNotification;
 - (void)closeLSPHoverPopover;
 - (BOOL)hasActiveLanguageServer;
 - (void)jumpToDefinitionAtFoldedIndex:(NSUInteger)foldedIndex;
+- (BOOL)beginLSPCompletionIfNeededForTextView:(NSTextView *)textView;
 
 - (void)updateViews;
 
