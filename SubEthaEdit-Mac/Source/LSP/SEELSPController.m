@@ -36,6 +36,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     BOOL I_documentSymbolsInFlight;
     BOOL I_serverLacksDocumentSymbol;
     BOOL I_serverLacksHover;
+    BOOL I_serverLacksDefinition;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -348,6 +349,70 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
         range = [self TCM_fullRangeForLSPRange:result[@"range"] textStorage:textStorage];
     }
     return range;
+}
+
+#pragma mark - Definition
+
+- (void)requestDefinitionAtFullOffset:(NSUInteger)offset reply:(void (^)(NSArray *))reply {
+    PlainTextDocument *document = I_document;
+    if (I_active && I_didOpen && !I_serverLacksDefinition && document) {
+        FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+        NSUInteger line = 0, character = 0;
+        [textStorage lspLine:&line character:&character forOffset:offset];
+        NSDictionary *params = @{
+            @"textDocument": @{@"uri": I_documentURI},
+            @"position": @{@"line": @(line), @"character": @(character)},
+        };
+        __weak typeof(self) weakSelf = self;
+        [[SEELSPServerManager sharedManager] sendRequestForServer:I_serverInstanceID
+                method:@"textDocument/definition"
+                params:params
+                reply:^(id result, NSDictionary *errorObject) {
+            typeof(self) strongSelf = weakSelf;
+            NSArray *targets = @[];
+            if (errorObject) {
+                if (strongSelf && [errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
+                    strongSelf->I_serverLacksDefinition = YES;
+                }
+            } else {
+                targets = [SEELSPController definitionTargetsFromResult:result];
+            }
+            reply(targets);
+        }];
+    } else {
+        reply(@[]);
+    }
+}
+
++ (NSArray *)definitionTargetsFromResult:(id)result {
+    NSMutableArray *targets = [NSMutableArray array];
+    if ([result isKindOfClass:[NSArray class]]) {
+        for (id element in result) {
+            [self TCM_appendDefinitionTargetFromNode:element into:targets];
+        }
+    } else if ([result isKindOfClass:[NSDictionary class]]) {
+        [self TCM_appendDefinitionTargetFromNode:result into:targets];
+    }
+    return targets;
+}
+
++ (void)TCM_appendDefinitionTargetFromNode:(id)node into:(NSMutableArray *)targets {
+    if ([node isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dict = node;
+        NSString *uri = dict[@"uri"];
+        NSDictionary *range = dict[@"range"];
+        if (![uri isKindOfClass:[NSString class]]) {
+            uri = dict[@"targetUri"];
+            range = [dict[@"targetSelectionRange"] isKindOfClass:[NSDictionary class]] ? dict[@"targetSelectionRange"] : dict[@"targetRange"];
+        }
+        if ([uri isKindOfClass:[NSString class]] && [range isKindOfClass:[NSDictionary class]]) {
+            [targets addObject:@{@"uri": uri, @"range": range}];
+        }
+    }
+}
+
++ (NSRange)fullTextRangeForLSPRange:(NSDictionary *)rangeDict textStorage:(FullTextStorage *)textStorage {
+    return [self TCM_fullRangeForLSPRange:rangeDict textStorage:textStorage];
 }
 
 #pragma mark - Diagnostics

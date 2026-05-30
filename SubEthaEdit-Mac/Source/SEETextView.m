@@ -247,10 +247,18 @@ static NSMenu *S_defaultMenu=nil;
         [[self delegate] textView:self mouseDidGoDown:aEvent];
     }
     
-    if (([aEvent modifierFlags] & NSEventModifierFlagOption) && [self isEditable]) {
+    if (([aEvent modifierFlags] & NSEventModifierFlagCommand) && [self.editor hasActiveLanguageServer]) {
+        NSPoint screenPoint = [[self window] convertPointToScreen:[aEvent locationInWindow]];
+        NSUInteger characterIndex = [self characterIndexForPoint:screenPoint];
+        if (characterIndex != NSNotFound && characterIndex < [[self textStorage] length]) {
+            [self.editor jumpToDefinitionAtFoldedIndex:characterIndex];
+        } else {
+            [super mouseDown:aEvent];
+        }
+    } else if (([aEvent modifierFlags] & NSEventModifierFlagOption) && [self isEditable]) {
         [self trackMouseForBlockeditWithEvent:aEvent];
     } else {
-        [super mouseDown:aEvent]; 
+        [super mouseDown:aEvent];
     }
 }
 

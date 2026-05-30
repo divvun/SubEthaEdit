@@ -706,6 +706,13 @@
                                     <action selector="jumpToPreviousSymbol:" target="-1" id="443"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="lsp-jtd-sep"/>
+                            <menuItem title="Jump to Definition" keyEquivalent="" id="lsp-jtd-item">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="jumpToDefinition:" target="-1" id="lsp-jtd-action"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="429">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>

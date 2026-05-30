@@ -46,6 +46,7 @@
 #import "TCMHoverButton.h"
 #import "SEELSPController.h"
 #import "SEELSPHoverViewController.h"
+#import "FullTextStorage.h"
 
 NSString * const PlainTextEditorDidFollowUserNotification = @"PlainTextEditorDidFollowUserNotification";
 NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEditorDidChangeSearchScopeNotification";
@@ -1426,6 +1427,8 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
         TCMMMSession *session=self.document.session;
         [menuItem setState:([menuItem tag]==[session accessState])?NSOnState:NSOffState];
         return [session isServer];
+    } else if (selector == @selector(jumpToDefinition:)) {
+        return [self hasActiveLanguageServer];
     }
     return YES;
 }
@@ -1946,6 +1949,60 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
     } else {
         [self selectRange:change];
     }
+}
+
+- (IBAction)jumpToDefinition:(id)aSender {
+    NSRange selectedRange = [I_textView selectedRange];
+    [self jumpToDefinitionAtFoldedIndex:selectedRange.location];
+}
+
+- (BOOL)hasActiveLanguageServer {
+    return [[[self document] lspController] isActive];
+}
+
+- (void)jumpToDefinitionAtFoldedIndex:(NSUInteger)foldedIndex {
+    SEELSPController *controller = [[self document] lspController];
+    if ([controller isActive]) {
+        FoldableTextStorage *foldable = (FoldableTextStorage *)[[self document] textStorage];
+        NSRange fullRange = [foldable fullRangeForFoldedRange:NSMakeRange(foldedIndex, 0)];
+        __weak typeof(self) weakSelf = self;
+        [controller requestDefinitionAtFullOffset:fullRange.location reply:^(NSArray *targets) {
+            [weakSelf TCM_openDefinitionTarget:targets.firstObject];
+        }];
+    } else {
+        NSBeep();
+    }
+}
+
+- (void)TCM_openDefinitionTarget:(NSDictionary *)target {
+    if (target) {
+        NSURL *targetURL = [NSURL URLWithString:target[@"uri"]];
+        NSDictionary *lspRange = target[@"range"];
+        PlainTextDocument *currentDocument = [self document];
+        NSURL *currentURL = [currentDocument fileURL];
+        BOOL sameDocument = targetURL && currentURL && [[targetURL absoluteString] isEqualToString:[currentURL absoluteString]];
+        if (sameDocument) {
+            [self TCM_selectLSPRange:lspRange inDocument:currentDocument editor:self];
+        } else if (targetURL) {
+            [[SEEDocumentController sharedDocumentController] openDocumentWithContentsOfURL:targetURL display:YES completionHandler:^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error) {
+                if ([document isKindOfClass:[PlainTextDocument class]]) {
+                    PlainTextDocument *opened = (PlainTextDocument *)document;
+                    PlainTextWindowController *windowController = (PlainTextWindowController *)[[opened windowControllers] firstObject];
+                    [self TCM_selectLSPRange:lspRange inDocument:opened editor:[windowController activePlainTextEditor]];
+                }
+            }];
+        } else {
+            NSBeep();
+        }
+    } else {
+        NSBeep();
+    }
+}
+
+- (void)TCM_selectLSPRange:(NSDictionary *)lspRange inDocument:(PlainTextDocument *)document editor:(PlainTextEditor *)editor {
+    FullTextStorage *fullTextStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+    NSRange fullRange = [SEELSPController fullTextRangeForLSPRange:lspRange textStorage:fullTextStorage];
+    [editor selectRange:fullRange];
 }
 
 - (IBAction)jumpToNextChange:(id)aSender {
