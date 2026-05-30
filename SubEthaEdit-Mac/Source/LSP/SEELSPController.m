@@ -568,4 +568,58 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     return [NSColor systemRedColor];
 }
 
++ (SEELSPDiagnosticSeverity)highestSeverityInDiagnostics:(NSArray *)diagnostics {
+    SEELSPDiagnosticSeverity result = SEELSPDiagnosticSeverityHint;
+    for (SEELSPDiagnostic *diagnostic in diagnostics) {
+        if (diagnostic.severity < result) {
+            result = diagnostic.severity;
+        }
+    }
+    return result;
+}
+
++ (NSString *)TCM_labelForSeverity:(SEELSPDiagnosticSeverity)severity {
+    switch (severity) {
+        case SEELSPDiagnosticSeverityError:       return NSLocalizedString(@"error", @"LSP diagnostic severity label");
+        case SEELSPDiagnosticSeverityWarning:     return NSLocalizedString(@"warning", @"LSP diagnostic severity label");
+        case SEELSPDiagnosticSeverityInformation: return NSLocalizedString(@"info", @"LSP diagnostic severity label");
+        case SEELSPDiagnosticSeverityHint:        return NSLocalizedString(@"hint", @"LSP diagnostic severity label");
+    }
+    return NSLocalizedString(@"error", @"LSP diagnostic severity label");
+}
+
++ (NSAttributedString *)attributedStringForDiagnostics:(NSArray *)diagnostics {
+    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];
+    NSFont *font = [NSFont systemFontOfSize:[NSFont systemFontSize]];
+    for (SEELSPDiagnostic *diagnostic in diagnostics) {
+        if (result.length > 0) {
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        }
+        NSString *label = [self TCM_labelForSeverity:diagnostic.severity];
+        [result appendAttributedString:[[NSAttributedString alloc] initWithString:[label stringByAppendingString:@": "]
+                attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: [self colorForSeverity:diagnostic.severity]}]];
+        [result appendAttributedString:[[NSAttributedString alloc] initWithString:(diagnostic.message ?: @"")
+                attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: [NSColor labelColor]}]];
+
+        NSString *origin = [self TCM_originForDiagnostic:diagnostic];
+        if (origin.length > 0) {
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" (%@)", origin]
+                    attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: [NSColor secondaryLabelColor]}]];
+        }
+    }
+    return result;
+}
+
++ (NSString *)TCM_originForDiagnostic:(SEELSPDiagnostic *)diagnostic {
+    NSString *result = nil;
+    if (diagnostic.source.length > 0 && diagnostic.code.length > 0) {
+        result = [NSString stringWithFormat:@"%@: %@", diagnostic.source, diagnostic.code];
+    } else if (diagnostic.source.length > 0) {
+        result = diagnostic.source;
+    } else if (diagnostic.code.length > 0) {
+        result = diagnostic.code;
+    }
+    return result;
+}
+
 @end

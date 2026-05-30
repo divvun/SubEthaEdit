@@ -6,6 +6,7 @@
 #import "FoldableTextStorage.h"
 #import "FullTextStorage.h"
 #import "SEELSPDiagnostic.h"
+#import "SEELSPController.h"
 
 @interface SEELSPDiagnosticTests : XCTestCase {
     NSMutableArray *_keepAlive;
@@ -64,6 +65,47 @@
     XCTAssertEqual([SEELSPDiagnostic diagnosticsFromPublishParams:@{} textStorage:full].count, 0u);
     NSDictionary *malformed = @{@"diagnostics": @[@{@"message": @"no range"}, @"not a dict"]};
     XCTAssertEqual([SEELSPDiagnostic diagnosticsFromPublishParams:malformed textStorage:full].count, 0u);
+}
+
+- (NSArray<SEELSPDiagnostic *> *)diagnosticsWithSeverities:(NSArray<NSNumber *> *)severities {
+    FullTextStorage *full = [self storageWithString:@"abc"];
+    NSMutableArray *items = [NSMutableArray array];
+    for (NSNumber *severity in severities) {
+        [items addObject:[self diagnosticAtStartLine:0 character:0 endLine:0 character:1 extra:@{@"severity": severity}]];
+    }
+    return [SEELSPDiagnostic diagnosticsFromPublishParams:@{@"diagnostics": items} textStorage:full];
+}
+
+- (void)testHighestSeverityPicksMostSevere {
+    SEELSPDiagnosticSeverity warningWins = [SEELSPController highestSeverityInDiagnostics:[self diagnosticsWithSeverities:@[@4, @2, @3]]];
+    SEELSPDiagnosticSeverity errorWins = [SEELSPController highestSeverityInDiagnostics:[self diagnosticsWithSeverities:@[@3, @1, @2]]];
+    SEELSPDiagnosticSeverity hintOnly = [SEELSPController highestSeverityInDiagnostics:[self diagnosticsWithSeverities:@[@4]]];
+    XCTAssertEqual(warningWins, SEELSPDiagnosticSeverityWarning);
+    XCTAssertEqual(errorWins, SEELSPDiagnosticSeverityError);
+    XCTAssertEqual(hintOnly, SEELSPDiagnosticSeverityHint);
+}
+
+- (void)testHighestSeverityHandlesEmpty {
+    XCTAssertEqual([SEELSPController highestSeverityInDiagnostics:@[]], SEELSPDiagnosticSeverityHint);
+}
+
+- (void)testAttributedStringContainsMessagesAndJoinsLines {
+    FullTextStorage *full = [self storageWithString:@"abc"];
+    NSArray *params = @[
+        [self diagnosticAtStartLine:0 character:0 endLine:0 character:1 extra:@{@"severity": @1, @"message": @"first", @"source": @"clang", @"code": @"E1"}],
+        [self diagnosticAtStartLine:0 character:0 endLine:0 character:1 extra:@{@"severity": @2, @"message": @"second"}],
+    ];
+    NSArray<SEELSPDiagnostic *> *diagnostics = [SEELSPDiagnostic diagnosticsFromPublishParams:@{@"diagnostics": params} textStorage:full];
+    NSAttributedString *attributed = [SEELSPController attributedStringForDiagnostics:diagnostics];
+    NSString *string = attributed.string;
+
+    XCTAssertTrue([string containsString:@"first"]);
+    XCTAssertTrue([string containsString:@"second"]);
+    XCTAssertTrue([string containsString:@"clang: E1"]);
+    XCTAssertEqual([[string componentsSeparatedByString:@"\n"] count], 2u);
+
+    NSColor *labelColor = [attributed attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
+    XCTAssertEqualObjects(labelColor, [SEELSPController colorForSeverity:SEELSPDiagnosticSeverityError]);
 }
 
 @end
