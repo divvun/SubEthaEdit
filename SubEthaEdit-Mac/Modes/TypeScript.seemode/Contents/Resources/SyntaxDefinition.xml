@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE syntax SYSTEM "syntax.dtd">
+<syntax>
+  <head>
+    <name>TypeScript</name>
+    <charsintokens><![CDATA[_$0987654321abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]]></charsintokens>
+  </head>
+  <states>
+    <default id="Base" scope="meta.default">
+
+      <keywords id="Control" casesensitive="yes" useforautocomplete="yes" scope="keyword.control">
+        <string>break</string>
+        <string>case</string>
+        <string>catch</string>
+        <string>continue</string>
+        <string>default</string>
+        <string>delete</string>
+        <string>do</string>
+        <string>else</string>
+        <string>finally</string>
+        <string>for</string>
+        <string>if</string>
+        <string>in</string>
+        <string>instanceof</string>
+        <string>new</string>
+        <string>of</string>
+        <string>return</string>
+        <string>switch</string>
+        <string>throw</string>
+        <string>try</string>
+        <string>typeof</string>
+        <string>void</string>
+        <string>while</string>
+        <string>with</string>
+        <string>yield</string>
+        <string>await</string>
+        <string>as</string>
+        <string>keyof</string>
+        <string>infer</string>
+        <string>is</string>
+        <string>asserts</string>
+        <string>satisfies</string>
+      </keywords>
+
+      <keywords id="Keywords" casesensitive="yes" useforautocomplete="yes" scope="keyword">
+        <string>abstract</string>
+        <string>accessor</string>
+        <string>async</string>
+        <string>class</string>
+        <string>const</string>
+        <string>declare</string>
+        <string>enum</string>
+        <string>export</string>
+        <string>extends</string>
+        <string>function</string>
+        <string>get</string>
+        <string>implements</string>
+        <string>import</string>
+        <string>interface</string>
+        <string>let</string>
+        <string>module</string>
+        <string>namespace</string>
+        <string>override</string>
+        <string>package</string>
+        <string>private</string>
+        <string>protected</string>
+        <string>public</string>
+        <string>readonly</string>
+        <string>set</string>
+        <string>static</string>
+        <string>super</string>
+        <string>this</string>
+        <string>type</string>
+        <string>var</string>
+        <string>from</string>
+      </keywords>
+
+      <keywords id="Constants" casesensitive="yes" useforautocomplete="yes" scope="keyword.constant">
+        <string>true</string>
+        <string>false</string>
+        <string>null</string>
+        <string>undefined</string>
+        <string>NaN</string>
+        <string>Infinity</string>
+      </keywords>
+
+      <keywords id="Types" casesensitive="yes" useforautocomplete="yes" scope="keyword.type">
+        <string>any</string>
+        <string>bigint</string>
+        <string>boolean</string>
+        <string>never</string>
+        <string>number</string>
+        <string>object</string>
+        <string>string</string>
+        <string>symbol</string>
+        <string>unknown</string>
+      </keywords>
+
+      <keywords id="Globals" casesensitive="yes" useforautocomplete="yes" scope="support.class">
+        <string>Array</string>
+        <string>Boolean</string>
+        <string>console</string>
+        <string>Date</string>
+        <string>document</string>
+        <string>Error</string>
+        <string>globalThis</string>
+        <string>JSON</string>
+        <string>Map</string>
+        <string>Math</string>
+        <string>Number</string>
+        <string>Object</string>
+        <string>Promise</string>
+        <string>Proxy</string>
+        <string>process</string>
+        <string>Reflect</string>
+        <string>RegExp</string>
+        <string>Set</string>
+        <string>String</string>
+        <string>Symbol</string>
+        <string>WeakMap</string>
+        <string>WeakSet</string>
+        <string>window</string>
+      </keywords>
+
+      <keywords id="Numbers" useforautocomplete="no" scope="language.constant.numeric">
+        <regex>(?&lt;![\w$])((?:0[xX][0-9a-fA-F_]+)|(?:0[oO][0-7_]+)|(?:0[bB][01_]+)|(?:[0-9][0-9_]*(?:\.[0-9_]*)?(?:[eE][+\-]?[0-9_]+)?))n?(?![\w$])</regex>
+      </keywords>
+
+      <keywords id="Decorators" useforautocomplete="no" scope="keyword.directive">
+        <regex>@[A-Za-z_$][A-Za-z0-9_$]*</regex>
+      </keywords>
+
+      <keywords id="FunctionRegex" useforautocomplete="no" scope="language.subroutine.function">
+        <regex>([A-Za-z0-9_$]+ *)\(</regex>
+      </keywords>
+
+      <state id="DocBlockComment" type="comment" scope="comment.block.documentation">
+        <begin>
+          <regex>/\*\*</regex>
+        </begin>
+        <end>
+          <regex>\*/</regex>
+        </end>
+      </state>
+
+      <state id="BlockComment" type="comment" scope="comment.block">
+        <begin>
+          <regex>/\*</regex>
+        </begin>
+        <end>
+          <regex>\*/</regex>
+        </end>
+        <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+      </state>
+
+      <state id="LineComment" type="comment" scope="comment.line.double-slash">
+        <begin>
+          <regex>//</regex>
+        </begin>
+        <end>
+          <regex>(?&lt;!\\)[\n\r]</regex>
+        </end>
+        <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+      </state>
+
+      <state id="Template" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>`</regex>
+        </begin>
+        <end>
+          <regex>((?&lt;!\\)(\\\\)*)`</regex>
+        </end>
+        <keywords id="TemplateEscapes" useforautocomplete="no" scope="language.constant.numeric.character">
+          <regex>\\(?:[\\'"`nrtbfv0]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|u\{[0-9a-fA-F]{1,6}\})</regex>
+        </keywords>
+        <state id="Interpolation" scope="meta.block.interpolation">
+          <begin>
+            <regex>\$\{</regex>
+          </begin>
+          <end>
+            <regex>\}</regex>
+          </end>
+          <import/>
+        </state>
+      </state>
+
+      <state id="String" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>"</regex>
+        </begin>
+        <end>
+          <regex>((?&lt;!\\)(\\\\)*)"</regex>
+        </end>
+        <keywords id="Escapes" useforautocomplete="no" scope="language.constant.numeric.character">
+          <regex>\\(?:[\\'"`nrtbfv0]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|u\{[0-9a-fA-F]{1,6}\})</regex>
+        </keywords>
+      </state>
+
+      <state id="SingleString" type="string" foldable="no" scope="string.single">
+        <begin>
+          <regex>'</regex>
+        </begin>
+        <end>
+          <regex>((?&lt;!\\)(\\\\)*)'</regex>
+        </end>
+        <keywords id="SingleEscapes" useforautocomplete="no" scope="language.constant.numeric.character">
+          <regex>\\(?:[\\'"`nrtbfv0]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|u\{[0-9a-fA-F]{1,6}\})</regex>
+        </keywords>
+      </state>
+
+      <state id="Block" type="block" foldable="yes" indent="yes" scope="meta.block">
+        <begin>
+          <regex>{</regex>
+        </begin>
+        <end>
+          <regex>}</regex>
+        </end>
+        <import/>
+      </state>
+
+    </default>
+  </states>
+</syntax>

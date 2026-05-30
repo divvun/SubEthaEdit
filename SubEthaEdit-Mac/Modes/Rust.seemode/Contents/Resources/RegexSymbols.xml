@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE syntax SYSTEM "symbol.dtd">
+<symbols>
+
+    <blocks>
+        <beginregex>{</beginregex>
+        <endregex>}</endregex>
+    </blocks>
+
+    <symbol id="Functions" symbol="f()_#6AB18D" indentation="1" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:pub(?:\([^)\n]*\))?\s+)?(?:async\s+)?(?:unsafe\s+)?(?:extern[^\S\n]+"[^"\n]*"\s+)?(?:const\s+)?fn\s+([A-Za-z_][A-Za-z0-9_]*(?:&lt;[^&gt;\n]+&gt;)?\([^\n{]*\))</regex>
+        <postprocess>
+            <find>\([^\)]*\)</find>
+            <replace>()</replace>
+            <find>[\n\r]</find>
+            <replace> </replace>
+            <find>[ \t]+</find>
+            <replace> </replace>
+        </postprocess>
+    </symbol>
+
+    <symbol id="Structs" symbol="S_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:pub(?:\([^)\n]*\))?\s+)?struct\s+([A-Za-z_][A-Za-z0-9_]*)</regex>
+    </symbol>
+
+    <symbol id="Enums" symbol="e_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:pub(?:\([^)\n]*\))?\s+)?enum\s+([A-Za-z_][A-Za-z0-9_]*)</regex>
+    </symbol>
+
+    <symbol id="Traits" symbol="P_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:pub(?:\([^)\n]*\))?\s+)?(?:unsafe\s+)?trait\s+([A-Za-z_][A-Za-z0-9_]*)</regex>
+    </symbol>
+
+    <symbol id="Implementations" symbol="i()_#774940" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*impl(?:&lt;[^&gt;\n]+&gt;)?\s+([A-Za-z_][A-Za-z0-9_:&lt;&gt;, ]*?)\s*(?:where[^{]*)?\{</regex>
+        <postprocess>
+            <find>\s*\{?\s*$</find>
+            <replace></replace>
+            <find>[\n\r]</find>
+            <replace> </replace>
+            <find>[ \t]+</find>
+            <replace> </replace>
+        </postprocess>
+    </symbol>
+
+    <symbol id="Modules" symbol="p_#6D5E85" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:pub(?:\([^)\n]*\))?\s+)?mod\s+([A-Za-z_][A-Za-z0-9_]*)</regex>
+    </symbol>
+
+    <symbol id="Macros" symbol="#_#774940" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*macro_rules!\s+([A-Za-z_][A-Za-z0-9_]*)</regex>
+    </symbol>
+
+    <symbol id="Versioning conflict" font-weight="bold" image="SymbolWarn" indentation="0" ignoreblocks="no">
+        <regex>^&lt;&lt;&lt;&lt;&lt;&lt;&lt;([\n\r]|.)*?======([\n\r]|.)*?&gt;&gt;&gt;&gt;&gt;&gt;&gt;</regex>
+        <postprocess>
+            <find>.*</find>
+            <replace>Versioning conflict!</replace>
+        </postprocess>
+    </symbol>
+
+</symbols>

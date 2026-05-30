@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE syntax SYSTEM "syntax.dtd">
+<syntax>
+  <head>
+    <name>Rust</name>
+    <charsintokens><![CDATA[_0987654321abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'!]]></charsintokens>
+  </head>
+  <states>
+    <default id="Base" scope="meta.default">
+
+      <keywords id="Control" casesensitive="yes" useforautocomplete="yes" scope="keyword.control">
+        <string>await</string>
+        <string>break</string>
+        <string>continue</string>
+        <string>else</string>
+        <string>for</string>
+        <string>if</string>
+        <string>in</string>
+        <string>loop</string>
+        <string>match</string>
+        <string>return</string>
+        <string>while</string>
+        <string>yield</string>
+      </keywords>
+
+      <keywords id="Keywords" casesensitive="yes" useforautocomplete="yes" scope="keyword">
+        <string>as</string>
+        <string>async</string>
+        <string>const</string>
+        <string>crate</string>
+        <string>dyn</string>
+        <string>enum</string>
+        <string>extern</string>
+        <string>fn</string>
+        <string>impl</string>
+        <string>let</string>
+        <string>macro</string>
+        <string>mod</string>
+        <string>move</string>
+        <string>mut</string>
+        <string>pub</string>
+        <string>ref</string>
+        <string>self</string>
+        <string>Self</string>
+        <string>static</string>
+        <string>struct</string>
+        <string>super</string>
+        <string>trait</string>
+        <string>type</string>
+        <string>union</string>
+        <string>unsafe</string>
+        <string>use</string>
+        <string>where</string>
+      </keywords>
+
+      <keywords id="Constants" casesensitive="yes" useforautocomplete="yes" scope="keyword.constant">
+        <string>true</string>
+        <string>false</string>
+        <string>Some</string>
+        <string>None</string>
+        <string>Ok</string>
+        <string>Err</string>
+      </keywords>
+
+      <keywords id="Types" casesensitive="yes" useforautocomplete="yes" scope="keyword.type">
+        <string>i8</string>
+        <string>i16</string>
+        <string>i32</string>
+        <string>i64</string>
+        <string>i128</string>
+        <string>isize</string>
+        <string>u8</string>
+        <string>u16</string>
+        <string>u32</string>
+        <string>u64</string>
+        <string>u128</string>
+        <string>usize</string>
+        <string>f32</string>
+        <string>f64</string>
+        <string>bool</string>
+        <string>char</string>
+        <string>str</string>
+      </keywords>
+
+      <keywords id="StdTypes" casesensitive="yes" useforautocomplete="yes" scope="support.type">
+        <string>String</string>
+        <string>Vec</string>
+        <string>Option</string>
+        <string>Result</string>
+        <string>Box</string>
+        <string>Rc</string>
+        <string>Arc</string>
+        <string>Cell</string>
+        <string>RefCell</string>
+        <string>Mutex</string>
+        <string>RwLock</string>
+        <string>HashMap</string>
+        <string>HashSet</string>
+        <string>BTreeMap</string>
+        <string>BTreeSet</string>
+        <string>VecDeque</string>
+        <string>LinkedList</string>
+        <string>BinaryHeap</string>
+        <string>Cow</string>
+        <string>Path</string>
+        <string>PathBuf</string>
+        <string>OsStr</string>
+        <string>OsString</string>
+        <string>CStr</string>
+        <string>CString</string>
+        <string>Ordering</string>
+        <string>Duration</string>
+        <string>Instant</string>
+        <string>Copy</string>
+        <string>Clone</string>
+        <string>Debug</string>
+        <string>Display</string>
+        <string>Default</string>
+        <string>Hash</string>
+        <string>PartialEq</string>
+        <string>Eq</string>
+        <string>PartialOrd</string>
+        <string>Ord</string>
+        <string>Iterator</string>
+        <string>IntoIterator</string>
+        <string>FromIterator</string>
+        <string>From</string>
+        <string>Into</string>
+        <string>TryFrom</string>
+        <string>TryInto</string>
+        <string>AsRef</string>
+        <string>AsMut</string>
+        <string>Deref</string>
+        <string>DerefMut</string>
+        <string>Drop</string>
+        <string>Fn</string>
+        <string>FnMut</string>
+        <string>FnOnce</string>
+        <string>Send</string>
+        <string>Sync</string>
+        <string>Sized</string>
+        <string>ToString</string>
+        <string>ToOwned</string>
+        <string>Borrow</string>
+        <string>BorrowMut</string>
+      </keywords>
+
+      <keywords id="Numbers" useforautocomplete="no" scope="language.constant.numeric">
+        <regex>(?&lt;![\w_.])(?:0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(?:\.[0-9][0-9_]*)?(?:[eE][+\-]?[0-9_]+)?)(?:i8|i16|i32|i64|i128|isize|u8|u16|u32|u64|u128|usize|f32|f64)?(?![\w])</regex>
+      </keywords>
+
+      <keywords id="CharLiteral" useforautocomplete="no" scope="language.constant.numeric.character">
+        <regex>b?'(?:\\(?:x[0-9a-fA-F]{2}|u\{[0-9a-fA-F_]{1,8}\}|[nrt0\\'"])|[^'\\\n])'</regex>
+      </keywords>
+
+      <keywords id="Lifetimes" useforautocomplete="no" scope="keyword.constant">
+        <regex>(?&lt;![A-Za-z0-9_'])'(?:[A-Za-z_][A-Za-z0-9_]*|_)(?![A-Za-z0-9_'])</regex>
+      </keywords>
+
+      <keywords id="Macros" useforautocomplete="no" scope="language.subroutine.function">
+        <regex>[A-Za-z_][A-Za-z0-9_]*!(?=\s*[({\[])</regex>
+      </keywords>
+
+      <keywords id="FunctionDef" useforautocomplete="no" scope="language.subroutine.function">
+        <regex>(?&lt;=\bfn )[A-Za-z_][A-Za-z0-9_]*</regex>
+      </keywords>
+
+      <keywords id="FunctionCall" useforautocomplete="no" scope="language.subroutine.function">
+        <regex>[A-Za-z_][A-Za-z0-9_]*(?=\s*\()</regex>
+      </keywords>
+
+      <state id="Attribute" scope="keyword.directive">
+        <begin>
+          <regex>#!?\[</regex>
+        </begin>
+        <end>
+          <regex>\]</regex>
+        </end>
+      </state>
+
+      <state id="DocBlockComment" type="comment" scope="comment.block.documentation">
+        <begin>
+          <regex>/\*[\*!]</regex>
+        </begin>
+        <end>
+          <regex>\*/</regex>
+        </end>
+      </state>
+
+      <state id="BlockComment" type="comment" scope="comment.block">
+        <begin>
+          <regex>/\*</regex>
+        </begin>
+        <end>
+          <regex>\*/</regex>
+        </end>
+        <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+      </state>
+
+      <state id="DocLineComment" type="comment" scope="comment.block.documentation">
+        <begin>
+          <regex>//[/!](?!/)</regex>
+        </begin>
+        <end>
+          <regex>(?&lt;!\\)[\n\r]</regex>
+        </end>
+      </state>
+
+      <state id="LineComment" type="comment" scope="comment.line.double-slash">
+        <begin>
+          <regex>//</regex>
+        </begin>
+        <end>
+          <regex>(?&lt;!\\)[\n\r]</regex>
+        </end>
+        <import mode="Base" state="EmailAndURLContainerState" keywords-only="yes"/>
+      </state>
+
+      <state id="RawString2" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>b?r##"</regex>
+        </begin>
+        <end>
+          <regex>"##</regex>
+        </end>
+      </state>
+
+      <state id="RawString1" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>b?r#"</regex>
+        </begin>
+        <end>
+          <regex>"#</regex>
+        </end>
+      </state>
+
+      <state id="RawString0" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>b?r"</regex>
+        </begin>
+        <end>
+          <regex>"</regex>
+        </end>
+      </state>
+
+      <state id="ByteString" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>b"</regex>
+        </begin>
+        <end>
+          <regex>((?&lt;!\\)(\\\\)*)"</regex>
+        </end>
+        <keywords id="ByteEscapes" useforautocomplete="no" scope="language.constant.numeric.character">
+          <regex>\\(?:[nrt0\\'"]|x[0-9a-fA-F]{2})</regex>
+        </keywords>
+      </state>
+
+      <state id="String" type="string" foldable="no" scope="string.double">
+        <begin>
+          <regex>"</regex>
+        </begin>
+        <end>
+          <regex>((?&lt;!\\)(\\\\)*)"</regex>
+        </end>
+        <keywords id="Escapes" useforautocomplete="no" scope="language.constant.numeric.character">
+          <regex>\\(?:[nrt0\\'"]|x[0-9a-fA-F]{2}|u\{[0-9a-fA-F_]{1,8}\})</regex>
+        </keywords>
+      </state>
+
+      <state id="Block" type="block" foldable="yes" indent="yes" scope="meta.block">
+        <begin>
+          <regex>{</regex>
+        </begin>
+        <end>
+          <regex>}</regex>
+        </end>
+        <import/>
+      </state>
+
+    </default>
+  </states>
+</syntax>
