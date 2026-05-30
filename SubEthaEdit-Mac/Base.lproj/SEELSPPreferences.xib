@@ -23,10 +23,10 @@
         <window title="Language Servers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="lsp-win" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="88" y="301" width="520" height="360"/>
+            <rect key="contentRect" x="88" y="301" width="680" height="360"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2880" height="1595"/>
             <view key="contentView" id="lsp-content">
-                <rect key="frame" x="0.0" y="0.0" width="520" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="680" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lsp-l-mode">
