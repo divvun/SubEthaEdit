@@ -11,6 +11,7 @@
 #import "SEELSPServerConfiguration.h"
 #import "SEELSPServerManager.h"
 #import "SEELSPJSONRPC.h"
+#import "SEELSPMarkdownRenderer.h"
 #import "SymbolTableEntry.h"
 #import "NSImageTCMAdditions.h"
 #import "NSOperationQueue+TCMAdditions.h"
@@ -34,6 +35,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     BOOL I_documentSymbolsDirty;
     BOOL I_documentSymbolsInFlight;
     BOOL I_serverLacksDocumentSymbol;
+    BOOL I_serverLacksHover;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -298,6 +300,54 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 
 + (NSString *)TCM_typeForSymbolKind:(NSInteger)kind {
     return [NSString stringWithFormat:@"lsp.symbol.%ld", (long)kind];
+}
+
+#pragma mark - Hover
+
+- (void)requestHoverAtFullOffset:(NSUInteger)offset reply:(void (^)(NSAttributedString *, NSRange, BOOL))reply {
+    PlainTextDocument *document = I_document;
+    if (I_active && I_didOpen && !I_serverLacksHover && document) {
+        FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+        NSUInteger line = 0, character = 0;
+        [textStorage lspLine:&line character:&character forOffset:offset];
+        NSDictionary *params = @{
+            @"textDocument": @{@"uri": I_documentURI},
+            @"position": @{@"line": @(line), @"character": @(character)},
+        };
+        __weak typeof(self) weakSelf = self;
+        [[SEELSPServerManager sharedManager] sendRequestForServer:I_serverInstanceID
+                method:@"textDocument/hover"
+                params:params
+                reply:^(id result, NSDictionary *errorObject) {
+            typeof(self) strongSelf = weakSelf;
+            NSAttributedString *contents = nil;
+            NSRange fullRange = NSMakeRange(0, 0);
+            BOOL hasRange = NO;
+            if (errorObject) {
+                if (strongSelf && [errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
+                    strongSelf->I_serverLacksHover = YES;
+                }
+            } else if ([result isKindOfClass:[NSDictionary class]]) {
+                contents = [SEELSPMarkdownRenderer attributedStringFromHoverContents:result[@"contents"]];
+                NSRange parsedRange = [SEELSPController hoverFullRangeFromResult:result textStorage:textStorage];
+                if (parsedRange.location != NSNotFound) {
+                    fullRange = parsedRange;
+                    hasRange = YES;
+                }
+            }
+            reply(contents, fullRange, hasRange);
+        }];
+    } else {
+        reply(nil, NSMakeRange(0, 0), NO);
+    }
+}
+
++ (NSRange)hoverFullRangeFromResult:(NSDictionary *)result textStorage:(FullTextStorage *)textStorage {
+    NSRange range = NSMakeRange(NSNotFound, 0);
+    if ([result[@"range"] isKindOfClass:[NSDictionary class]]) {
+        range = [self TCM_fullRangeForLSPRange:result[@"range"] textStorage:textStorage];
+    }
+    return range;
 }
 
 #pragma mark - Diagnostics

@@ -22,6 +22,9 @@ extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
 
 + (NSArray *)symbolTableEntriesFromDocumentSymbolResult:(NSArray *)result textStorage:(FullTextStorage *)textStorage;
 
+- (void)requestHoverAtFullOffset:(NSUInteger)offset reply:(void (^)(NSAttributedString *contents, NSRange fullRange, BOOL hasRange))reply;
++ (NSRange)hoverFullRangeFromResult:(NSDictionary *)result textStorage:(FullTextStorage *)textStorage;
+
 - (void)handleNotificationMethod:(NSString *)method params:(id)params;
 
 - (void)startIfNeeded;

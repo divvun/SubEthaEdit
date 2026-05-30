@@ -44,6 +44,8 @@
 #import "SEEOverlayView.h"
 #import "NSLayoutConstraint+TCMAdditions.h"
 #import "TCMHoverButton.h"
+#import "SEELSPController.h"
+#import "SEELSPHoverViewController.h"
 
 NSString * const PlainTextEditorDidFollowUserNotification = @"PlainTextEditorDidFollowUserNotification";
 NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEditorDidChangeSearchScopeNotification";
@@ -96,6 +98,8 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
         BOOL pausedProcessing;
     } I_flags;
     SelectionOperation *I_storedPosition;
+    NSPopover *I_lspHoverPopover;
+    NSRange I_lspHoverFoldedRange;
 }
 
 - (instancetype)initWithWindowControllerTabContext:(PlainTextWindowControllerTabContext *)aWindowControllerTabContext splitButton:(BOOL)aFlag {
@@ -2266,6 +2270,100 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
     } else {
         return inTooltip;
     }
+}
+
+#pragma mark - LSP hover
+
+- (void)textViewMouseMoved {
+    SEELSPController *controller = [[self document] lspController];
+    if (![controller isActive]) {
+        [self closeLSPHoverPopover];
+    } else {
+        if ([I_lspHoverPopover isShown]) {
+            NSUInteger foldedIndex = [self TCM_foldedCharacterIndexUnderMouse];
+            if (foldedIndex == NSNotFound || !NSLocationInRange(foldedIndex, I_lspHoverFoldedRange)) {
+                [self closeLSPHoverPopover];
+            }
+        }
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TCM_triggerLSPHover) object:nil];
+        [self performSelector:@selector(TCM_triggerLSPHover) withObject:nil afterDelay:0.55];
+    }
+}
+
+- (NSUInteger)TCM_foldedCharacterIndexUnderMouse {
+    NSUInteger result = NSNotFound;
+    NSTextView *textView = I_textView;
+    if ([[textView textStorage] length] > 0) {
+        NSPoint windowPoint = [[textView window] mouseLocationOutsideOfEventStream];
+        NSPoint viewPoint = [textView convertPoint:windowPoint fromView:nil];
+        NSPoint origin = [textView textContainerOrigin];
+        NSPoint containerPoint = NSMakePoint(viewPoint.x - origin.x, viewPoint.y - origin.y);
+        NSLayoutManager *layoutManager = [textView layoutManager];
+        NSTextContainer *container = [textView textContainer];
+        CGFloat fraction = 0.0;
+        NSUInteger glyphIndex = [layoutManager glyphIndexForPoint:containerPoint inTextContainer:container fractionOfDistanceThroughGlyph:&fraction];
+        NSRect glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:container];
+        if (NSPointInRect(containerPoint, glyphRect)) {
+            result = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+        }
+    }
+    return result;
+}
+
+- (void)TCM_triggerLSPHover {
+    SEELSPController *controller = [[self document] lspController];
+    NSUInteger foldedIndex = [self TCM_foldedCharacterIndexUnderMouse];
+    BOOL alreadyShownForToken = ([I_lspHoverPopover isShown] && foldedIndex != NSNotFound && NSLocationInRange(foldedIndex, I_lspHoverFoldedRange));
+    if ([controller isActive] && foldedIndex != NSNotFound && !alreadyShownForToken) {
+        FoldableTextStorage *foldable = (FoldableTextStorage *)[[self document] textStorage];
+        NSRange fullRange = [foldable fullRangeForFoldedRange:NSMakeRange(foldedIndex, 0)];
+        NSUInteger fullOffset = fullRange.location;
+        __weak typeof(self) weakSelf = self;
+        [controller requestHoverAtFullOffset:fullOffset reply:^(NSAttributedString *contents, NSRange hoverFullRange, BOOL hasRange) {
+            typeof(self) strongSelf = weakSelf;
+            if (strongSelf && contents.length > 0) {
+                NSRange anchorFullRange = hasRange ? hoverFullRange : NSMakeRange(fullOffset, 1);
+                [strongSelf TCM_showLSPHoverWithContents:contents fullRange:anchorFullRange];
+            }
+        }];
+    }
+}
+
+- (void)TCM_showLSPHoverWithContents:(NSAttributedString *)contents fullRange:(NSRange)fullRange {
+    NSTextView *textView = I_textView;
+    FoldableTextStorage *foldable = (FoldableTextStorage *)[[self document] textStorage];
+    NSRange foldedRange = [foldable foldedRangeForFullRange:fullRange expandIfFolded:NO];
+    NSUInteger storageLength = [[textView textStorage] length];
+    if (foldedRange.location != NSNotFound && foldedRange.location < storageLength) {
+        if (foldedRange.length == 0) {
+            foldedRange.length = 1;
+        }
+        if (NSMaxRange(foldedRange) > storageLength) {
+            foldedRange.length = storageLength - foldedRange.location;
+        }
+        NSLayoutManager *layoutManager = [textView layoutManager];
+        NSTextContainer *container = [textView textContainer];
+        NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:foldedRange actualCharacterRange:NULL];
+        NSRect boundingRect = [layoutManager boundingRectForGlyphRange:glyphRange inTextContainer:container];
+        NSPoint origin = [textView textContainerOrigin];
+        boundingRect.origin.x += origin.x;
+        boundingRect.origin.y += origin.y;
+
+        [self closeLSPHoverPopover];
+        I_lspHoverFoldedRange = foldedRange;
+        SEELSPHoverViewController *viewController = [[SEELSPHoverViewController alloc] initWithAttributedString:contents];
+        NSPopover *popover = [NSPopover new];
+        popover.contentViewController = viewController;
+        popover.behavior = NSPopoverBehaviorTransient;
+        I_lspHoverPopover = popover;
+        [popover showRelativeToRect:boundingRect ofView:textView preferredEdge:NSRectEdgeMinY];
+    }
+}
+
+- (void)closeLSPHoverPopover {
+    [I_lspHoverPopover close];
+    I_lspHoverPopover = nil;
+    I_lspHoverFoldedRange = NSMakeRange(NSNotFound, 0);
 }
 
 - (void)textView:(NSTextView *)view doubleClickedOnCell:(id <NSTextAttachmentCell> )cell inRect:(NSRect)rect atIndex:(NSUInteger)inIndex {

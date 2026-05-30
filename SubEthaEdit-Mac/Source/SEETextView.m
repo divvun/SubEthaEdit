@@ -1319,6 +1319,8 @@ static NSMenu *S_defaultMenu=nil;
 	           [super respondsToSelector:@selector(mouseMoved:)]) {
 		[super mouseMoved:anEvent];
 	}
+
+	[self.editor textViewMouseMoved];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
@@ -1332,6 +1334,7 @@ static NSMenu *S_defaultMenu=nil;
 	if ([self.editor hitTestOverlayViewsWithEvent:theEvent]) {
 		return;
 	}
+	[self.editor closeLSPHoverPopover];
 	[super scrollWheel:theEvent];
 }
 

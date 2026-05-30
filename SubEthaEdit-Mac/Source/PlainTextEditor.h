@@ -75,6 +75,9 @@ extern NSString * const PlainTextEditorDidChangeSearchScopeNotification;
 
 - (void)setNeedsDisplayForRuler;
 
+- (void)textViewMouseMoved;
+- (void)closeLSPHoverPopover;
+
 - (void)updateViews;
 
 - (void)storePosition;
