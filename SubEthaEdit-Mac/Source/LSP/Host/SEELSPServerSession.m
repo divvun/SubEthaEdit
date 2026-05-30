@@ -83,7 +83,6 @@
     I_child = child;
 
     [self TCM_setState:SEELSPServerStateInitializing];
-    // On handshake error the child terminates itself, so TCM_childDidTerminate drives the restart.
     [child launchAndInitializeWithParams:I_initializeParams timeout:self.initializeTimeout reply:^(NSDictionary *capabilities, NSError *error) {
         dispatch_async(queue, ^{
             if (!error) { [weakSelf TCM_didReachRunning]; }
@@ -112,9 +111,7 @@
         I_consecutiveCrashes++;
 
         [self TCM_setState:SEELSPServerStateCrashed];
-        if (I_recentCrashTimes.count > self.maxRestartsPerWindow) {
-            // Circuit breaker tripped: stay Crashed, no further restarts.
-        } else {
+        if (I_recentCrashTimes.count <= self.maxRestartsPerWindow) {
             NSTimeInterval backoff = MIN(self.restartBackoffCap, self.restartBackoffBase * pow(2.0, (double)(I_consecutiveCrashes - 1)));
             __weak typeof(self) weakSelf = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(backoff * NSEC_PER_SEC)), I_queue, ^{

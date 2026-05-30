@@ -20,8 +20,6 @@ typedef NS_ENUM(NSInteger, SEELSPDiagnosticSeverity) {
 @property (nonatomic, readonly, copy) NSString *source;
 @property (nonatomic, readonly, copy) NSString *code;
 
-// Parse a textDocument/publishDiagnostics params dict, mapping each LSP range to a full-text
-// NSRange via the text storage's current contents. Malformed entries are skipped.
 + (NSArray<SEELSPDiagnostic *> *)diagnosticsFromPublishParams:(NSDictionary *)params textStorage:(FullTextStorage *)textStorage;
 
 @end

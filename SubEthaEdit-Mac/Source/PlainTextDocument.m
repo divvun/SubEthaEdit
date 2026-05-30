@@ -974,8 +974,6 @@ static NSString *tempFileName(NSString *origPath) {
     }
 }
 
-// Each participant runs its own server against its own local copy, so this is gated on a
-// startable config and a non-proxy document, not on session role.
 - (void)TCM_updateLanguageServer {
     [self.lspController shutdown];
     self.lspController = nil;

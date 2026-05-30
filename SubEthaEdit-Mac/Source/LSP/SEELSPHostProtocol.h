@@ -12,7 +12,6 @@
         bookmark:(NSData *)securityScopedBookmark
         reply:(void (^)(BOOL started, NSError *error))reply;
 
-// result is `id`: an LSP result may be an object, array, scalar, or NSNull.
 - (void)sendRequestForServer:(NSString *)serverInstanceID
         method:(NSString *)method
         params:(NSDictionary *)params

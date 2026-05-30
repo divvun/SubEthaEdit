@@ -200,8 +200,6 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     return result;
 }
 
-// Diagnostics are display-only: applied as layout-manager temporary attributes so they never
-// enter the document model, undo, or the collaboration wire.
 - (void)TCM_applyDiagnosticUnderlines {
     PlainTextDocument *document = I_document;
     FoldableTextStorage *foldable = (FoldableTextStorage *)[document textStorage];
