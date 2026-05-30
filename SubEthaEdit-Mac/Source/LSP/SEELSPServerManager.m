@@ -60,8 +60,6 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 
 #pragma mark - Connection
 
-// The embedded service's bundle id is the app's id plus ".LSPHost"; deriving it keeps the
-// FULL / App Store / Dev build styles working without a hardcoded name.
 - (NSString *)TCM_serviceName {
     return [[[NSBundle mainBundle] bundleIdentifier] stringByAppendingString:@".LSPHost"];
 }

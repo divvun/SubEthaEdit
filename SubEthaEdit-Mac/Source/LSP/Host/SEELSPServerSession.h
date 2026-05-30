@@ -19,7 +19,6 @@
 @property (nonatomic) NSUInteger maxRestartsPerWindow;
 @property (nonatomic) NSTimeInterval restartWindow;
 
-// Set before -start. stateChangeHandler fires on every transition.
 @property (nonatomic, copy) void (^stateChangeHandler)(SEELSPServerState state);
 @property (nonatomic, copy) void (^notificationHandler)(NSString *method, id params);
 @property (nonatomic, copy) void (^serverRequestHandler)(id requestID, NSString *method, id params, void (^respond)(id result, id errorObject));

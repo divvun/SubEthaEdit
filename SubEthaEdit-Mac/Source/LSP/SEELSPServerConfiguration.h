@@ -5,8 +5,6 @@
 
 @interface SEELSPServerConfiguration : NSObject
 
-// Merge a mode's bundled LanguageServer.plist defaults with the per-mode user override
-// (override wins per key). Returns nil when neither side provides anything.
 + (instancetype)configurationWithBundleDefaults:(NSDictionary *)bundleDefaults
         override:(NSDictionary *)override;
 
@@ -18,7 +16,6 @@
 @property (nonatomic, readonly, copy) NSDictionary *initializationOptions;
 @property (nonatomic, readonly, copy) NSData *executableBookmark;
 
-// Enabled and has an executable bookmark, so a server can actually be launched.
 @property (nonatomic, readonly, getter=isStartable) BOOL startable;
 
 @end

@@ -11,8 +11,6 @@ typedef NSURL * (^BookmarkGenerationBlock)(NSURL *);
 
 + (instancetype)sharedManager;
 
-// Stateless security-scoped bookmark blob for a user-selected URL (does not persist or start
-// access). For passing to another process; the resolver brackets access itself.
 + (NSData *)securityScopedBookmarkDataForURL:(NSURL *)url error:(NSError **)error;
 
 - (void)resetBookmarksInUserDefaults;
