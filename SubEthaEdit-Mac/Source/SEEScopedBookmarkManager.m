@@ -118,6 +118,13 @@ static NSString * const SEEScopedBookmarksKey = @"de.codingmonkeys.subethaedit.s
 	return sSharedManager;
 }
 
++ (NSData *)securityScopedBookmarkDataForURL:(NSURL *)url error:(NSError **)error {
+	return [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
+		includingResourceValuesForKeys:nil
+						 relativeToURL:nil
+								 error:error];
+}
+
 
 - (instancetype)init {
     self = [super init];

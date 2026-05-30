@@ -5,6 +5,9 @@
 #import "SEELSPHostProtocol.h"
 #import "SEELSPClientProtocol.h"
 #import "SEELSPController.h"
+#import "SEELSPXPCInterface.h"
+#import "SEEScopedBookmarkManager.h"
+#import "NSOperationQueue+TCMAdditions.h"
 
 static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 
@@ -52,10 +55,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 }
 
 + (NSData *)bookmarkForExecutableURL:(NSURL *)url error:(NSError **)error {
-    return [url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope
-        includingResourceValuesForKeys:nil
-                         relativeToURL:nil
-                                 error:error];
+    return [SEEScopedBookmarkManager securityScopedBookmarkDataForURL:url error:error];
 }
 
 #pragma mark - Connection
@@ -72,7 +72,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
         connection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(SEELSPHostProtocol)];
         connection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(SEELSPClientProtocol)];
         connection.exportedObject = self;
-        [self TCM_whitelistJSONClassesForConnection:connection];
+        SEELSPApplyJSONWhitelist(connection.remoteObjectInterface, connection.exportedInterface);
 
         __weak typeof(self) weakSelf = self;
         connection.invalidationHandler = ^{ [weakSelf TCM_dropConnection]; };
@@ -85,33 +85,14 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 }
 
 - (void)TCM_dropConnection {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [NSOperationQueue TCM_performBlockOnMainQueue:^{
         self->I_connection = nil;
-    });
-}
-
-// NSXPC drops JSON-collection arguments unless their member classes are whitelisted per
-// selector and argument, in both directions and for reply-block arguments.
-- (void)TCM_whitelistJSONClassesForConnection:(NSXPCConnection *)connection {
-    NSSet *json = [NSSet setWithObjects:NSDictionary.class, NSArray.class, NSString.class, NSNumber.class, NSNull.class, nil];
-
-    NSXPCInterface *host = connection.remoteObjectInterface;
-    [host setClasses:json forSelector:@selector(startServerWithConfiguration:serverInstanceID:bookmark:reply:) argumentIndex:0 ofReply:NO];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:2 ofReply:NO];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:0 ofReply:YES];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:1 ofReply:YES];
-    [host setClasses:json forSelector:@selector(sendNotificationForServer:method:params:) argumentIndex:2 ofReply:NO];
-
-    NSXPCInterface *client = connection.exportedInterface;
-    [client setClasses:json forSelector:@selector(server:didReceiveNotificationMethod:params:) argumentIndex:2 ofReply:NO];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:2 ofReply:NO];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:0 ofReply:YES];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:1 ofReply:YES];
+    } afterDelay:0];
 }
 
 - (id<SEELSPHostProtocol>)TCM_hostProxyWithReplyOnError:(void (^)(NSError *error))errorHandler {
     return [[self TCM_connection] remoteObjectProxyWithErrorHandler:^(NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{ errorHandler(error); });
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ errorHandler(error); } afterDelay:0];
     }];
 }
 
@@ -124,7 +105,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 - (void)pingWithReply:(void (^)(NSString *, NSError *))reply {
     id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(nil, error); }];
     [proxy pingWithReply:^(NSString *pong) {
-        dispatch_async(dispatch_get_main_queue(), ^{ reply(pong, nil); });
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ reply(pong, nil); } afterDelay:0];
     }];
 }
 
@@ -134,7 +115,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
         reply:(void (^)(BOOL, NSError *))reply {
     id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(NO, error); }];
     [proxy startServerWithConfiguration:configuration serverInstanceID:serverInstanceID bookmark:bookmark reply:^(BOOL started, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{ reply(started, error); });
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ reply(started, error); } afterDelay:0];
     }];
 }
 
@@ -147,7 +128,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
         reply(nil, [weakSelf TCM_errorObjectFromError:error]);
     }];
     [proxy sendRequestForServer:serverInstanceID method:method params:params reply:^(id result, NSDictionary *errorObject) {
-        dispatch_async(dispatch_get_main_queue(), ^{ reply(result, errorObject); });
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ reply(result, errorObject); } afterDelay:0];
     }];
 }
 
@@ -161,16 +142,16 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 - (void)stopServer:(NSString *)serverInstanceID reply:(void (^)(void))reply {
     id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(); }];
     [proxy stopServer:serverInstanceID reply:^{
-        dispatch_async(dispatch_get_main_queue(), ^{ reply(); });
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ reply(); } afterDelay:0];
     }];
 }
 
 #pragma mark - SEELSPClientProtocol
 
 - (void)server:(NSString *)serverInstanceID didReceiveNotificationMethod:(NSString *)method params:(NSDictionary *)params {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [NSOperationQueue TCM_performBlockOnMainQueue:^{
         [[self TCM_observerForID:serverInstanceID] handleNotificationMethod:method params:params];
-    });
+    } afterDelay:0];
 }
 
 - (void)server:(NSString *)serverInstanceID didReceiveServerRequestMethod:(NSString *)method params:(NSDictionary *)params reply:(void (^)(id, NSDictionary *))reply {

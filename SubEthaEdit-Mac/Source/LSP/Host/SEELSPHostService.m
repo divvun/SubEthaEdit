@@ -4,6 +4,7 @@
 #import "SEELSPHostService.h"
 #import "SEELSPClientProtocol.h"
 #import "SEELSPServerSession.h"
+#import "SEELSPXPCInterface.h"
 
 static NSInteger const SEELSPJSONRPCInternalError = -32603;
 static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorDomain";
@@ -29,7 +30,7 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
     newConnection.exportedInterface = [NSXPCInterface interfaceWithProtocol:@protocol(SEELSPHostProtocol)];
     newConnection.exportedObject = self;
     newConnection.remoteObjectInterface = [NSXPCInterface interfaceWithProtocol:@protocol(SEELSPClientProtocol)];
-    [self TCM_whitelistJSONClassesForConnection:newConnection];
+    SEELSPApplyJSONWhitelist(newConnection.exportedInterface, newConnection.remoteObjectInterface);
 
     __weak typeof(self) weakSelf = self;
     newConnection.invalidationHandler = ^{ [weakSelf TCM_teardownAllServers]; };
@@ -37,25 +38,6 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
     I_connection = newConnection;
     [newConnection resume];
     return YES;
-}
-
-// NSXPC drops JSON-collection arguments unless their member classes are whitelisted per
-// selector and argument, in both directions and for reply-block arguments.
-- (void)TCM_whitelistJSONClassesForConnection:(NSXPCConnection *)connection {
-    NSSet *json = [NSSet setWithObjects:NSDictionary.class, NSArray.class, NSString.class, NSNumber.class, NSNull.class, nil];
-
-    NSXPCInterface *host = connection.exportedInterface;
-    [host setClasses:json forSelector:@selector(startServerWithConfiguration:serverInstanceID:bookmark:reply:) argumentIndex:0 ofReply:NO];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:2 ofReply:NO];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:0 ofReply:YES];
-    [host setClasses:json forSelector:@selector(sendRequestForServer:method:params:reply:) argumentIndex:1 ofReply:YES];
-    [host setClasses:json forSelector:@selector(sendNotificationForServer:method:params:) argumentIndex:2 ofReply:NO];
-
-    NSXPCInterface *client = connection.remoteObjectInterface;
-    [client setClasses:json forSelector:@selector(server:didReceiveNotificationMethod:params:) argumentIndex:2 ofReply:NO];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:2 ofReply:NO];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:0 ofReply:YES];
-    [client setClasses:json forSelector:@selector(server:didReceiveServerRequestMethod:params:reply:) argumentIndex:1 ofReply:YES];
 }
 
 - (id<SEELSPClientProtocol>)TCM_client {

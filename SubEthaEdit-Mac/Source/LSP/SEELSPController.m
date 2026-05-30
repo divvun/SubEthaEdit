@@ -5,10 +5,13 @@
 #import "PlainTextDocument.h"
 #import "PlainTextEditor.h"
 #import "DocumentMode.h"
+#import "LayoutManager.h"
 #import "FullTextStorage+LSPPosition.h"
 #import "SEELSPDiagnostic.h"
 #import "SEELSPServerConfiguration.h"
 #import "SEELSPServerManager.h"
+#import "NSOperationQueue+TCMAdditions.h"
+#import "NSStringTCMAdditions.h"
 
 NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPControllerDidChangeDiagnosticsNotification";
 
@@ -30,7 +33,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     self = [super init];
     if (self) {
         I_document = document;
-        I_serverInstanceID = [[NSUUID UUID] UUIDString];
+        I_serverInstanceID = [NSString UUIDString];
         I_version = 1;
         I_pendingChanges = [NSMutableArray array];
         I_diagnostics = @[];
@@ -143,7 +146,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
         if (!I_flushScheduled) {
             I_flushScheduled = YES;
             __weak typeof(self) weakSelf = self;
-            dispatch_async(dispatch_get_main_queue(), ^{ [weakSelf TCM_flushChanges]; });
+            [NSOperationQueue TCM_performBlockOnMainQueue:^{ [weakSelf TCM_flushChanges]; } afterDelay:0];
         }
     }
 }
@@ -204,10 +207,9 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     FoldableTextStorage *foldable = (FoldableTextStorage *)[document textStorage];
     NSUInteger foldedLength = [foldable length];
     for (PlainTextEditor *editor in [document plainTextEditors]) {
-        NSLayoutManager *layoutManager = [[editor textView] layoutManager];
+        LayoutManager *layoutManager = (LayoutManager *)[[editor textView] layoutManager];
         NSRange whole = NSMakeRange(0, foldedLength);
-        [layoutManager removeTemporaryAttribute:NSUnderlineStyleAttributeName forCharacterRange:whole];
-        [layoutManager removeTemporaryAttribute:NSUnderlineColorAttributeName forCharacterRange:whole];
+        [layoutManager removeTemporaryAttributes:@[NSUnderlineStyleAttributeName, NSUnderlineColorAttributeName] forCharacterRange:whole];
         for (SEELSPDiagnostic *diagnostic in I_diagnostics) {
             NSRange foldedRange = [foldable foldedRangeForFullRange:diagnostic.fullRange expandIfFolded:NO];
             if (foldedRange.location != NSNotFound && foldedRange.length > 0 && NSMaxRange(foldedRange) <= foldedLength) {
