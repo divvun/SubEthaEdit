@@ -17,6 +17,9 @@ extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
 // Latest published diagnostics for the document (array of SEELSPDiagnostic).
 @property (nonatomic, readonly, copy) NSArray *diagnostics;
 
+// Diagnostics whose full-text range intersects range (point diagnostics match by location).
+- (NSArray *)diagnosticsInFullRange:(NSRange)range;
+
 // Server -> client notification routed by SEELSPServerManager (e.g. publishDiagnostics).
 - (void)handleNotificationMethod:(NSString *)method params:(id)params;
 

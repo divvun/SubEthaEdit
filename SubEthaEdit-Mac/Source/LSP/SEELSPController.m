@@ -3,6 +3,7 @@
 
 #import "SEELSPController.h"
 #import "PlainTextDocument.h"
+#import "PlainTextEditor.h"
 #import "DocumentMode.h"
 #import "FullTextStorage+LSPPosition.h"
 #import "SEELSPDiagnostic.h"
@@ -177,9 +178,56 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     if (document && matchesDocument) {
         FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
         I_diagnostics = [SEELSPDiagnostic diagnosticsFromPublishParams:params textStorage:textStorage];
+        [self TCM_applyDiagnosticUnderlines];
         [[NSNotificationCenter defaultCenter] postNotificationName:SEELSPControllerDidChangeDiagnosticsNotification object:document];
         [[document plainTextEditors] makeObjectsPerformSelector:@selector(setNeedsDisplayForRuler)];
     }
+}
+
+- (NSArray *)diagnosticsInFullRange:(NSRange)range {
+    NSMutableArray *result = [NSMutableArray array];
+    for (SEELSPDiagnostic *diagnostic in I_diagnostics) {
+        NSRange diagnosticRange = diagnostic.fullRange;
+        BOOL intersects = NSIntersectionRange(diagnosticRange, range).length > 0;
+        BOOL pointInside = (diagnosticRange.length == 0) && NSLocationInRange(diagnosticRange.location, range);
+        if (intersects || pointInside) {
+            [result addObject:diagnostic];
+        }
+    }
+    return result;
+}
+
+// Diagnostics are display-only: applied as layout-manager temporary attributes so they never
+// enter the document model, undo, or the collaboration wire.
+- (void)TCM_applyDiagnosticUnderlines {
+    PlainTextDocument *document = I_document;
+    FoldableTextStorage *foldable = (FoldableTextStorage *)[document textStorage];
+    NSUInteger foldedLength = [foldable length];
+    for (PlainTextEditor *editor in [document plainTextEditors]) {
+        NSLayoutManager *layoutManager = [[editor textView] layoutManager];
+        NSRange whole = NSMakeRange(0, foldedLength);
+        [layoutManager removeTemporaryAttribute:NSUnderlineStyleAttributeName forCharacterRange:whole];
+        [layoutManager removeTemporaryAttribute:NSUnderlineColorAttributeName forCharacterRange:whole];
+        for (SEELSPDiagnostic *diagnostic in I_diagnostics) {
+            NSRange foldedRange = [foldable foldedRangeForFullRange:diagnostic.fullRange expandIfFolded:NO];
+            if (foldedRange.location != NSNotFound && foldedRange.length > 0 && NSMaxRange(foldedRange) <= foldedLength) {
+                [layoutManager addTemporaryAttributes:@{
+                    NSUnderlineStyleAttributeName: @(NSUnderlineStyleThick | NSUnderlinePatternDot),
+                    NSUnderlineColorAttributeName: [[self class] colorForSeverity:diagnostic.severity],
+                } forCharacterRange:foldedRange];
+            }
+        }
+    }
+}
+
++ (NSColor *)colorForSeverity:(SEELSPDiagnosticSeverity)severity {
+    switch (severity) {
+        case SEELSPDiagnosticSeverityError:       return [NSColor systemRedColor];
+        case SEELSPDiagnosticSeverityWarning:     return [NSColor systemOrangeColor];
+        case SEELSPDiagnosticSeverityInformation: return [NSColor systemBlueColor];
+        case SEELSPDiagnosticSeverityHint:        return [NSColor systemGrayColor];
+    }
+    return [NSColor systemRedColor];
 }
 
 @end
