@@ -3,6 +3,7 @@
 
 #import "SEELSPServerSession.h"
 #import "SEELSPChildProcess.h"
+#import "SEELSPJSONRPC.h"
 
 #import <math.h>
 
@@ -70,7 +71,7 @@
         if (strongSelf.serverRequestHandler) {
             strongSelf.serverRequestHandler(requestID, method, params, respond);
         } else {
-            respond(nil, @{@"code": @(-32601), @"message": @"Method not found"});
+            respond(nil, SEELSPJSONRPCErrorObject(SEELSPJSONRPCMethodNotFound, @"Method not found"));
         }
     };
     child.stderrHandler = ^(NSString *text) {
@@ -156,7 +157,7 @@
         if (self->I_child) {
             [self->I_child sendRequestMethod:method params:params reply:reply];
         } else {
-            reply(nil, @{@"code": @(-32603), @"message": @"Server is not running"});
+            reply(nil, SEELSPJSONRPCErrorObject(SEELSPJSONRPCInternalError, @"Server is not running"));
         }
     });
 }

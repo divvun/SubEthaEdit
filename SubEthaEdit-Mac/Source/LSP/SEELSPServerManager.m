@@ -7,9 +7,8 @@
 #import "SEELSPController.h"
 #import "SEELSPXPCInterface.h"
 #import "SEEScopedBookmarkManager.h"
+#import "SEELSPJSONRPC.h"
 #import "NSOperationQueue+TCMAdditions.h"
-
-static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 
 @interface SEELSPServerManager () <SEELSPClientProtocol>
 @end
@@ -95,7 +94,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 }
 
 - (NSDictionary *)TCM_errorObjectFromError:(NSError *)error {
-    return @{@"code": @(SEELSPConnectionFailedErrorCode), @"message": error.localizedDescription ?: @"XPC connection failed"};
+    return SEELSPJSONRPCErrorObject(SEELSPJSONRPCInternalError, error.localizedDescription ?: @"XPC connection failed");
 }
 
 #pragma mark - Public API
@@ -153,7 +152,7 @@ static NSInteger const SEELSPConnectionFailedErrorCode = -32603;
 }
 
 - (void)server:(NSString *)serverInstanceID didReceiveServerRequestMethod:(NSString *)method params:(NSDictionary *)params reply:(void (^)(id, NSDictionary *))reply {
-    reply(nil, @{@"code": @(-32601), @"message": @"Method not found"});
+    reply(nil, SEELSPJSONRPCErrorObject(SEELSPJSONRPCMethodNotFound, @"Method not found"));
 }
 
 - (void)server:(NSString *)serverInstanceID didChangeState:(SEELSPServerState)state {

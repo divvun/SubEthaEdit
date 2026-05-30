@@ -538,15 +538,21 @@ static NSString *tempFileName(NSString *origPath) {
 - (void)updateSymbolTable {
     DocumentMode *mode=[self documentMode];
     I_symbolArray=nil;
-    if ([mode hasSymbols]) {
-        I_symbolArray = [[mode symbolArrayForTextStorage:[(FoldableTextStorage *)[self textStorage] fullTextStorage]] copy];
-		
-		// If symbolArrayForTextStorage: return nil the document is not yet ready for symbol recognition.
-		if (!I_symbolArray) {
-			[self performSelector:@selector(triggerUpdateSymbolTableTimer) withObject:nil afterDelay:0.1];
-			return;
-		}
-		
+    [self.lspController requestDocumentSymbolsIfNeeded];
+    NSArray *lspSymbolArray = [self.lspController documentSymbolEntries];
+    if (lspSymbolArray || [mode hasSymbols]) {
+        if (lspSymbolArray) {
+            I_symbolArray = [lspSymbolArray copy];
+        } else {
+            I_symbolArray = [[mode symbolArrayForTextStorage:[(FoldableTextStorage *)[self textStorage] fullTextStorage]] copy];
+
+            // If symbolArrayForTextStorage: return nil the document is not yet ready for symbol recognition.
+            if (!I_symbolArray) {
+                [self performSelector:@selector(triggerUpdateSymbolTableTimer) withObject:nil afterDelay:0.1];
+                return;
+            }
+        }
+
         I_symbolPopUpMenu = [NSMenu new];
         I_symbolPopUpMenuSorted = [NSMenu new];
 
