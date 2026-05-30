@@ -990,6 +990,10 @@ static NSString *tempFileName(NSString *origPath) {
     }
 }
 
+- (void)reloadLanguageServerConfiguration {
+    [self TCM_updateLanguageServer];
+}
+
 - (void)documentModeListChanged:(NSNotification *)aNotification {
 	DocumentMode *oldMode = [self documentMode];
 	DocumentMode *newMode = [[DocumentModeManager sharedInstance] documentModeForIdentifier:[oldMode documentModeIdentifier]];

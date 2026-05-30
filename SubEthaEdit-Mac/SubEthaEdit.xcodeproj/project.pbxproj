@@ -147,6 +147,7 @@
 		3DBB85BC25734A37000F829F /* OpenURLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DBB85BB25734A37000F829F /* OpenURLViewController.m */; };
 		3DBB85C025734E6D000F829F /* OpenURLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DBB85C225734E6D000F829F /* OpenURLViewController.xib */; };
 		3DC31374257D03180077577A /* SEETertiaryLabelColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC31373257D03180077577A /* SEETertiaryLabelColorValueTransformer.m */; };
+		3FFA71ED9ABBA6B96C176386 /* SEELSPPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F69E7CC7EBAC4E6616835B /* SEELSPPreferences.xib */; };
 		40C397D51E8522C354CCBF3E /* FullTextStorage+LSPPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CDA9F1B41D3CAE18E327A4 /* FullTextStorage+LSPPosition.m */; };
 		41D128756BAA341D3F804FD4 /* SEELSPHoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A01F3EC63657B35AB67A1C9 /* SEELSPHoverViewController.m */; };
 		4234523A1907DFE400BE3CC1 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 423452391907DFE400BE3CC1 /* Quartz.framework */; };
@@ -246,9 +247,11 @@
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		9822853A184CA620B1D486F2 /* SEELSPPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D1443760380DFA809A38B /* SEELSPPreferences.m */; };
 		9B77854BC6F109B44A6CFC18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4238FEC73502F156AD0A00 /* Foundation.framework */; };
 		9E9F58AD2319EC3C00E838D1 /* SEEAlertRecipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F58AC2319EC3C00E838D1 /* SEEAlertRecipe.m */; };
 		9EBAEBFBDD34163A494E6EB0 /* SEELSPXPCInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 80EDA0C608CC67C036D71891 /* SEELSPXPCInterface.m */; };
+		A2755AF77A2CCF7A43FBAAB5 /* SEELSPPreferencesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B167805E2287C200F7FDEA /* SEELSPPreferencesTests.m */; };
 		B835E7E86FD4D257D038B769 /* SEELSPServerConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1087B19AB7B259B70CBC67A0 /* SEELSPServerConfigurationTests.m */; };
 		BC07E0FD23276C0A43C8DD32 /* FullTextStorageLSPPositionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7143D3A45AEA24E504C6C719 /* FullTextStorageLSPPositionTests.m */; };
 		CB93497195AD771EB5A9814A /* SEELSPDefinitionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */; };
@@ -801,6 +804,7 @@
 		2CED1D4F238000FF00359D99 /* SEEWebPreview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEWebPreview.m; sourceTree = "<group>"; };
 		2CED1D53238007F900359D99 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		2D2D74EFD16D088CA44A7212 /* SEELSPChildProcess.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPChildProcess.h; sourceTree = "<group>"; };
+		2D4D1443760380DFA809A38B /* SEELSPPreferences.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPPreferences.m; sourceTree = "<group>"; };
 		311717F20A0E8C3600A9DA18 /* ModeSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeSettings.m; sourceTree = "<group>"; };
 		311717F30A0E8C3600A9DA18 /* ModeSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ModeSettings.h; sourceTree = "<group>"; };
 		316A0D270C68A47100720268 /* DebugAttributeInspectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DebugAttributeInspectorController.h; path = Debug/DebugAttributeInspectorController.h; sourceTree = "<group>"; };
@@ -955,6 +959,7 @@
 		5EF31E420A7E437C00D777F5 /* InvertedIBeam.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = InvertedIBeam.tiff; path = artwork/InvertedIBeam.tiff; sourceTree = "<group>"; };
 		6DAB413EA448D91D2061B48E /* SEELSPServerConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerConfiguration.m; sourceTree = "<group>"; };
 		6EA91CFA8508936DB67894F6 /* SEELSPClientProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPClientProtocol.h; sourceTree = "<group>"; };
+		70F69E7CC7EBAC4E6616835B /* SEELSPPreferences.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = SEELSPPreferences.xib; path = Base.lproj/SEELSPPreferences.xib; sourceTree = "<group>"; };
 		7143D3A45AEA24E504C6C719 /* FullTextStorageLSPPositionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FullTextStorageLSPPositionTests.m; sourceTree = "<group>"; };
 		725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDefinitionTests.m; sourceTree = "<group>"; };
 		77E5E0E25A2D86FE38A42301 /* SEELSPHoverTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPHoverTests.m; sourceTree = "<group>"; };
@@ -975,6 +980,7 @@
 		BC9D9A2BDB72EAEBAEAB7B5E /* SEELSPServerSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPServerSession.h; sourceTree = "<group>"; };
 		BEB362F9CE177A46E1E36F29 /* SubEthaEditLSPHost.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; name = SubEthaEditLSPHost.xpc; path = SubEthaEditLSPHost.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		C44DAC1F324B64082EA57115 /* FullTextStorage+LSPPosition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FullTextStorage+LSPPosition.h"; sourceTree = "<group>"; };
+		C4B167805E2287C200F7FDEA /* SEELSPPreferencesTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPPreferencesTests.m; sourceTree = "<group>"; };
 		C705F18D3C898889B98BE235 /* SEELSPServerManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerManager.m; sourceTree = "<group>"; };
 		CC494EC1AFF54DFCBCA38B12 /* SEELSPDocumentSymbolTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDocumentSymbolTests.m; sourceTree = "<group>"; };
 		D166307B2805A192D966C149 /* SEELSPController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPController.h; sourceTree = "<group>"; };
@@ -988,6 +994,7 @@
 		DDA5F00100000000000000A7 /* SEELSPTransportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEELSPTransportTests.m; sourceTree = "<group>"; };
 		DEFF804F93ED436AAE6F1018 /* SEELSPJSONRPC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPJSONRPC.h; sourceTree = "<group>"; };
 		EB0F511339E92E80A87F125B /* SEELSPDiagnostic.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDiagnostic.m; sourceTree = "<group>"; };
+		F09DB78D20EA1E4378A80851 /* SEELSPPreferences.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPPreferences.h; sourceTree = "<group>"; };
 		F2061D660B4C152600E6631F /* FirstClickCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FirstClickCustomView.h; sourceTree = "<group>"; };
 		F2061D670B4C152600E6631F /* FirstClickCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstClickCustomView.m; sourceTree = "<group>"; };
 		F20948B80C7B3DED00E78EBA /* TCMMMLogStatisticsEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TCMMMLogStatisticsEntry.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1986,6 +1993,7 @@
 				4CD5F81B17FB0E1800F49E31 /* PrecedenceRules.xib */,
 				4CD5F7D817FB0BF200F49E31 /* AdvancedPrefs.xib */,
 				3D8A480D257EF97B005AFEF1 /* SEECollaborationPrefs.xib */,
+				70F69E7CC7EBAC4E6616835B /* SEELSPPreferences.xib */,
 			);
 			name = Prefs;
 			sourceTree = "<group>";
@@ -2051,6 +2059,8 @@
 				AB1F54F3165B27C7CF546412 /* SEELSPHoverViewController.h */,
 				F6DCFE69497ADB1AD57B53F3 /* SEELSPMarkdownRenderer.m */,
 				2A01F3EC63657B35AB67A1C9 /* SEELSPHoverViewController.m */,
+				F09DB78D20EA1E4378A80851 /* SEELSPPreferences.h */,
+				2D4D1443760380DFA809A38B /* SEELSPPreferences.m */,
 			);
 			path = LSP;
 			sourceTree = "<group>";
@@ -2101,6 +2111,7 @@
 				77E5E0E25A2D86FE38A42301 /* SEELSPHoverTests.m */,
 				725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */,
 				3319A2F884E31BD9DB7083D3 /* SEELSPCompletionTests.m */,
+				C4B167805E2287C200F7FDEA /* SEELSPPreferencesTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2588,6 +2599,7 @@
 				4CD5F80217FB0D3700F49E31 /* MainMenu.xib in Resources */,
 				4C0D3D7417FB166D00AAFB38 /* DebugPresence.xib in Resources */,
 				F22024CB191D0BFE0098982C /* ParticipantFollowTurnOnNormal.png in Resources */,
+				3FFA71ED9ABBA6B96C176386 /* SEELSPPreferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2676,6 +2688,7 @@
 				8131283835E2020220F385B5 /* SEELSPHoverTests.m in Sources */,
 				CB93497195AD771EB5A9814A /* SEELSPDefinitionTests.m in Sources */,
 				F32480953F892A815EB8CE7E /* SEELSPCompletionTests.m in Sources */,
+				A2755AF77A2CCF7A43FBAAB5 /* SEELSPPreferencesTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2904,6 +2917,7 @@
 				9EBAEBFBDD34163A494E6EB0 /* SEELSPXPCInterface.m in Sources */,
 				CCC21D6523CEA3FBE89942E9 /* SEELSPMarkdownRenderer.m in Sources */,
 				41D128756BAA341D3F804FD4 /* SEELSPHoverViewController.m in Sources */,
+				9822853A184CA620B1D486F2 /* SEELSPPreferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

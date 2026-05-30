@@ -25,6 +25,7 @@
 #import "StylePreferences.h"
 #import "PrecedencePreferences.h"
 #import "SEECollaborationPreferenceModule.h"
+#import "SEELSPPreferences.h"
 
 #import "HandshakeProfile.h"
 #import "SessionProfile.h"
@@ -337,6 +338,7 @@ static AppController *sharedInstance = nil;
     [TCMPreferenceController registerPrefModule:[StylePreferences new]];
     [TCMPreferenceController registerPrefModule:[PrecedencePreferences new]];
     [TCMPreferenceController registerPrefModule:[AdvancedPreferences new]];
+    [TCMPreferenceController registerPrefModule:[SEELSPPreferences new]];
     
 #ifndef TCM_NO_DEBUG
     [[DebugController sharedInstance] enableDebugMenu:[[NSUserDefaults standardUserDefaults] boolForKey:@"EnableDebugMenu"]];
