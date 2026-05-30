@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE syntax SYSTEM "symbol.dtd">
+<symbols>
+
+    <blocks>
+        <beginregex>{</beginregex>
+        <endregex>}</endregex>
+    </blocks>
+
+    <symbol id="Classes" symbol="C_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:default\s+)?(?:declare\s+)?(?:abstract\s+)?class\s+([A-Za-z_$][A-Za-z0-9_$]*)</regex>
+    </symbol>
+
+    <symbol id="Interfaces" symbol="P_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:declare\s+)?interface\s+([A-Za-z_$][A-Za-z0-9_$]*)</regex>
+    </symbol>
+
+    <symbol id="Type Aliases" symbol="S_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:declare\s+)?type\s+([A-Za-z_$][A-Za-z0-9_$]*)</regex>
+    </symbol>
+
+    <symbol id="Enums" symbol="e_#a51c9b" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:declare\s+)?(?:const\s+)?enum\s+([A-Za-z_$][A-Za-z0-9_$]*)</regex>
+    </symbol>
+
+    <symbol id="Namespaces" symbol="p_#6D5E85" indentation="0" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:declare\s+)?(?:namespace|module)\s+([A-Za-z_$][A-Za-z0-9_$.]*)</regex>
+    </symbol>
+
+    <symbol id="Functions" symbol="f()_#6AB18D" indentation="1" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:default\s+)?(?:declare\s+)?(?:async\s+)?function\s*\*?\s*([A-Za-z_$][A-Za-z0-9_$]*[^\S\n]*\([^\n{]*\))</regex>
+        <postprocess>
+            <find>\([^\)]*\)</find>
+            <replace>()</replace>
+            <find>[\n\r]</find>
+            <replace> </replace>
+            <find>[ \t]+</find>
+            <replace> </replace>
+        </postprocess>
+    </symbol>
+
+    <symbol id="Arrow Functions" symbol="f()_#6AB18D" indentation="1" ignoreblocks="yes">
+        <regex>^[^\S\n]*(?:export\s+)?(?:const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)[^\S\n]*(?::[^=\n]+)?=[^\S\n]*(?:async[^\S\n]*)?\([^\n=]*\)[^\S\n]*(?::[^=\n]+)?=&gt;</regex>
+        <postprocess>
+            <find>[\n\r]</find>
+            <replace> </replace>
+            <find>[ \t]+</find>
+            <replace> </replace>
+        </postprocess>
+    </symbol>
+
+    <symbol id="Versioning conflict" font-weight="bold" image="SymbolWarn" indentation="0" ignoreblocks="no">
+        <regex>^&lt;&lt;&lt;&lt;&lt;&lt;&lt;([\n\r]|.)*?======([\n\r]|.)*?&gt;&gt;&gt;&gt;&gt;&gt;&gt;</regex>
+        <postprocess>
+            <find>.*</find>
+            <replace>Versioning conflict!</replace>
+        </postprocess>
+    </symbol>
+
+</symbols>

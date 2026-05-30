@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+    <recognition>
+        <extension>ts</extension>
+        <extension>tsx</extension>
+        <extension>mts</extension>
+        <extension>cts</extension>
+        <regex>^[^\S\n]*(export[^\S\n]+)?(declare[^\S\n]+)?(interface|type|namespace|enum)[^\S\n]</regex>
+    </recognition>
+</settings>
