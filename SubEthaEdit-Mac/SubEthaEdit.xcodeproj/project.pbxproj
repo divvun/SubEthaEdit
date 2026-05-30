@@ -251,6 +251,7 @@
 		9EBAEBFBDD34163A494E6EB0 /* SEELSPXPCInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 80EDA0C608CC67C036D71891 /* SEELSPXPCInterface.m */; };
 		B835E7E86FD4D257D038B769 /* SEELSPServerConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1087B19AB7B259B70CBC67A0 /* SEELSPServerConfigurationTests.m */; };
 		BC07E0FD23276C0A43C8DD32 /* FullTextStorageLSPPositionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7143D3A45AEA24E504C6C719 /* FullTextStorageLSPPositionTests.m */; };
+		CB93497195AD771EB5A9814A /* SEELSPDefinitionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */; };
 		CCC21D6523CEA3FBE89942E9 /* SEELSPMarkdownRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = F6DCFE69497ADB1AD57B53F3 /* SEELSPMarkdownRenderer.m */; };
 		CF59FA3C81A95274F8FD0D92 /* SEELSPServerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */; };
 		D7BD4227AE18EA644B8996D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 889ADD5A92F7FF74DCF6ADE1 /* main.m */; };
@@ -953,6 +954,7 @@
 		6DAB413EA448D91D2061B48E /* SEELSPServerConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerConfiguration.m; sourceTree = "<group>"; };
 		6EA91CFA8508936DB67894F6 /* SEELSPClientProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPClientProtocol.h; sourceTree = "<group>"; };
 		7143D3A45AEA24E504C6C719 /* FullTextStorageLSPPositionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FullTextStorageLSPPositionTests.m; sourceTree = "<group>"; };
+		725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDefinitionTests.m; sourceTree = "<group>"; };
 		77E5E0E25A2D86FE38A42301 /* SEELSPHoverTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPHoverTests.m; sourceTree = "<group>"; };
 		80EDA0C608CC67C036D71891 /* SEELSPXPCInterface.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPXPCInterface.m; sourceTree = "<group>"; };
 		86A3F37DF2BCB5CAEFA2DEFD /* SEELSPHostProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostProtocol.h; sourceTree = "<group>"; };
@@ -2095,6 +2097,7 @@
 				3A8A17BBEE2606558575D6A7 /* SEELSPDiagnosticTests.m */,
 				CC494EC1AFF54DFCBCA38B12 /* SEELSPDocumentSymbolTests.m */,
 				77E5E0E25A2D86FE38A42301 /* SEELSPHoverTests.m */,
+				725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2668,6 +2671,7 @@
 				6B8EC353A2104729870B3AC4 /* SEELSPDiagnosticTests.m in Sources */,
 				EC73A602615390FEA6E6DC11 /* SEELSPDocumentSymbolTests.m in Sources */,
 				8131283835E2020220F385B5 /* SEELSPHoverTests.m in Sources */,
+				CB93497195AD771EB5A9814A /* SEELSPDefinitionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -77,6 +77,8 @@ extern NSString * const PlainTextEditorDidChangeSearchScopeNotification;
 
 - (void)textViewMouseMoved;
 - (void)closeLSPHoverPopover;
+- (BOOL)hasActiveLanguageServer;
+- (void)jumpToDefinitionAtFoldedIndex:(NSUInteger)foldedIndex;
 
 - (void)updateViews;
 
@@ -110,6 +112,7 @@ extern NSString * const PlainTextEditorDidChangeSearchScopeNotification;
 
 - (IBAction)jumpToNextSymbol:(id)aSender;
 - (IBAction)jumpToPreviousSymbol:(id)aSender;
+- (IBAction)jumpToDefinition:(id)aSender;
 
 - (IBAction)jumpToNextChange:(id)aSender;
 - (IBAction)jumpToPreviousChange:(id)aSender;
