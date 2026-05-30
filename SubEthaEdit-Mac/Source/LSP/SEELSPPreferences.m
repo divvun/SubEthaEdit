@@ -23,7 +23,7 @@ static NSString * const SEELSPOverrideKey = @"SEELanguageServerOverride";
 }
 
 - (NSString *)iconLabel {
-    return NSLocalizedString(@"LanguageServersPrefsIconLabel", @"Label displayed below the language servers icon and used as window title.");
+    return NSLocalizedStringWithDefaultValue(@"LanguageServersPrefsIconLabel", nil, [NSBundle mainBundle], @"Language Servers", @"Label displayed below the language servers icon and used as window title.");
 }
 
 - (NSString *)identifier {
@@ -40,20 +40,11 @@ static NSString * const SEELSPOverrideKey = @"SEELanguageServerOverride";
     [O_environmentTextView setFont:[NSFont userFixedPitchFontOfSize:0]];
     [O_environmentTextView setDelegate:self];
 
-    [O_modePopUpButton removeAllItems];
-    NSArray *modes = [[DocumentModeManager sharedInstance] allLoadedDocumentModes];
-    for (DocumentMode *mode in modes) {
-        if ([mode hasSymbols]) {
-            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[mode displayName] action:NULL keyEquivalent:@""];
-            [item setRepresentedObject:[mode documentModeIdentifier]];
-            [[O_modePopUpButton menu] addItem:item];
-        }
-    }
     [self changeMode:O_modePopUpButton];
 }
 
 - (NSString *)TCM_selectedModeIdentifier {
-    return [[O_modePopUpButton selectedItem] representedObject];
+    return [O_modePopUpButton selectedModeIdentifier];
 }
 
 - (NSDictionary *)TCM_modeDefaults {

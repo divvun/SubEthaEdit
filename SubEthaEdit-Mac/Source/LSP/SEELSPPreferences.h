@@ -3,8 +3,10 @@
 
 #import "TCMPreferenceModule.h"
 
+@class DocumentModePopUpButton;
+
 @interface SEELSPPreferences : TCMPreferenceModule {
-    IBOutlet NSPopUpButton *O_modePopUpButton;
+    IBOutlet DocumentModePopUpButton *O_modePopUpButton;
     IBOutlet NSButton *O_enabledButton;
     IBOutlet NSTextField *O_executablePathField;
     IBOutlet NSButton *O_chooseExecutableButton;
