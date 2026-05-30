@@ -17,6 +17,11 @@ extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
 
 - (NSArray *)diagnosticsInFullRange:(NSRange)range;
 
+- (NSArray *)documentSymbolEntries;
+- (void)requestDocumentSymbolsIfNeeded;
+
++ (NSArray *)symbolTableEntriesFromDocumentSymbolResult:(NSArray *)result textStorage:(FullTextStorage *)textStorage;
+
 - (void)handleNotificationMethod:(NSString *)method params:(id)params;
 
 - (void)startIfNeeded;

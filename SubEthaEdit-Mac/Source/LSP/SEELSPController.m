@@ -10,6 +10,9 @@
 #import "SEELSPDiagnostic.h"
 #import "SEELSPServerConfiguration.h"
 #import "SEELSPServerManager.h"
+#import "SEELSPJSONRPC.h"
+#import "SymbolTableEntry.h"
+#import "NSImageTCMAdditions.h"
 #import "NSOperationQueue+TCMAdditions.h"
 #import "NSStringTCMAdditions.h"
 
@@ -27,6 +30,10 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     NSDictionary *I_capturedChange;
     BOOL I_flushScheduled;
     NSArray *I_diagnostics;
+    NSArray *I_documentSymbolEntries;
+    BOOL I_documentSymbolsDirty;
+    BOOL I_documentSymbolsInFlight;
+    BOOL I_serverLacksDocumentSymbol;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -128,6 +135,8 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
                 method:@"textDocument/didOpen"
                 params:params];
         I_didOpen = YES;
+        I_documentSymbolsDirty = YES;
+        [self requestDocumentSymbolsIfNeeded];
     }
 }
 
@@ -163,7 +172,132 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
         [[SEELSPServerManager sharedManager] sendNotificationForServer:I_serverInstanceID
                 method:@"textDocument/didChange"
                 params:params];
+        I_documentSymbolsDirty = YES;
     }
+}
+
+#pragma mark - Document symbols
+
+- (NSArray *)documentSymbolEntries {
+    return I_documentSymbolEntries;
+}
+
+- (void)requestDocumentSymbolsIfNeeded {
+    if (I_active && I_didOpen && I_documentSymbolsDirty && !I_documentSymbolsInFlight && !I_serverLacksDocumentSymbol) {
+        I_documentSymbolsInFlight = YES;
+        I_documentSymbolsDirty = NO;
+        NSDictionary *params = @{@"textDocument": @{@"uri": I_documentURI}};
+        __weak typeof(self) weakSelf = self;
+        [[SEELSPServerManager sharedManager] sendRequestForServer:I_serverInstanceID
+                method:@"textDocument/documentSymbol"
+                params:params
+                reply:^(id result, NSDictionary *errorObject) {
+            [weakSelf TCM_handleDocumentSymbolResult:result error:errorObject];
+        }];
+    }
+}
+
+- (void)TCM_handleDocumentSymbolResult:(id)result error:(NSDictionary *)errorObject {
+    I_documentSymbolsInFlight = NO;
+    PlainTextDocument *document = I_document;
+    if (errorObject) {
+        if ([errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
+            I_serverLacksDocumentSymbol = YES;
+        }
+    } else if ([result isKindOfClass:[NSArray class]] && document) {
+        FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+        I_documentSymbolEntries = [[self class] symbolTableEntriesFromDocumentSymbolResult:result textStorage:textStorage];
+        [document updateSymbolTable];
+    }
+    [self requestDocumentSymbolsIfNeeded];
+}
+
++ (NSArray *)symbolTableEntriesFromDocumentSymbolResult:(NSArray *)result textStorage:(FullTextStorage *)textStorage {
+    NSMutableArray *entries = [NSMutableArray array];
+    if ([result isKindOfClass:[NSArray class]]) {
+        [self TCM_appendSymbolEntriesFromNodes:result depth:0 textStorage:textStorage into:entries];
+    }
+    return entries;
+}
+
++ (void)TCM_appendSymbolEntriesFromNodes:(NSArray *)nodes depth:(int)depth textStorage:(FullTextStorage *)textStorage into:(NSMutableArray *)entries {
+    for (id node in nodes) {
+        if ([node isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *symbol = node;
+            NSString *name = symbol[@"name"];
+            NSDictionary *rangeDict = nil;
+            NSDictionary *selectionDict = nil;
+            if ([symbol[@"location"] isKindOfClass:[NSDictionary class]]) {
+                rangeDict = symbol[@"location"][@"range"];
+                selectionDict = rangeDict;
+            } else {
+                rangeDict = symbol[@"range"];
+                selectionDict = [symbol[@"selectionRange"] isKindOfClass:[NSDictionary class]] ? symbol[@"selectionRange"] : rangeDict;
+            }
+            if ([name isKindOfClass:[NSString class]] && name.length > 0 && [rangeDict isKindOfClass:[NSDictionary class]]) {
+                NSInteger kind = [symbol[@"kind"] integerValue];
+                NSRange fullRange = [self TCM_fullRangeForLSPRange:rangeDict textStorage:textStorage];
+                NSRange jumpRange = [self TCM_fullRangeForLSPRange:selectionDict textStorage:textStorage];
+                SymbolTableEntry *entry = [SymbolTableEntry symbolTableEntryWithName:name
+                        fontTraitMask:0
+                        image:[self TCM_imageForSymbolKind:kind]
+                        type:[self TCM_typeForSymbolKind:kind]
+                        indentationLevel:depth
+                        jumpRange:jumpRange
+                        range:fullRange];
+                [entries addObject:entry];
+            }
+            NSArray *children = symbol[@"children"];
+            if ([children isKindOfClass:[NSArray class]]) {
+                [self TCM_appendSymbolEntriesFromNodes:children depth:(depth + 1) textStorage:textStorage into:entries];
+            }
+        }
+    }
+}
+
++ (NSRange)TCM_fullRangeForLSPRange:(NSDictionary *)rangeDict textStorage:(FullTextStorage *)textStorage {
+    NSRange result = NSMakeRange(0, 0);
+    NSDictionary *start = rangeDict[@"start"];
+    NSDictionary *end = rangeDict[@"end"];
+    if ([start isKindOfClass:[NSDictionary class]] && [end isKindOfClass:[NSDictionary class]]) {
+        NSUInteger startOffset = [textStorage offsetForLSPLine:[start[@"line"] unsignedIntegerValue] character:[start[@"character"] unsignedIntegerValue]];
+        NSUInteger endOffset = [textStorage offsetForLSPLine:[end[@"line"] unsignedIntegerValue] character:[end[@"character"] unsignedIntegerValue]];
+        if (endOffset < startOffset) { endOffset = startOffset; }
+        result = NSMakeRange(startOffset, endOffset - startOffset);
+    }
+    return result;
+}
+
++ (NSImage *)TCM_imageForSymbolKind:(NSInteger)kind {
+    return [NSImage symbolImageNamed:[self TCM_badgeNameForSymbolKind:kind]];
+}
+
++ (NSString *)TCM_badgeNameForSymbolKind:(NSInteger)kind {
+    NSString *badge;
+    switch (kind) {
+        case 6:
+        case 9:
+        case 12: badge = @"f()_#6AB18D"; break;
+        case 5:  badge = @"C_#6D5E85"; break;
+        case 23: badge = @"S_#6D5E85"; break;
+        case 11: badge = @"I_#6D5E85"; break;
+        case 10: badge = @"E_#6D5E85"; break;
+        case 22: badge = @"e_#6D5E85"; break;
+        case 26: badge = @"T_#6D5E85"; break;
+        case 7:  badge = @"P_#6D5E85"; break;
+        case 8:  badge = @"F_#6D5E85"; break;
+        case 2:
+        case 3:
+        case 4:  badge = @"N_#4094E4"; break;
+        case 13: badge = @"v_#4094E4"; break;
+        case 14: badge = @"c_#4094E4"; break;
+        default: badge = @"·_#6D5E85"; break;
+    }
+    return badge;
+}
+
++ (NSString *)TCM_typeForSymbolKind:(NSInteger)kind {
+    return [NSString stringWithFormat:@"lsp.symbol.%ld", (long)kind];
 }
 
 #pragma mark - Diagnostics

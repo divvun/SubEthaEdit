@@ -5,12 +5,12 @@
 #import "SEELSPMessageReader.h"
 #import "SEELSPMessageWriter.h"
 #import "SEELSPRPCCoordinator.h"
+#import "SEELSPJSONRPC.h"
 
 #import <fcntl.h>
 #import <unistd.h>
 
 static NSInteger const SEELSPChildProcessTerminatedErrorCode = -32099;
-static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
 
 static NSString * const SEELSPChildProcessErrorDomain = @"SEELSPChildProcessErrorDomain";
 typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, SEELSPChildProcessErrorCode) {
         if (strongSelf && strongSelf.serverRequestHandler) {
             strongSelf.serverRequestHandler(requestID, method, params, respond);
         } else {
-            respond(nil, @{@"code": @(SEELSPJSONRPCMethodNotFound), @"message": @"Method not found"});
+            respond(nil, SEELSPJSONRPCErrorObject(SEELSPJSONRPCMethodNotFound, @"Method not found"));
         }
     };
 }

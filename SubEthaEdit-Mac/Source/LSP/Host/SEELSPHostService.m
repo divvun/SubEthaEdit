@@ -5,8 +5,8 @@
 #import "SEELSPClientProtocol.h"
 #import "SEELSPServerSession.h"
 #import "SEELSPXPCInterface.h"
+#import "SEELSPJSONRPC.h"
 
-static NSInteger const SEELSPJSONRPCInternalError = -32603;
 static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorDomain";
 
 @implementation SEELSPHostService {
@@ -85,7 +85,7 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
             reply(result, errorObject);
         }];
     } else {
-        reply(nil, @{@"code": @(SEELSPJSONRPCInternalError), @"message": @"No such server"});
+        reply(nil, SEELSPJSONRPCErrorObject(SEELSPJSONRPCInternalError, @"No such server"));
     }
 }
 

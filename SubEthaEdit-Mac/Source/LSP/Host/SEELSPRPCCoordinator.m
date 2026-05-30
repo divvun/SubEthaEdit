@@ -2,8 +2,7 @@
 //  SubEthaEdit
 
 #import "SEELSPRPCCoordinator.h"
-
-static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
+#import "SEELSPJSONRPC.h"
 
 @implementation SEELSPRPCCoordinator {
     long long I_nextRequestID;
@@ -105,7 +104,7 @@ static NSInteger const SEELSPJSONRPCMethodNotFound = -32601;
         };
         self.serverRequestHandler(idObject, method, params, respond);
     } else {
-        id errorObject = @{@"code": @(SEELSPJSONRPCMethodNotFound), @"message": @"Method not found"};
+        id errorObject = SEELSPJSONRPCErrorObject(SEELSPJSONRPCMethodNotFound, @"Method not found");
         [self TCM_sendResponseForID:idObject result:nil errorObject:errorObject];
     }
 }
