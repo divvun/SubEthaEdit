@@ -414,6 +414,7 @@
 		F2F2B5A70CA7F7B80045C189 /* PrecedencePreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2C6E70CA7C7A7003CC5C9 /* PrecedencePreferences.m */; };
 		F2F2B6100CA811240045C189 /* TCMMMLogStatisticsDataPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F2B60D0CA811240045C189 /* TCMMMLogStatisticsDataPoint.m */; };
 		F2FB96E30CBE68ED000B85AE /* UKXattrMetadataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F2FB96E10CBE68ED000B85AE /* UKXattrMetadataStore.m */; };
+		F32480953F892A815EB8CE7E /* SEELSPCompletionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3319A2F884E31BD9DB7083D3 /* SEELSPCompletionTests.m */; };
 		F99451B4AB1EAEA15DFCDD07 /* SEELSPServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C705F18D3C898889B98BE235 /* SEELSPServerManager.m */; };
 /* End PBXBuildFile section */
 
@@ -815,6 +816,7 @@
 		31FFC93B104E97A000E08256 /* NSErrorTCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NSErrorTCMAdditions.h; sourceTree = "<group>"; };
 		31FFC93C104E97A000E08256 /* NSErrorTCMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSErrorTCMAdditions.m; sourceTree = "<group>"; };
 		32DBCF750370BD2300C91783 /* SubEthaEdit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEthaEdit_Prefix.pch; sourceTree = "<group>"; };
+		3319A2F884E31BD9DB7083D3 /* SEELSPCompletionTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPCompletionTests.m; sourceTree = "<group>"; };
 		3A8A17BBEE2606558575D6A7 /* SEELSPDiagnosticTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPDiagnosticTests.m; sourceTree = "<group>"; };
 		3D30287C2578602700E35C8B /* SEEDocumentListGroupTableRowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEEDocumentListGroupTableRowView.h; sourceTree = "<group>"; };
 		3D30287D2578602700E35C8B /* SEEDocumentListGroupTableRowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEEDocumentListGroupTableRowView.m; sourceTree = "<group>"; };
@@ -2098,6 +2100,7 @@
 				CC494EC1AFF54DFCBCA38B12 /* SEELSPDocumentSymbolTests.m */,
 				77E5E0E25A2D86FE38A42301 /* SEELSPHoverTests.m */,
 				725166A2A4C26F67F60314E2 /* SEELSPDefinitionTests.m */,
+				3319A2F884E31BD9DB7083D3 /* SEELSPCompletionTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2672,6 +2675,7 @@
 				EC73A602615390FEA6E6DC11 /* SEELSPDocumentSymbolTests.m in Sources */,
 				8131283835E2020220F385B5 /* SEELSPHoverTests.m in Sources */,
 				CB93497195AD771EB5A9814A /* SEELSPDefinitionTests.m in Sources */,
+				F32480953F892A815EB8CE7E /* SEELSPCompletionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

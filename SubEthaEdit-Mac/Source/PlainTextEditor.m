@@ -101,6 +101,8 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
     SelectionOperation *I_storedPosition;
     NSPopover *I_lspHoverPopover;
     NSRange I_lspHoverFoldedRange;
+    NSArray *I_pendingLSPCompletions;
+    BOOL I_isReplayingLSPCompletion;
 }
 
 - (instancetype)initWithWindowControllerTabContext:(PlainTextWindowControllerTabContext *)aWindowControllerTabContext splitButton:(BOOL)aFlag {
@@ -1960,6 +1962,28 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
     return [[[self document] lspController] isActive];
 }
 
+- (BOOL)beginLSPCompletionIfNeededForTextView:(NSTextView *)textView {
+    SEELSPController *controller = [[self document] lspController];
+    BOOL willPrefetch = NO;
+    if ([controller isActive] && !I_isReplayingLSPCompletion) {
+        willPrefetch = YES;
+        FoldableTextStorage *foldable = (FoldableTextStorage *)[textView textStorage];
+        NSRange fullRange = [foldable fullRangeForFoldedRange:[textView selectedRange]];
+        __weak typeof(self) weakSelf = self;
+        [controller requestCompletionAtFullOffset:NSMaxRange(fullRange) reply:^(NSArray *completionStrings) {
+            typeof(self) strongSelf = weakSelf;
+            if (strongSelf) {
+                strongSelf->I_pendingLSPCompletions = completionStrings;
+                strongSelf->I_isReplayingLSPCompletion = YES;
+                [textView complete:nil];
+                strongSelf->I_isReplayingLSPCompletion = NO;
+                strongSelf->I_pendingLSPCompletions = nil;
+            }
+        }];
+    }
+    return willPrefetch;
+}
+
 - (void)jumpToDefinitionAtFoldedIndex:(NSUInteger)foldedIndex {
     SEELSPController *controller = [[self document] lspController];
     if ([controller isActive]) {
@@ -2878,9 +2902,16 @@ NSString * const PlainTextEditorDidChangeSearchScopeNotification = @"PlainTextEd
                 
                 if (shouldAdd) {
                     [completions insertObject:[autoend substringFromIndex:matchRange.location] atIndex:0];
-                    
+
                 }
             }
+        }
+    }
+
+    for (NSString *lspCompletion in [I_pendingLSPCompletions reverseObjectEnumerator]) {
+        if ([lspCompletion hasPrefix:partialWord]) {
+            [completions removeObject:lspCompletion];
+            [completions insertObject:lspCompletion atIndex:0];
         }
     }
 

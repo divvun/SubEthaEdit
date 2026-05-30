@@ -34,9 +34,10 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     NSArray *I_documentSymbolEntries;
     BOOL I_documentSymbolsDirty;
     BOOL I_documentSymbolsInFlight;
-    BOOL I_serverLacksDocumentSymbol;
-    BOOL I_serverLacksHover;
-    BOOL I_serverLacksDefinition;
+    BOOL I_serverSupportsDocumentSymbol;
+    BOOL I_serverSupportsHover;
+    BOOL I_serverSupportsDefinition;
+    BOOL I_serverSupportsCompletion;
 }
 
 - (instancetype)initWithDocument:(PlainTextDocument *)document {
@@ -47,6 +48,10 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
         I_version = 1;
         I_pendingChanges = [NSMutableArray array];
         I_diagnostics = @[];
+        I_serverSupportsDocumentSymbol = YES;
+        I_serverSupportsHover = YES;
+        I_serverSupportsDefinition = YES;
+        I_serverSupportsCompletion = YES;
     }
     return self;
 }
@@ -186,7 +191,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 }
 
 - (void)requestDocumentSymbolsIfNeeded {
-    if (I_active && I_didOpen && I_documentSymbolsDirty && !I_documentSymbolsInFlight && !I_serverLacksDocumentSymbol) {
+    if (I_active && I_didOpen && I_documentSymbolsDirty && !I_documentSymbolsInFlight && I_serverSupportsDocumentSymbol) {
         I_documentSymbolsInFlight = YES;
         I_documentSymbolsDirty = NO;
         NSDictionary *params = @{@"textDocument": @{@"uri": I_documentURI}};
@@ -205,7 +210,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
     PlainTextDocument *document = I_document;
     if (errorObject) {
         if ([errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
-            I_serverLacksDocumentSymbol = YES;
+            I_serverSupportsDocumentSymbol = NO;
         }
     } else if ([result isKindOfClass:[NSArray class]] && document) {
         FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
@@ -307,7 +312,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 
 - (void)requestHoverAtFullOffset:(NSUInteger)offset reply:(void (^)(NSAttributedString *, NSRange, BOOL))reply {
     PlainTextDocument *document = I_document;
-    if (I_active && I_didOpen && !I_serverLacksHover && document) {
+    if (I_active && I_didOpen && I_serverSupportsHover && document) {
         FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
         NSUInteger line = 0, character = 0;
         [textStorage lspLine:&line character:&character forOffset:offset];
@@ -326,7 +331,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
             BOOL hasRange = NO;
             if (errorObject) {
                 if (strongSelf && [errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
-                    strongSelf->I_serverLacksHover = YES;
+                    strongSelf->I_serverSupportsHover = NO;
                 }
             } else if ([result isKindOfClass:[NSDictionary class]]) {
                 contents = [SEELSPMarkdownRenderer attributedStringFromHoverContents:result[@"contents"]];
@@ -355,7 +360,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 
 - (void)requestDefinitionAtFullOffset:(NSUInteger)offset reply:(void (^)(NSArray *))reply {
     PlainTextDocument *document = I_document;
-    if (I_active && I_didOpen && !I_serverLacksDefinition && document) {
+    if (I_active && I_didOpen && I_serverSupportsDefinition && document) {
         FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
         NSUInteger line = 0, character = 0;
         [textStorage lspLine:&line character:&character forOffset:offset];
@@ -372,7 +377,7 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
             NSArray *targets = @[];
             if (errorObject) {
                 if (strongSelf && [errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
-                    strongSelf->I_serverLacksDefinition = YES;
+                    strongSelf->I_serverSupportsDefinition = NO;
                 }
             } else {
                 targets = [SEELSPController definitionTargetsFromResult:result];
@@ -413,6 +418,90 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 
 + (NSRange)fullTextRangeForLSPRange:(NSDictionary *)rangeDict textStorage:(FullTextStorage *)textStorage {
     return [self TCM_fullRangeForLSPRange:rangeDict textStorage:textStorage];
+}
+
+#pragma mark - Completion
+
+- (void)requestCompletionAtFullOffset:(NSUInteger)offset reply:(void (^)(NSArray *))reply {
+    PlainTextDocument *document = I_document;
+    if (I_active && I_didOpen && I_serverSupportsCompletion && document) {
+        FullTextStorage *textStorage = [(FoldableTextStorage *)[document textStorage] fullTextStorage];
+        NSUInteger line = 0, character = 0;
+        [textStorage lspLine:&line character:&character forOffset:offset];
+        NSDictionary *params = @{
+            @"textDocument": @{@"uri": I_documentURI},
+            @"position": @{@"line": @(line), @"character": @(character)},
+        };
+        __weak typeof(self) weakSelf = self;
+        [[SEELSPServerManager sharedManager] sendRequestForServer:I_serverInstanceID
+                method:@"textDocument/completion"
+                params:params
+                reply:^(id result, NSDictionary *errorObject) {
+            typeof(self) strongSelf = weakSelf;
+            NSArray *strings = @[];
+            if (errorObject) {
+                if (strongSelf && [errorObject[@"code"] integerValue] == SEELSPJSONRPCMethodNotFound) {
+                    strongSelf->I_serverSupportsCompletion = NO;
+                }
+            } else {
+                strings = [SEELSPController completionStringsFromResult:result];
+            }
+            reply(strings);
+        }];
+    } else {
+        reply(@[]);
+    }
+}
+
++ (NSArray *)completionStringsFromResult:(id)result {
+    NSArray *items = nil;
+    if ([result isKindOfClass:[NSArray class]]) {
+        items = result;
+    } else if ([result isKindOfClass:[NSDictionary class]] && [result[@"items"] isKindOfClass:[NSArray class]]) {
+        items = result[@"items"];
+    }
+    NSMutableArray *sortable = [NSMutableArray array];
+    NSUInteger order = 0;
+    for (id item in items) {
+        if ([item isKindOfClass:[NSDictionary class]]) {
+            NSString *insertString = [self TCM_insertStringForCompletionItem:item];
+            if (insertString.length > 0) {
+                NSString *sortText = [item[@"sortText"] isKindOfClass:[NSString class]] ? item[@"sortText"] : insertString;
+                [sortable addObject:@{@"insert": insertString, @"sort": sortText, @"order": @(order)}];
+                order++;
+            }
+        }
+    }
+    [sortable sortUsingComparator:^NSComparisonResult(NSDictionary *a, NSDictionary *b) {
+        NSComparisonResult result = [a[@"sort"] compare:b[@"sort"]];
+        if (result == NSOrderedSame) {
+            result = [a[@"order"] compare:b[@"order"]];
+        }
+        return result;
+    }];
+    NSMutableArray *strings = [NSMutableArray array];
+    NSMutableSet *seen = [NSMutableSet set];
+    for (NSDictionary *entry in sortable) {
+        NSString *insertString = entry[@"insert"];
+        if (![seen containsObject:insertString]) {
+            [seen addObject:insertString];
+            [strings addObject:insertString];
+        }
+    }
+    return strings;
+}
+
++ (NSString *)TCM_insertStringForCompletionItem:(NSDictionary *)item {
+    NSString *result = nil;
+    BOOL isSnippet = [item[@"insertTextFormat"] integerValue] == 2;
+    NSString *insertText = [item[@"insertText"] isKindOfClass:[NSString class]] ? item[@"insertText"] : nil;
+    NSString *label = [item[@"label"] isKindOfClass:[NSString class]] ? item[@"label"] : nil;
+    if (insertText && !isSnippet) {
+        result = insertText;
+    } else if (label) {
+        result = label;
+    }
+    return result;
 }
 
 #pragma mark - Diagnostics

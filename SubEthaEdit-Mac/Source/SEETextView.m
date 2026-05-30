@@ -724,6 +724,10 @@ static NSMenu *S_defaultMenu=nil;
         }
     }
 
+    if ([self.editor beginLSPCompletionIfNeededForTextView:self]) {
+        return;
+    }
+
     I_flags.shouldCheckCompleteStart=YES;
     //I_flags.autoCompleteInProgress=YES; // Temporarliy disabled (SEE-874)
     [super complete:sender];

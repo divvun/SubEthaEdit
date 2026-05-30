@@ -29,6 +29,9 @@ extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
 + (NSArray *)definitionTargetsFromResult:(id)result;
 + (NSRange)fullTextRangeForLSPRange:(NSDictionary *)rangeDict textStorage:(FullTextStorage *)textStorage;
 
+- (void)requestCompletionAtFullOffset:(NSUInteger)offset reply:(void (^)(NSArray *completionStrings))reply;
++ (NSArray *)completionStringsFromResult:(id)result;
+
 - (void)handleNotificationMethod:(NSString *)method params:(id)params;
 
 - (void)startIfNeeded;
