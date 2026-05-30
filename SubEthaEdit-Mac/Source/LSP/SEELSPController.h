@@ -1,7 +1,8 @@
 //  SEELSPController.h
 //  SubEthaEdit
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+#import "SEELSPDiagnostic.h"
 
 @class PlainTextDocument, FullTextStorage;
 
@@ -16,6 +17,10 @@ extern NSString * const SEELSPControllerDidChangeDiagnosticsNotification;
 @property (nonatomic, readonly, copy) NSArray *diagnostics;
 
 - (NSArray *)diagnosticsInFullRange:(NSRange)range;
+
++ (NSColor *)colorForSeverity:(SEELSPDiagnosticSeverity)severity;
++ (SEELSPDiagnosticSeverity)highestSeverityInDiagnostics:(NSArray *)diagnostics;
++ (NSAttributedString *)attributedStringForDiagnostics:(NSArray *)diagnostics;
 
 - (NSArray *)documentSymbolEntries;
 - (void)requestDocumentSymbolsIfNeeded;

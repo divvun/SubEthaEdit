@@ -8,6 +8,9 @@
 #import "FoldableTextStorage.h"
 #import "SEETextView.h"
 #import "PlainTextEditor.h"
+#import "PlainTextDocument.h"
+#import "SEELSPController.h"
+#import "SEELSPHoverViewController.h"
 
 
 @interface NSBezierPath (BezierPathGutterRulerViewAdditions)
@@ -53,6 +56,7 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
 
 @implementation GutterRulerView {
     NSPoint I_lastMouseDownPoint;
+    NSPopover *I_diagnosticsPopover;
 }
 
 - (instancetype)initWithScrollView:(NSScrollView *)aScrollView
@@ -172,6 +176,7 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
     NSRect visibleRect=[scrollView documentVisibleRect];
 	CGFloat textContainerInsetTopY = [textView textContainerOrigin].y;
 	CGFloat totalYOffset = -visibleRect.origin.y + textContainerInsetTopY;
+	SEELSPController *lspController = [[editor document] lspController];
 	
 	
     NSPoint point=visibleRect.origin;
@@ -228,6 +233,7 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
         }
         
         if (characterIndex==[text lineRangeForRange:NSMakeRange(characterIndex,0)].location) {
+			[self TCM_drawDiagnosticBandForFoldedLineRange:[text lineRangeForRange:NSMakeRange(characterIndex,0)] boundingRect:boundingRect totalYOffset:totalYOffset rightEdge:rightHandAlignment textStorage:textStorage lspController:lspController];
 			drawLineNumber(lineNumber, cardinality, rightHandAlignment, boundingRect, totalYOffset);
         }
         
@@ -296,6 +302,7 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
                                                                effectiveRange:nil];
                 boundingRect.origin.y += boundingRect.size.height;
             }
+			[self TCM_drawDiagnosticBandForFoldedLineRange:lineRange boundingRect:boundingRect totalYOffset:totalYOffset rightEdge:rightHandAlignment textStorage:textStorage lspController:lspController];
 			drawLineNumber(lineNumber, cardinality, rightHandAlignment, boundingRect, totalYOffset);
 
 			glyphIndex=[layoutManager glyphRangeForCharacterRange:NSMakeRange(maxRange-1,1) 
@@ -337,6 +344,25 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
         float potentialNewWidth=5.+sizeOfZero.width*cardinality + FOLDING_BAR_WIDTH + RIGHT_INSET;
         if ([self ruleThickness]<potentialNewWidth) {
             [self setRuleThickness:ceil(potentialNewWidth)];
+        }
+    }
+}
+
+- (void)TCM_drawDiagnosticBandForFoldedLineRange:(NSRange)foldedLineRange
+        boundingRect:(NSRect)boundingRect
+        totalYOffset:(CGFloat)totalYOffset
+        rightEdge:(CGFloat)rightEdge
+        textStorage:(FoldableTextStorage *)textStorage
+        lspController:(SEELSPController *)lspController {
+    if (lspController) {
+        NSRange fullRange = [textStorage fullRangeForFoldedRange:foldedLineRange];
+        NSArray *diagnostics = [lspController diagnosticsInFullRange:fullRange];
+        if (diagnostics.count > 0) {
+            SEELSPDiagnosticSeverity severity = [SEELSPController highestSeverityInDiagnostics:diagnostics];
+            NSColor *color = [[SEELSPController colorForSeverity:severity] colorWithAlphaComponent:0.22];
+            NSRect band = NSMakeRect(0, boundingRect.origin.y + totalYOffset, rightEdge, boundingRect.size.height);
+            [color set];
+            NSRectFill(band);
         }
     }
 }
@@ -425,8 +451,47 @@ FOUNDATION_STATIC_INLINE void DrawIndicatorForDepthInRect(int aDepth, NSRect aRe
 		[self setNeedsDisplay:YES];
 	} else {
 		// else call super so the delegate can handle
-		[super mouseDown:anEvent];
+		if (![self TCM_showDiagnosticsPopoverForClickPoint:point]) {
+			[super mouseDown:anEvent];
+		}
 	}
+}
+
+- (BOOL)TCM_showDiagnosticsPopoverForClickPoint:(NSPoint)point {
+	BOOL result = NO;
+	NSTextView *textView = (NSTextView *)[self clientView];
+	SEELSPController *lspController = [[(SEETextView *)textView editor] document].lspController;
+	if (lspController && [[textView textStorage] length] > 0) {
+		FoldableTextStorage *textStorage = (FoldableTextStorage *)[textView textStorage];
+		NSString *text = [textView string];
+		NSScrollView *scrollView = [textView enclosingScrollView];
+		NSRect visibleRect = [scrollView documentVisibleRect];
+		CGFloat textContainerInsetTopY = [textView textContainerOrigin].y;
+		NSLayoutManager *layoutManager = [textView layoutManager];
+		unsigned glyphIndex = [layoutManager glyphIndexForPoint:NSMakePoint(0.0, point.y + visibleRect.origin.y - textContainerInsetTopY)
+		                                         inTextContainer:[textView textContainer] fractionOfDistanceThroughGlyph:NULL];
+		unsigned characterIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+		NSRange lineRange = [text lineRangeForRange:NSMakeRange(characterIndex, 0)];
+		NSRange fullRange = [textStorage fullRangeForFoldedRange:lineRange];
+		NSArray *diagnostics = [lspController diagnosticsInFullRange:fullRange];
+		if (diagnostics.count > 0) {
+			NSRect boundingRect = [layoutManager lineFragmentRectForGlyphAtIndex:glyphIndex effectiveRange:nil];
+			NSRect anchorRect = NSMakeRect(0, boundingRect.origin.y - visibleRect.origin.y + textContainerInsetTopY, [self ruleThickness], boundingRect.size.height);
+			[self TCM_showDiagnosticsPopoverWithDiagnostics:diagnostics relativeToRect:anchorRect];
+			result = YES;
+		}
+	}
+	return result;
+}
+
+- (void)TCM_showDiagnosticsPopoverWithDiagnostics:(NSArray *)diagnostics relativeToRect:(NSRect)rect {
+	[I_diagnosticsPopover close];
+	SEELSPHoverViewController *viewController = [[SEELSPHoverViewController alloc] initWithAttributedString:[SEELSPController attributedStringForDiagnostics:diagnostics]];
+	NSPopover *popover = [NSPopover new];
+	popover.contentViewController = viewController;
+	popover.behavior = NSPopoverBehaviorTransient;
+	I_diagnosticsPopover = popover;
+	[popover showRelativeToRect:rect ofView:self preferredEdge:NSRectEdgeMaxX];
 }
 
 @end
