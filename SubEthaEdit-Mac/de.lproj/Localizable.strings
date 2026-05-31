@@ -1046,3 +1046,6 @@
 
 /* LSP diagnostic severity label */
 "hint" = "Hinweis";
+
+/* LSP server status: enabled but the suggested command is not installed. */
+"Enabled — %@ not found on PATH" = "Aktiviert — %@ nicht im PATH gefunden";

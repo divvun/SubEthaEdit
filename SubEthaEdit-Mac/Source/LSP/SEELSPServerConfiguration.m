@@ -29,7 +29,9 @@
 }
 
 - (BOOL)isStartable {
-    return self.enabled && self.executableBookmark != nil;
+    // A user-granted bookmark (manual locate) OR a suggested command the host can
+    // resolve on PATH is enough to start; enabling still requires opt-in.
+    return self.enabled && (self.executableBookmark != nil || self.suggestedCommand.length > 0);
 }
 
 @end

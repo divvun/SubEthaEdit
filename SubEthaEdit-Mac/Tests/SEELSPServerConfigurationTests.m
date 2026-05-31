@@ -51,4 +51,23 @@
     XCTAssertFalse(config.isStartable);
 }
 
+- (void)testEnabledWithSuggestedCommandIsStartableWithoutBookmark {
+    // A mode's LanguageServer.plist supplies a SuggestedCommand; once the user
+    // enables it, the host resolves the command on PATH — no bookmark needed.
+    NSDictionary *bundle = @{@"LanguageId": @"rust", @"SuggestedCommand": @"rust-analyzer"};
+    NSDictionary *override = @{@"Enabled": @YES};
+    SEELSPServerConfiguration *config = [SEELSPServerConfiguration configurationWithBundleDefaults:bundle override:override];
+    XCTAssertTrue(config.isEnabled);
+    XCTAssertNil(config.executableBookmark);
+    XCTAssertEqualObjects(config.suggestedCommand, @"rust-analyzer");
+    XCTAssertTrue(config.isStartable);
+}
+
+- (void)testSuggestedCommandNotEnabledIsNotStartable {
+    NSDictionary *bundle = @{@"SuggestedCommand": @"rust-analyzer"};
+    SEELSPServerConfiguration *config = [SEELSPServerConfiguration configurationWithBundleDefaults:bundle override:nil];
+    XCTAssertFalse(config.isEnabled);
+    XCTAssertFalse(config.isStartable);
+}
+
 @end
