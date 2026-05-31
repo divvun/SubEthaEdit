@@ -3,6 +3,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SEELSPServerSession.h"
+#import "SEELSPServerLocator.h"
 
 @interface SEELSPServerSessionTests : XCTestCase
 @end
@@ -83,6 +84,47 @@
     [session shutdown];
     [self waitForExpectations:@[stopped] timeout:10.0];
     XCTAssertEqual(session.state, SEELSPServerStateStopped);
+}
+
+@end
+
+@interface SEELSPServerLocatorTests : XCTestCase
+@end
+
+@implementation SEELSPServerLocatorTests
+
+- (void)testAbsolutePathToExecutableResolvesAsIs {
+    XCTAssertEqualObjects([SEELSPServerLocator resolvedPathForCommand:@"/bin/sh"], @"/bin/sh");
+}
+
+- (void)testAbsolutePathToMissingFileIsNil {
+    XCTAssertNil([SEELSPServerLocator resolvedPathForCommand:@"/bin/no-such-binary-xyzzy"]);
+}
+
+- (void)testEmptyOrNilCommandIsNil {
+    XCTAssertNil([SEELSPServerLocator resolvedPathForCommand:@""]);
+    XCTAssertNil([SEELSPServerLocator resolvedPathForCommand:nil]);
+}
+
+- (void)testBareCommandResolvesOnSearchPath {
+    // `sh` lives in /bin, which is always one of the search paths.
+    NSString *path = [SEELSPServerLocator resolvedPathForCommand:@"sh"];
+    XCTAssertNotNil(path);
+    XCTAssertTrue([path isAbsolutePath]);
+    XCTAssertTrue([[NSFileManager defaultManager] isExecutableFileAtPath:path]);
+}
+
+- (void)testUnknownCommandIsNil {
+    XCTAssertNil([SEELSPServerLocator resolvedPathForCommand:@"definitely-not-a-real-binary-xyzzy"]);
+}
+
+- (void)testSearchPathsAreAbsoluteAndIncludeASystemBinDir {
+    NSArray<NSString *> *paths = [SEELSPServerLocator searchPaths];
+    XCTAssertGreaterThan(paths.count, (NSUInteger)0);
+    for (NSString *path in paths) {
+        XCTAssertTrue([path isAbsolutePath]);
+    }
+    XCTAssertTrue([paths containsObject:@"/bin"] || [paths containsObject:@"/usr/bin"]);
 }
 
 @end

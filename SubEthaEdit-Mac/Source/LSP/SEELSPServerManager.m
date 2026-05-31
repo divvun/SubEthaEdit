@@ -143,6 +143,13 @@
     }];
 }
 
+- (void)locateCommand:(NSString *)command reply:(void (^)(NSString *))reply {
+    id<SEELSPHostProtocol> proxy = [self TCM_hostProxyWithReplyOnError:^(NSError *error) { reply(nil); }];
+    [proxy locateCommand:command reply:^(NSString *path) {
+        [NSOperationQueue TCM_performBlockOnMainQueue:^{ reply(path); } afterDelay:0];
+    }];
+}
+
 #pragma mark - SEELSPClientProtocol
 
 - (void)server:(NSString *)serverInstanceID didReceiveNotificationMethod:(NSString *)method params:(NSDictionary *)params {

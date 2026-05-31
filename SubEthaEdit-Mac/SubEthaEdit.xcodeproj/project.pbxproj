@@ -128,6 +128,8 @@
 		14EC6E280A63F2E800B44481 /* ServicesMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14EC6E270A63F2E800B44481 /* ServicesMenu.strings */; };
 		2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = FD08391EAC61E210391307BA /* SEELSPChildProcess.m */; };
 		2C50D8A66270B1FCF3F92E57 /* SEELSPServerSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */; };
+		DDA5F00500000000000000F3 /* SEELSPServerLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00500000000000000F2 /* SEELSPServerLocator.m */; };
+		DDA5F00500000000000000F4 /* SEELSPServerLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA5F00500000000000000F2 /* SEELSPServerLocator.m */; };
 		2CED1D50238000FF00359D99 /* SEEWebPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED1D4F238000FF00359D99 /* SEEWebPreview.m */; };
 		2CED1D54238007F900359D99 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CED1D53238007F900359D99 /* JavaScriptCore.framework */; };
 		311717F40A0E8C3600A9DA18 /* ModeSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 311717F20A0E8C3600A9DA18 /* ModeSettings.m */; };
@@ -803,6 +805,8 @@
 		17CDA9F1B41D3CAE18E327A4 /* FullTextStorage+LSPPosition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FullTextStorage+LSPPosition.m"; sourceTree = "<group>"; };
 		19BF0896BB0D3C0D6744EEE9 /* SEELSPHostService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPHostService.h; sourceTree = "<group>"; };
 		22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerSession.m; sourceTree = "<group>"; };
+		DDA5F00500000000000000F1 /* SEELSPServerLocator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPServerLocator.h; sourceTree = "<group>"; };
+		DDA5F00500000000000000F2 /* SEELSPServerLocator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPServerLocator.m; sourceTree = "<group>"; };
 		24860D7A8822D42845CB5946 /* SEELSPMarkdownRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SEELSPMarkdownRenderer.h; sourceTree = "<group>"; };
 		2A01F3EC63657B35AB67A1C9 /* SEELSPHoverViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SEELSPHoverViewController.m; sourceTree = "<group>"; };
 		17C233CD4BAB04C768549A65 /* nn */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -2217,6 +2221,8 @@
 				FD08391EAC61E210391307BA /* SEELSPChildProcess.m */,
 				BC9D9A2BDB72EAEBAEAB7B5E /* SEELSPServerSession.h */,
 				22BF86F0D3F8858BBC161A2A /* SEELSPServerSession.m */,
+				DDA5F00500000000000000F1 /* SEELSPServerLocator.h */,
+				DDA5F00500000000000000F2 /* SEELSPServerLocator.m */,
 			);
 			path = Host;
 			sourceTree = "<group>";
@@ -2821,6 +2827,7 @@
 				2699E28DD191AA9B36926A53 /* SEELSPChildProcess.m in Sources */,
 				315767C684F7C3461949471A /* SEELSPChildProcessTests.m in Sources */,
 				CF59FA3C81A95274F8FD0D92 /* SEELSPServerSession.m in Sources */,
+				DDA5F00500000000000000F4 /* SEELSPServerLocator.m in Sources */,
 				DA073B53761CBA0F337FE2BC /* SEELSPServerSessionTests.m in Sources */,
 				BC07E0FD23276C0A43C8DD32 /* FullTextStorageLSPPositionTests.m in Sources */,
 				B835E7E86FD4D257D038B769 /* SEELSPServerConfigurationTests.m in Sources */,
@@ -2844,6 +2851,7 @@
 				513719C1661B5F11F7579A9D /* SEELSPRPCCoordinator.m in Sources */,
 				35E86AC932EE10BA1D7C083E /* SEELSPChildProcess.m in Sources */,
 				2C50D8A66270B1FCF3F92E57 /* SEELSPServerSession.m in Sources */,
+				DDA5F00500000000000000F3 /* SEELSPServerLocator.m in Sources */,
 				3AD69606C372C374C0AFB22C /* SEELSPXPCInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

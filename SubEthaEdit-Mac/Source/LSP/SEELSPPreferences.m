@@ -64,7 +64,11 @@ static NSString * const SEELSPOverrideKey = @"SEELanguageServerOverride";
     [O_enabledButton setState:config.isEnabled ? NSControlStateValueOn : NSControlStateValueOff];
     [O_argumentsField setStringValue:[[self class] stringFromArguments:config.arguments]];
     [O_environmentTextView setString:[[self class] stringFromEnvironment:config.environment]];
-    [O_executablePathField setStringValue:[self TCM_executablePathForBookmark:override[@"ExecutableBookmark"]] ?: @""];
+    NSString *serverDisplay = [self TCM_executablePathForBookmark:override[@"ExecutableBookmark"]];
+    if (serverDisplay.length == 0) {
+        serverDisplay = config.suggestedCommand; // the mode's bundled default server, resolved on PATH at launch
+    }
+    [O_executablePathField setStringValue:serverDisplay ?: @""];
     [self TCM_updateStatus];
 }
 
@@ -83,15 +87,34 @@ static NSString * const SEELSPOverrideKey = @"SEELanguageServerOverride";
 }
 
 - (void)TCM_updateStatus {
-    NSString *status = nil;
     if ([O_enabledButton state] != NSControlStateValueOn) {
-        status = NSLocalizedString(@"Disabled", @"LSP server status: disabled for this mode.");
-    } else if ([[O_executablePathField stringValue] length] == 0) {
-        status = NSLocalizedString(@"Enabled (no server chosen)", @"LSP server status: enabled but no executable picked.");
-    } else {
-        status = [NSString stringWithFormat:NSLocalizedString(@"Enabled — %@", @"LSP server status: enabled with executable path."), [O_executablePathField stringValue]];
+        [O_statusField setStringValue:NSLocalizedString(@"Disabled", @"LSP server status: disabled for this mode.")];
+        return;
     }
-    [O_statusField setStringValue:status];
+    NSString *bookmarkPath = [self TCM_executablePathForBookmark:[self TCM_override][@"ExecutableBookmark"]];
+    if (bookmarkPath.length > 0) {
+        [O_statusField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Enabled — %@", @"LSP server status: enabled with executable path."), bookmarkPath]];
+        return;
+    }
+    DocumentMode *mode = [[DocumentModeManager sharedInstance] documentModeForIdentifier:[self TCM_selectedModeIdentifier]];
+    NSString *command = [[mode languageServerConfiguration] suggestedCommand];
+    if (command.length == 0) {
+        [O_statusField setStringValue:NSLocalizedString(@"Enabled (no server chosen)", @"LSP server status: enabled but no executable picked.")];
+        return;
+    }
+    // Ask the host whether the suggested command resolves on PATH, then reflect it.
+    NSString *modeIdentifier = [self TCM_selectedModeIdentifier];
+    [[SEELSPServerManager sharedManager] locateCommand:command reply:^(NSString *path) {
+        if (![[self TCM_selectedModeIdentifier] isEqualToString:modeIdentifier]) {
+            return;
+        }
+        if (path.length > 0) {
+            NSString *found = [NSString stringWithFormat:@"%@ (%@)", command, path];
+            [O_statusField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Enabled — %@", @"LSP server status: enabled with executable path."), found]];
+        } else {
+            [O_statusField setStringValue:[NSString stringWithFormat:NSLocalizedString(@"Enabled — %@ not found on PATH", @"LSP server status: enabled but the suggested command is not installed."), command]];
+        }
+    }];
 }
 
 - (IBAction)toggleEnabled:(id)aSender {
@@ -114,6 +137,7 @@ static NSString * const SEELSPOverrideKey = @"SEELanguageServerOverride";
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:NO];
     [panel setMessage:NSLocalizedString(@"Choose the language server executable.", @"NSOpenPanel message when picking an LSP server binary.")];
+    [panel setDirectoryURL:[NSURL fileURLWithPath:@"/opt/homebrew/bin"]]; // common install dir; user can navigate elsewhere
     if ([panel runModal] == NSFileHandlingPanelOKButton) {
         NSURL *url = [[panel URLs] firstObject];
         NSError *error = nil;

@@ -32,4 +32,8 @@
 
 - (void)stopServer:(NSString *)serverInstanceID reply:(void (^)(void))reply;
 
+// Ask the host to resolve `command` to an absolute path on the user's PATH
+// (nil if not found). Used by the prefs pane to show detected/missing status.
+- (void)locateCommand:(NSString *)command reply:(void (^)(NSString *path))reply;
+
 @end

@@ -1023,3 +1023,6 @@ Ingen dokument-URL.";
 
 /* LSP diagnostic severity label */
 "hint" = "tips";
+
+/* LSP server status: enabled but the suggested command is not installed. */
+"Enabled — %@ not found on PATH" = "Aktiverad — %@ hittades inte i PATH";

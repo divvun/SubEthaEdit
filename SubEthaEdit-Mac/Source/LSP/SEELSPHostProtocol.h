@@ -26,4 +26,6 @@
 
 - (void)stopServer:(NSString *)serverInstanceID reply:(void (^)(void))reply;
 
+- (void)locateCommand:(NSString *)command reply:(void (^)(NSString *path))reply;
+
 @end

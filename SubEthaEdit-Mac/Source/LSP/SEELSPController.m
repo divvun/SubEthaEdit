@@ -110,6 +110,9 @@ NSString * const SEELSPControllerDidChangeDiagnosticsNotification = @"SEELSPCont
 - (NSDictionary *)TCM_xpcConfigurationWithServerConfig:(SEELSPServerConfiguration *)config document:(PlainTextDocument *)document {
     NSMutableDictionary *configuration = [NSMutableDictionary dictionary];
     configuration[@"arguments"] = config.arguments ?: @[];
+    if (config.suggestedCommand.length > 0) {
+        configuration[@"command"] = config.suggestedCommand;
+    }
     if (config.environment) {
         configuration[@"environment"] = config.environment;
     }

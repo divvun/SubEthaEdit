@@ -6,6 +6,7 @@
 #import "SEELSPServerSession.h"
 #import "SEELSPXPCInterface.h"
 #import "SEELSPJSONRPC.h"
+#import "SEELSPServerLocator.h"
 
 static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorDomain";
 
@@ -64,7 +65,7 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
     } else {
         SEELSPServerSession *session = [[SEELSPServerSession alloc] initWithExecutableURL:executableURL
                                                                                arguments:(configuration[@"arguments"] ?: @[])
-                                                                             environment:configuration[@"environment"]
+                                                                             environment:[self TCM_childEnvironmentForConfiguration:configuration]
                                                                         initializeParams:(configuration[@"initializeParams"] ?: @{})];
         [self TCM_wireSession:session forServerInstanceID:serverInstanceID];
         @synchronized (self) {
@@ -102,6 +103,10 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
     [[self TCM_sessionForID:serverInstanceID] shutdown];
     [self TCM_removeServer:serverInstanceID];
     reply();
+}
+
+- (void)locateCommand:(NSString *)command reply:(void (^)(NSString *))reply {
+    reply([SEELSPServerLocator resolvedPathForCommand:command]);
 }
 
 #pragma mark - Session wiring
@@ -192,6 +197,16 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
                                          code:SEELSPJSONRPCInternalError
                                      userInfo:@{NSLocalizedDescriptionKey: stale ? @"Server bookmark is stale" : @"Could not access the server executable"}];
         }
+    } else if ([configuration[@"command"] length] > 0) {
+        NSString *command = configuration[@"command"];
+        NSString *resolved = [SEELSPServerLocator resolvedPathForCommand:command];
+        if (resolved) {
+            result = [NSURL fileURLWithPath:resolved];
+        } else if (error) {
+            *error = [NSError errorWithDomain:SEELSPHostServiceErrorDomain
+                                         code:SEELSPJSONRPCInternalError
+                                     userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Could not find \"%@\" on your PATH. Install it, or set the full path in the Language Servers preferences.", command]}];
+        }
     } else {
         NSString *path = configuration[@"executablePath"];
         if (path.length > 0) {
@@ -199,10 +214,20 @@ static NSString * const SEELSPHostServiceErrorDomain = @"SEELSPHostServiceErrorD
         } else if (error) {
             *error = [NSError errorWithDomain:SEELSPHostServiceErrorDomain
                                          code:SEELSPJSONRPCInternalError
-                                     userInfo:@{NSLocalizedDescriptionKey: @"No executable bookmark or path provided"}];
+                                     userInfo:@{NSLocalizedDescriptionKey: @"No executable bookmark, command, or path provided"}];
         }
     }
     return result;
+}
+
+- (NSDictionary *)TCM_childEnvironmentForConfiguration:(NSDictionary *)configuration {
+    NSMutableDictionary *environment = [[[NSProcessInfo processInfo] environment] mutableCopy];
+    environment[@"PATH"] = [[SEELSPServerLocator searchPaths] componentsJoinedByString:@":"];
+    NSDictionary *userEnvironment = configuration[@"environment"];
+    if ([userEnvironment isKindOfClass:[NSDictionary class]]) {
+        [environment addEntriesFromDictionary:userEnvironment];
+    }
+    return environment;
 }
 
 @end
