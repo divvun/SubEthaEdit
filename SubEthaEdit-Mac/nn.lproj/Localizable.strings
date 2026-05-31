@@ -994,3 +994,32 @@ Ingen dokument-URL.";
 "WEBSITE_ADDITIONAL_MODES" = "https://subethaedit.net/modes";
 "WEBSITE_MODE_CREATION_DOCU" = "https://subethaedit.net/modedocs";
 "<No selected symbol>" = "<Ingen symbol vald>";
+
+/* ===== Language Server (LSP) ===== */
+
+/* Label displayed below the language servers icon and used as window title. */
+"LanguageServersPrefsIconLabel" = "Språkserverar";
+
+/* LSP server status: disabled for this mode. */
+"Disabled" = "Deaktivert";
+
+/* LSP server status: enabled but no executable picked. */
+"Enabled (no server chosen)" = "Aktivert (ingen server vald)";
+
+/* LSP server status: enabled with executable path. */
+"Enabled — %@" = "Aktivert — %@";
+
+/* NSOpenPanel message when picking an LSP server binary. */
+"Choose the language server executable." = "Vel den køyrbare fila til språkserveren.";
+
+/* LSP diagnostic severity label */
+"error" = "feil";
+
+/* LSP diagnostic severity label */
+"warning" = "åtvaring";
+
+/* LSP diagnostic severity label */
+"info" = "info";
+
+/* LSP diagnostic severity label */
+"hint" = "hint";

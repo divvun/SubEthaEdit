@@ -938,3 +938,32 @@
 "PROXY_WINDOW_STATUS_CONNECTION_LOST" = "Connection Lost.";
 
 
+
+/* ===== Language Server (LSP) ===== */
+
+/* Label displayed below the language servers icon and used as window title. */
+"LanguageServersPrefsIconLabel" = "Language Servers";
+
+/* LSP server status: disabled for this mode. */
+"Disabled" = "Disabled";
+
+/* LSP server status: enabled but no executable picked. */
+"Enabled (no server chosen)" = "Enabled (no server chosen)";
+
+/* LSP server status: enabled with executable path. */
+"Enabled — %@" = "Enabled — %@";
+
+/* NSOpenPanel message when picking an LSP server binary. */
+"Choose the language server executable." = "Choose the language server executable.";
+
+/* LSP diagnostic severity label */
+"error" = "error";
+
+/* LSP diagnostic severity label */
+"warning" = "warning";
+
+/* LSP diagnostic severity label */
+"info" = "info";
+
+/* LSP diagnostic severity label */
+"hint" = "hint";

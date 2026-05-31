@@ -1017,3 +1017,32 @@
 "PROXY_WINDOW_STATUS_INVITE_CANCELED" = "Einladung wurde zurückgezogen.";
 "PROXY_WINDOW_STATUS_CONNECTION_LOST" = "Verbindung verloren.";
 
+
+/* ===== Language Server (LSP) ===== */
+
+/* Label displayed below the language servers icon and used as window title. */
+"LanguageServersPrefsIconLabel" = "Sprachserver";
+
+/* LSP server status: disabled for this mode. */
+"Disabled" = "Deaktiviert";
+
+/* LSP server status: enabled but no executable picked. */
+"Enabled (no server chosen)" = "Aktiviert (kein Server gewählt)";
+
+/* LSP server status: enabled with executable path. */
+"Enabled — %@" = "Aktiviert — %@";
+
+/* NSOpenPanel message when picking an LSP server binary. */
+"Choose the language server executable." = "Wählen Sie das Sprachserver-Programm aus.";
+
+/* LSP diagnostic severity label */
+"error" = "Fehler";
+
+/* LSP diagnostic severity label */
+"warning" = "Warnung";
+
+/* LSP diagnostic severity label */
+"info" = "Info";
+
+/* LSP diagnostic severity label */
+"hint" = "Hinweis";

@@ -564,3 +564,6 @@
 
 /* Class = "NSMenuItem"; title = "Creating Modes"; ObjectID = "zf1-wO-8Tq"; */
 "zf1-wO-8Tq.title" = "Lage modusar";
+
+/* Class = "NSMenuItem"; title = "Jump to Definition"; ObjectID = "lsp-jtd-item"; */
+"lsp-jtd-item.title" = "Hopp til definisjon";

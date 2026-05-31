@@ -1,0 +1,30 @@
+
+/* Class = "NSWindow"; title = "Language Servers"; ObjectID = "lsp-win"; */
+"lsp-win.title" = "Sprogservere";
+
+/* Class = "NSTextFieldCell"; title = "Mode:"; ObjectID = "lsp-lc-mode"; */
+"lsp-lc-mode.title" = "Tilstand:";
+
+/* Class = "NSButtonCell"; title = "Enable language server"; ObjectID = "lsp-ec-enable"; */
+"lsp-ec-enable.title" = "Aktivér sprogserver";
+
+/* Class = "NSTextFieldCell"; title = "Server:"; ObjectID = "lsp-lc-server"; */
+"lsp-lc-server.title" = "Server:";
+
+/* Class = "NSButtonCell"; title = "Choose…"; ObjectID = "lsp-cc-choose"; */
+"lsp-cc-choose.title" = "Vælg…";
+
+/* Class = "NSTextFieldCell"; title = "Arguments:"; ObjectID = "lsp-lc-args"; */
+"lsp-lc-args.title" = "Argumenter:";
+
+/* Class = "NSTextFieldCell"; title = "Environment:"; ObjectID = "lsp-lc-env"; */
+"lsp-lc-env.title" = "Miljø:";
+
+/* Class = "NSTextFieldCell"; title = "One KEY=value per line"; ObjectID = "lsp-lc-envhint"; */
+"lsp-lc-envhint.title" = "Én NØGLE=værdi pr. linje";
+
+/* Class = "NSTextFieldCell"; title = "Status:"; ObjectID = "lsp-lc-status"; */
+"lsp-lc-status.title" = "Status:";
+
+/* Class = "NSTextFieldCell"; title = "Disabled"; ObjectID = "lsp-sc-status"; */
+"lsp-sc-status.title" = "Deaktiveret";
